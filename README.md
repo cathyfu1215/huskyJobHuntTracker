@@ -1,8 +1,8 @@
-** Project Name: HuskyJobHuntTracker
-**** CS5520 2024 Summer , Group 2
-**** Team members: Jieling Gong, Cong Fu
+## Project Name: HuskyJobHuntTracker
+#### CS5520 2024 Summer , Group 2
+#### Team members: Jieling Gong, Cong Fu
 
-*** Data Model:
+### Data Model:
 
 Collections and subcollections: 
 - users
@@ -23,7 +23,7 @@ The organization of the collections and documents:
 - Please see details of the documents below.
 
 
-**** (Document)User
+#### (Document)User
 - email (String)
 - name (String)
 - profilePhoto (blob)
@@ -36,7 +36,7 @@ The organization of the collections and documents:
 - badgesEarned (list of blobs)
 - jobApplicationRecords (collection)
 
-**** (Document)JobApplicationRecord
+#### (Document)JobApplicationRecord
 - company (String)
 - postion (String)
 - location (String/location object)
@@ -50,11 +50,11 @@ The organization of the collections and documents:
 - lastUpdated (datetime)
 
 
-**** (Document) Note
+#### (Document) Note
 - photo (blob)
 - text (String)
 
-**** (Document) Todo
+#### (Document) Todo
 - text (String)
 - completed (boolean)
 - dueDate (datetime,optional)
