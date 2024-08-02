@@ -31,9 +31,10 @@ export default styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
       alignSelf: 'center',
-      marginLeft:40,
-      marginRight:40,
+      marginLeft:15,
+      marginRight:15,
       marginTop:5,
+      marginBottom:5,
     },
     addEntryView: {
       flexDirection: 'row',

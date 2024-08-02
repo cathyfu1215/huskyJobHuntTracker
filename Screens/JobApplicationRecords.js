@@ -1,8 +1,14 @@
 import React from 'react'
-import {View,Text} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { useState } from 'react'
+import ItemsList from '../Components/ItemList'
+import styles from '../styleHelper.js'
+import { useEffect } from 'react'
 
 function JobApplicationRecords() {
-    <View><Text>JobApplicationRecords</Text></View>
+    <SafeAreaView>
+        <ItemsList/>
+    </SafeAreaView>
 }
 
 export default JobApplicationRecords
