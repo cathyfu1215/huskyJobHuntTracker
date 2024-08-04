@@ -1,10 +1,15 @@
 import React from 'react'
-import { Text, FlatList,SafeAreaView,View } from 'react-native'
+import { Text, FlatList,SafeAreaView,View, StyleSheet} from 'react-native'
 
-function ItemsList({type, data,navigation, route}) {
+function ItemsList({data}) {
 
     function ItemLine({item}) {
-        return <View><Text>{item}</Text></View>
+        return (<View style={styles.itemContainer}>
+          <Text style={styles.itemText}>Company: {item.companyName}</Text>
+          <Text style={styles.itemText}>Position: {item.positionName}</Text>
+          <Text style={styles.itemText}>Status: {item.status}</Text>
+          <Text style={styles.itemText}>Date: {item.date.toDate().toDateString()}</Text>
+        </View>);
     }
     
   
@@ -19,5 +24,15 @@ function ItemsList({type, data,navigation, route}) {
     );
   }
   
+  const styles = StyleSheet.create({
+    itemContainer: {
+      padding: 10,
+      borderBottomWidth: 1,
+      borderBottomColor: '#ccc',
+    },
+    itemText: {
+      fontSize: 16,
+    },
+  });
   
   export default ItemsList
