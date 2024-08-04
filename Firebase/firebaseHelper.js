@@ -1,12 +1,16 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { database } from "./firebaseSetup";
+import { collection, addDoc } from 'firebase/firestore';
 
-const firebaseHelper = () => {
-  return (
-    <View>
-      <Text>firebaseHelper</Text>
-    </View>
-  )
-}
-
-export default firebaseHelper
+export const addJobApplication = async (companyName, positionName, preferenceScore, status, date) => {
+    try {
+      await addDoc(collection(database, 'jobApplicationRecords'), {
+        companyName,
+        positionName,
+        preferenceScore,
+        status,
+        date,
+      });
+    } catch (error) {
+      console.error("Error adding document: ", error);
+    }
+  };
