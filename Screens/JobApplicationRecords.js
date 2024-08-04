@@ -4,11 +4,13 @@ import { useState } from 'react'
 import ItemsList from '../Components/ItemList'
 import styles from '../styleHelper.js'
 import { useEffect } from 'react'
+import { Text } from 'react-native'
 
 function JobApplicationRecords() {
+    return(
     <SafeAreaView>
         <ItemsList/>
-    </SafeAreaView>
+    </SafeAreaView>);
 }
 
 export default JobApplicationRecords

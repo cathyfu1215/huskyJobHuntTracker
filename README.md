@@ -42,7 +42,14 @@ The organization of the collections and documents:
 - location (String/location object)
 - preferenceScore (int, [1,10])
 - URL (String,optional)
-- status (Enum)
+- status (Enum):
+    - In Progress
+    - Applied
+    - Interviewing
+    - Interviewed
+    - Offer
+    - Offer Accepted
+    - Rejected
 - notes (Collection,optional)
 - todos (Collection,optional)
 - isFavourite (boolean)
