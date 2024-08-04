@@ -1,16 +1,27 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import { Picker } from '@react-native-picker/picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
 import { addJobApplication } from '../Firebase/firebaseHelper';
+import styleHelper from '../styleHelper';
 
 const AddAJobApplication = ({ navigation }) => {
   const [companyName, setCompanyName] = useState('');
   const [positionName, setPositionName] = useState('');
   const [preferenceScore, setPreferenceScore] = useState(1);
-  const [status, setStatus] = useState('In Progress');
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('');
+  const [items, setItems] = useState([
+    { label: 'In Progress', value: 'In Progress' },
+    { label: 'Applied', value: 'Applied' },
+    { label: 'Interviewing', value: 'Interviewing' },
+    { label: 'Interviewed', value: 'Interviewed' },
+    { label: 'Offer', value: 'Offer' },
+    { label: 'Offer Accepted', value: 'Offer Accepted' },
+    { label: 'Rejected', value: 'Rejected' }
+  ]);
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
@@ -19,54 +30,56 @@ const AddAJobApplication = ({ navigation }) => {
       await addJobApplication(companyName, positionName, preferenceScore, status, date);
       navigation.goBack();
     } else {
-      Alert.alert('Error', 'All fields are required.');
+      Alert.alert('Error', 'Please fill in all required fields');
     }
   };
 
   return (
-    <ScrollView style={styles.container}>
-      <Text>Company Name</Text>
+    <View style={styles.container}>
+      <Text>Company*</Text>
       <TextInput
-        style={styles.input}
+        style={styleHelper.textInput}
         placeholder="Enter company name"
         value={companyName}
         onChangeText={setCompanyName}
       />
 
-      <Text>Position Name</Text>
+      <Text>Position*</Text>
       <TextInput
-        style={styles.input}
+        style={styleHelper.textInput}
         placeholder="Enter position name"
         value={positionName}
         onChangeText={setPositionName}
       />
 
-      <Text>Preference Score</Text>
+      <Text>Preference Score*</Text>
       <TextInput
-        style={styles.input}
+        style={styleHelper.textInput}
         placeholder="Enter preference score"
-        value={preferenceScore.toString()}
-        onChangeText={(text) => setPreferenceScore(Number(text))}
+        value={preferenceScore}
+        onChangeText={setPreferenceScore}
         keyboardType="numeric"
       />
 
-      <Text>Application Status</Text>
-      <Picker
-        selectedValue={status}
-        style={styles.picker}
-        onValueChange={(itemValue) => setStatus(itemValue)}
-      >
-        <Picker.Item label="In Progress" value="In Progress" />
-        <Picker.Item label="Applied" value="Applied" />
-        <Picker.Item label="Interviewing" value="Interviewing" />
-        <Picker.Item label="Interviewed" value="Interviewed" />
-        <Picker.Item label="Offer" value="Offer" />
-        <Picker.Item label="Offer Accepted" value="Offer Accepted" />
-        <Picker.Item label="Rejected" value="Rejected" />
-      </Picker>
+      <Text>Application Status*</Text>
+      <View>
+      <DropDownPicker
+          open={open}
+          value={status}
+          items={items}
+          setOpen={setOpen}
+          setValue={setStatus}
+          setItems={setItems}
+          placeholder="Select a status"
+          style={styleHelper.dropdown}
+          textStyle={styleHelper.dropdownText}
+          placeholderStyle={styleHelper.dropdownPlaceholder}
+          dropDownContainerStyle={styleHelper.dropdownContainer}
+      />
+       </View>
 
-      <Text>Application Date</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styles.input}>
+      <Text>Application Date*</Text>
+      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
           <Text style={styles.dateText}>
             {date ? date.toDateString() : ''}
           </Text>
@@ -84,18 +97,11 @@ const AddAJobApplication = ({ navigation }) => {
               }}
             />
         )}
-      {/* <DateTimePicker
-        value={date}
-        mode="date"
-        display="default"
-        onChange={(event, selectedDate) => setDate(selectedDate || date)}
-      /> */}
-
-      <View style={styles.buttonContainer}>
+      <View style={styleHelper.saveCancelContainer}>
         <SaveButton onPress={handleSave} />
         <CancelButton onPress={() => navigation.goBack()} />
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -104,23 +110,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
-  input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 12,
-    paddingHorizontal: 8,
-  },
-  picker: {
-    height: 50,
-    width: '100%',
-    marginBottom: 12,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 50,
-  }
 });
 
 export default AddAJobApplication;

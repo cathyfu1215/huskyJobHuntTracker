@@ -153,6 +153,17 @@ export default styles = StyleSheet.create({
       alignContent: 'center',
       justifyContent: 'start',
     },
-   
-    
+    dropdown: {
+      backgroundColor: '#fff',
+      borderColor: 'black',
+    },
+    dropdownText: {
+      color: 'black',
+    },
+    dropdownPlaceholder: {
+      color: 'black',
+    },
+    dropdownContainer: {
+      backgroundColor: 'white',
+    },  
   });
