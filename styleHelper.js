@@ -128,9 +128,9 @@ export default styles = StyleSheet.create({
       width: '30%',
     },
     cancelButtonText:{
-      color: 'black',
+      color: 'white',
       fontWeight: 'bold',
-      fontSize: 20,
+      fontSize: 16,
     },
     textInputBig:{
       height: 40,
