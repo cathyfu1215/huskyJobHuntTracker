@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -86,12 +86,12 @@ const AddAJobApplication = ({ navigation }) => {
         </TouchableOpacity>
         {showDatePicker && (
             <DateTimePicker
-              value={date || new Date()} // Show current date if no date selected
+              value={date || new Date()}
               mode="date"
               display="inline"
               onChange={(event, selectedDate) => {
                 setShowDatePicker(false);
-                if (event.type !== 'dismissed') { // Ensure date is set only if not dismissed
+                if (event.type !== 'dismissed') {
                   setDate(selectedDate);
                 }
               }}
