@@ -40,7 +40,7 @@ const AddAJobApplication = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Company *</Text>
+      <Text style={styles.addEntryText}>Company *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter company name"
@@ -48,7 +48,7 @@ const AddAJobApplication = ({ navigation }) => {
         onChangeText={setCompanyName}
       />
 
-      <Text>Position *</Text>
+      <Text style={styles.addEntryText}>Position *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter position name"
@@ -56,7 +56,7 @@ const AddAJobApplication = ({ navigation }) => {
         onChangeText={setPositionName}
       />
 
-      <Text>Preference Score *</Text>
+      <Text style={styles.addEntryText}>Preference Score *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter preference score"
@@ -65,8 +65,9 @@ const AddAJobApplication = ({ navigation }) => {
         keyboardType="numeric"
       />
 
-      <Text>Application Status *</Text>
-      <View>
+      <Text style={styles.addEntryText}>Application Status *</Text>
+      
+      <View style={{margin:5}}>
       <DropDownPicker
           open={open}
           value={status}
@@ -82,7 +83,7 @@ const AddAJobApplication = ({ navigation }) => {
       />
        </View>
 
-      <Text>Application Date*</Text>
+      <Text style={styles.addEntryText}>Application Date *</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
           <Text style={styles.dateText}>
             {date ? date.toDateString() : ''}
