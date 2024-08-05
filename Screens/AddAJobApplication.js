@@ -6,11 +6,16 @@ import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
 import { addJobApplication } from '../Firebase/firebaseHelper';
 import styleHelper from '../styleHelper';
+import { Rating } from 'react-native-ratings';
+
+
+
+
 
 const AddAJobApplication = ({ navigation }) => {
   const [companyName, setCompanyName] = useState('');
   const [positionName, setPositionName] = useState('');
-  const [preferenceScore, setPreferenceScore] = useState(1);
+  const [preferenceScore, setPreferenceScore] = useState(5);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
   const [items, setItems] = useState([
@@ -25,8 +30,20 @@ const AddAJobApplication = ({ navigation }) => {
   const [date, setDate] = useState(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
 
+  function ratingCompleted(rating) {
+    console.log("Rating is: " + rating);
+    setPreferenceScore(rating);
+  }
+
   const handleSave = async () => {
     if (companyName && positionName && preferenceScore && status && date) {
+      // console.log('save button hitted');
+      // console.log('companyName:', companyName);
+      // console.log('positionName:', positionName);
+      // console.log('preferenceScore:', preferenceScore);
+      // console.log('status:', status);
+      // console.log('date:', date);
+
       try{
       await addJobApplication(companyName, positionName, preferenceScore, status, date);}
       catch (error) {
@@ -57,13 +74,17 @@ const AddAJobApplication = ({ navigation }) => {
       />
 
       <Text style={styles.addEntryText}>Preference Score *</Text>
-      <TextInput
-        style={styleHelper.textInput}
-        placeholder="Enter preference score"
-        value={preferenceScore}
-        onChangeText={setPreferenceScore}
-        keyboardType="numeric"
+  
+
+
+      <Rating
+        type='heart'
+        ratingCount={10}
+        imageSize={30}
+        showRating
+        onFinishRating={ratingCompleted}
       />
+   
 
       <Text style={styles.addEntryText}>Application Status *</Text>
       
@@ -75,12 +96,11 @@ const AddAJobApplication = ({ navigation }) => {
           setOpen={setOpen}
           setValue={setStatus}
           setItems={setItems}
-          dropDownDirection="TOP"
-          
+          dropDownDirection="TOP" 
       />
        </View>
 
-      <Text style={styles.addEntryText}>Application Date *</Text>
+      <Text style={styles.addEntryText}>Date of Last Update *</Text>
       <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
           <Text style={styles.dateText}>
             {date ? date.toDateString() : ''}
