@@ -10,11 +10,13 @@ import { Rating } from 'react-native-ratings';
 import  styles  from '../styleHelper';
 
 const AddAJobApplication = ({ navigation,route }) => {
-  const [companyName, setCompanyName] = useState('');
-  const [positionName, setPositionName] = useState('');
-  const [preferenceScore, setPreferenceScore] = useState(5);
+
+  console.log('route.params', route.params);
+  const [companyName, setCompanyName] = useState(route.params?route.params.data.companyName:"");
+  const [positionName, setPositionName] = useState(route.params?route.params.data.positionName:"");
+  const [preferenceScore, setPreferenceScore] = useState(route.params?route.params.data.preferenceScore:5);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(route.params?route.params.data.status:"In Progress");
   const [items, setItems] = useState([
     { label: 'In Progress', value: 'In Progress' },
     { label: 'Applied', value: 'Applied' },
@@ -24,7 +26,7 @@ const AddAJobApplication = ({ navigation,route }) => {
     { label: 'Offer Accepted', value: 'Offer Accepted' },
     { label: 'Rejected', value: 'Rejected' }
   ]);
-  const [date, setDate] = useState(null);
+  const [date, setDate] = useState(route.params ? Date(route.params.data.date).toString() : new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function ratingCompleted(rating) {
@@ -34,12 +36,13 @@ const AddAJobApplication = ({ navigation,route }) => {
 
   const handleSave = async () => {
     if (companyName && positionName && preferenceScore && status && date) {
+      navigation.goBack();
       try {
         await addJobApplication(companyName, positionName, preferenceScore, status, date);
       } catch (error) {
         console.error("Error adding document: ", error);
       }
-      navigation.goBack();
+      
     } else {
       Alert.alert('Error', 'Please fill in all required fields');
     }

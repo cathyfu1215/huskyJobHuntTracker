@@ -10,9 +10,10 @@ import { Alert } from 'react-native';
 
 
 function EditJobApplication(props) {
+    console.log('props in EditJobApplication', props);
 
     console.log('props in EditJobApplication', props);
-    console.log('in the route.params', props.route.params.data);
+    console.log('in the route.params in editJobApp', props.route.params.data);
     function deleteHandler() {
        
           Alert.alert(
@@ -44,9 +45,9 @@ function EditJobApplication(props) {
         });
       }, []);
       
-
-     <AddAJobApplication navigation={props.navigation} route={props.route} />
-     
+      return(
+        <AddAJobApplication navigation={props.navigation} route={props.route} />
+      );
      
      
     }
