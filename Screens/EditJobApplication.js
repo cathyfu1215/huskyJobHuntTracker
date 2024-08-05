@@ -6,7 +6,7 @@ import PressableButton from '../Components/PressableButton.js';
 import { useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Alert } from 'react-native';
-import { deleteFromDB } from '../Firebase/fireStoreHelper.js';
+//import { deleteFromDB } from '../Firebase/fireStoreHelper.js';
 
 
 function EditJobApplication(props) {

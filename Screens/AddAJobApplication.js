@@ -7,6 +7,7 @@ import CancelButton from '../Components/CancelButton';
 import { addJobApplication } from '../Firebase/firebaseHelper';
 import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
+import { styles } from '../styleHelper';
 
 const AddAJobApplication = ({ navigation }) => {
   const [companyName, setCompanyName] = useState('');
@@ -115,23 +116,6 @@ const AddAJobApplication = ({ navigation }) => {
   );
 };
 
-const styles = StyleSheet.create({
-  safeArea: {
-    flex: 1,
-  },
-  scrollViewContent: {
-    flexGrow: 1,
-    padding: 16,
-  },
-  container: {
-    flex: 1,
-  },
-  addEntryText: {
-    marginBottom: 8,
-  },
-  dateText: {
-    color: '#000',
-  },
-});
+
 
 export default AddAJobApplication;
