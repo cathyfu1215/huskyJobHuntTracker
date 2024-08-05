@@ -27,7 +27,11 @@ const AddAJobApplication = ({ navigation }) => {
 
   const handleSave = async () => {
     if (companyName && positionName && preferenceScore && status && date) {
-      await addJobApplication(companyName, positionName, preferenceScore, status, date);
+      try{
+      await addJobApplication(companyName, positionName, preferenceScore, status, date);}
+      catch (error) {
+        console.error("Error adding document: ", error);
+      }
       navigation.goBack();
     } else {
       Alert.alert('Error', 'Please fill in all required fields');
@@ -36,7 +40,7 @@ const AddAJobApplication = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text>Company*</Text>
+      <Text>Company *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter company name"
@@ -44,7 +48,7 @@ const AddAJobApplication = ({ navigation }) => {
         onChangeText={setCompanyName}
       />
 
-      <Text>Position*</Text>
+      <Text>Position *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter position name"
@@ -52,7 +56,7 @@ const AddAJobApplication = ({ navigation }) => {
         onChangeText={setPositionName}
       />
 
-      <Text>Preference Score*</Text>
+      <Text>Preference Score *</Text>
       <TextInput
         style={styleHelper.textInput}
         placeholder="Enter preference score"
@@ -61,7 +65,7 @@ const AddAJobApplication = ({ navigation }) => {
         keyboardType="numeric"
       />
 
-      <Text>Application Status*</Text>
+      <Text>Application Status *</Text>
       <View>
       <DropDownPicker
           open={open}

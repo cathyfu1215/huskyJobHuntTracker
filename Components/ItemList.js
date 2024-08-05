@@ -9,6 +9,7 @@ function ItemsList({data}) {
           <Text style={styles.itemText}>Position: {item.positionName}</Text>
           <Text style={styles.itemText}>Status: {item.status}</Text>
           <Text style={styles.itemText}>Date: {item.date.toDate().toDateString()}</Text>
+          <Text style={styles.itemText}>Preference Score: {item.preferenceScore}</Text>
         </View>);
     }
     
