@@ -42,13 +42,13 @@ export default styles = StyleSheet.create({
     },
     itemlistline: {
       flexDirection: 'row',
-      padding: 2,
-      margin: 2,
-      backgroundColor: 'lightgrey',
+      padding: 10,
+      margin: 10,
+      backgroundColor: 'wheat',
       borderRadius: 5,
       textAlign: 'spread',
       fontWeight: 'bold',
-      justifyContent: 'space-between',
+      justifyContent: 'flex-start',
       //justifyContent: 'spread',
       alignContent: 'spread',
     },
@@ -166,4 +166,20 @@ export default styles = StyleSheet.create({
     dropdownContainer: {
       backgroundColor: 'white',
     },  
+    safeArea: {
+      flex: 1,
+    },
+    scrollViewContent: {
+      flexGrow: 1,
+      padding: 16,
+    },
+    container: {
+      flex: 1,
+    },
+    addEntryText: {
+      marginBottom: 8,
+    },
+    dateText: {
+      color: '#000',
+    },
   });
