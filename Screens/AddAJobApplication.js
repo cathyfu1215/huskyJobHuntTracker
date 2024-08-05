@@ -26,7 +26,7 @@ const AddAJobApplication = ({ navigation,route }) => {
     { label: 'Offer Accepted', value: 'Offer Accepted' },
     { label: 'Rejected', value: 'Rejected' }
   ]);
-  const [date, setDate] = useState(route.params ? Date(route.params.data.date).toString() : new Date());
+  const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function ratingCompleted(rating) {
