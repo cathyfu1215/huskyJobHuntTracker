@@ -10,6 +10,9 @@ import { Alert } from 'react-native';
 
 
 function EditJobApplication(props) {
+
+    console.log('props in EditJobApplication', props);
+    console.log('in the route.params', props.route.params.data);
     function deleteHandler() {
        
           Alert.alert(

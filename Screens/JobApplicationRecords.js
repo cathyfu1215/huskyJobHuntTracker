@@ -4,7 +4,7 @@ import { SafeAreaView, Text } from 'react-native';
 import ItemsList from '../Components/ItemList.js'
 import { fetchJobApplications } from '../Firebase/firebaseHelper';
 
-function JobApplicationRecords() {
+function JobApplicationRecords(props) {
   const [data, setData] = useState([]);
 
   const getData = async () => {
@@ -20,7 +20,7 @@ function JobApplicationRecords() {
 
   return (
     <SafeAreaView>
-      <ItemsList data={data} />
+      <ItemsList data={data} navigation={props.navigation} route={props.route} />
     </SafeAreaView>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -7,9 +7,9 @@ import CancelButton from '../Components/CancelButton';
 import { addJobApplication } from '../Firebase/firebaseHelper';
 import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
-import { styles } from '../styleHelper';
+import  styles  from '../styleHelper';
 
-const AddAJobApplication = ({ navigation }) => {
+const AddAJobApplication = ({ navigation,route }) => {
   const [companyName, setCompanyName] = useState('');
   const [positionName, setPositionName] = useState('');
   const [preferenceScore, setPreferenceScore] = useState(5);

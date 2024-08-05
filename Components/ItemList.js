@@ -11,7 +11,7 @@ function ItemsList({data,navigation,route}) {
     function ItemLine({item}) {
 
       function handlePressEditItem() {
-        navigation.navigate('Edit', {data: item});
+        navigation.navigate('EditJobApplication', {data: item});
       }
         return (<View style={styles.itemContainer}>
           <PressableListItem pressedFunction={handlePressEditItem}>
