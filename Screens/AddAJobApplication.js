@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity} from 'react-native';
+import { View, Text, TextInput, Alert, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -7,10 +7,6 @@ import CancelButton from '../Components/CancelButton';
 import { addJobApplication } from '../Firebase/firebaseHelper';
 import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
-
-
-
-
 
 const AddAJobApplication = ({ navigation }) => {
   const [companyName, setCompanyName] = useState('');
@@ -37,16 +33,9 @@ const AddAJobApplication = ({ navigation }) => {
 
   const handleSave = async () => {
     if (companyName && positionName && preferenceScore && status && date) {
-      // console.log('save button hitted');
-      // console.log('companyName:', companyName);
-      // console.log('positionName:', positionName);
-      // console.log('preferenceScore:', preferenceScore);
-      // console.log('status:', status);
-      // console.log('date:', date);
-
-      try{
-      await addJobApplication(companyName, positionName, preferenceScore, status, date);}
-      catch (error) {
+      try {
+        await addJobApplication(companyName, positionName, preferenceScore, status, date);
+      } catch (error) {
         console.error("Error adding document: ", error);
       }
       navigation.goBack();
@@ -56,57 +45,54 @@ const AddAJobApplication = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.addEntryText}>Company *</Text>
-      <TextInput
-        style={styleHelper.textInput}
-        placeholder="Enter company name"
-        value={companyName}
-        onChangeText={setCompanyName}
-      />
+    <SafeAreaView style={styles.safeArea}>
+      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+        <View style={styles.container}>
+          <Text style={styles.addEntryText}>Company *</Text>
+          <TextInput
+            style={styleHelper.textInput}
+            placeholder="Enter company name"
+            value={companyName}
+            onChangeText={setCompanyName}
+          />
 
-      <Text style={styles.addEntryText}>Position *</Text>
-      <TextInput
-        style={styleHelper.textInput}
-        placeholder="Enter position name"
-        value={positionName}
-        onChangeText={setPositionName}
-      />
+          <Text style={styles.addEntryText}>Position *</Text>
+          <TextInput
+            style={styleHelper.textInput}
+            placeholder="Enter position name"
+            value={positionName}
+            onChangeText={setPositionName}
+          />
 
-      <Text style={styles.addEntryText}>Preference Score *</Text>
-  
+          <Text style={styles.addEntryText}>Preference Score *</Text>
+          <Rating
+            type='heart'
+            ratingCount={10}
+            imageSize={30}
+            showRating
+            onFinishRating={ratingCompleted}
+          />
 
+          <Text style={styles.addEntryText}>Application Status *</Text>
+          <View style={{ margin: 5 }}>
+            <DropDownPicker
+              open={open}
+              value={status}
+              items={items}
+              setOpen={setOpen}
+              setValue={setStatus}
+              setItems={setItems}
+              dropDownDirection="TOP"
+            />
+          </View>
 
-      <Rating
-        type='heart'
-        ratingCount={10}
-        imageSize={30}
-        showRating
-        onFinishRating={ratingCompleted}
-      />
-   
-
-      <Text style={styles.addEntryText}>Application Status *</Text>
-      
-      <View style={{margin:5}}>
-      <DropDownPicker
-          open={open}
-          value={status}
-          items={items}
-          setOpen={setOpen}
-          setValue={setStatus}
-          setItems={setItems}
-          dropDownDirection="TOP" 
-      />
-       </View>
-
-      <Text style={styles.addEntryText}>Date of Last Update *</Text>
-      <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
-          <Text style={styles.dateText}>
-            {date ? date.toDateString() : ''}
-          </Text>
-        </TouchableOpacity>
-        {showDatePicker && (
+          <Text style={styles.addEntryText}>Date of Last Update *</Text>
+          <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
+            <Text style={styles.dateText}>
+              {date ? date.toDateString() : ''}
+            </Text>
+          </TouchableOpacity>
+          {showDatePicker && (
             <DateTimePicker
               value={date || new Date()}
               mode="date"
@@ -118,19 +104,33 @@ const AddAJobApplication = ({ navigation }) => {
                 }
               }}
             />
-        )}
-      <View style={styleHelper.saveCancelContainer}>
-        <SaveButton onPress={handleSave} />
-        <CancelButton onPress={() => navigation.goBack()} />
-      </View>
-    </View>
+          )}
+          <View style={styleHelper.saveCancelContainer}>
+            <SaveButton onPress={handleSave} />
+            <CancelButton onPress={() => navigation.goBack()} />
+          </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    padding: 16,
+  },
   container: {
     flex: 1,
-    padding: 16,
+  },
+  addEntryText: {
+    marginBottom: 8,
+  },
+  dateText: {
+    color: '#000',
   },
 });
 
