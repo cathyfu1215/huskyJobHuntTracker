@@ -75,11 +75,8 @@ const AddAJobApplication = ({ navigation }) => {
           setOpen={setOpen}
           setValue={setStatus}
           setItems={setItems}
-          placeholder="Select a status"
-          style={styleHelper.dropdown}
-          textStyle={styleHelper.dropdownText}
-          placeholderStyle={styleHelper.dropdownPlaceholder}
-          dropDownContainerStyle={styleHelper.dropdownContainer}
+          dropDownDirection="TOP"
+          
       />
        </View>
 
