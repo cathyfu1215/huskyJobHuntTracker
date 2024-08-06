@@ -2,13 +2,34 @@
 #### CS5520 2024 Summer , Group 2
 #### Team members: Jieling Gong, Cong Fu
 
-### Data Model:
+
+# Iteration 1:
+
+
+### current state of our product:
+
+### members contributions:
+#### Cong:
+- whole skeleton of the app(screens and components)
+- navigation (Stack and Tab)
+- modified some styling of AddAJobApplication, added the preferenceScore selection
+- created and implemented the EditJobApplication and JobApplicationDetail component
+
+
+#### Jieling:
+- the whole CRUD of JobApplicationRecords
+- implemented the firebase set up and helper files
+- implemented most of AddAJobApplication screen
+- implemeneted the JobApplicationRecords screen
+
+
+### Data Model in Iteration 1:
 
 Collections and subcollections: 
-- users
-- jobApplicationRecords
-- notes 
-- todos
+- users (contains document 'user')
+- jobApplicationRecords (contains document 'jobApplicationRecord')
+- notes (contains document 'note')
+- todos (contains document 'todo')
 
 Documents: 
 - user
