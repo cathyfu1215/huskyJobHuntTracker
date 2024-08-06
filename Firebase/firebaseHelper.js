@@ -1,5 +1,5 @@
 import { database } from "./firebaseSetup";
-import { collection, addDoc, getDocs, orderBy, query} from 'firebase/firestore';
+import { collection, addDoc, getDocs, orderBy, query, deleteDoc, doc} from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
 
 // Function to add a new job application to the database
@@ -30,5 +30,15 @@ export const fetchJobApplications = async () => {
       return jobApplications;
     } catch (error) {
       console.error("Error fetching documents: ", error);
+    }
+  };
+
+  // Function to delete a job application from the database
+  export const deleteJobApplication = async (id) => {
+    try {
+      await deleteDoc(doc(database, 'jobApplicationRecords', id));
+      console.log("Document successfully deleted!");
+    } catch (error) {
+      console.error("Error deleting document: ", error);
     }
   };
