@@ -9,7 +9,11 @@ import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
 import  styles  from '../styleHelper';
 
-const AddAJobApplication = ({ navigation,route }) => {
+const AddAJobApplication = ({ navigation,route,type }) => {
+
+  console.log('type of this screen',type);
+  const itemEditble = ((!type)||type==='edit')?true:false;
+  console.log('itemEditble',itemEditble);
 
   console.log('route.params', route.params);
   const [companyName, setCompanyName] = useState(route.params?route.params.data.companyName:"");
@@ -58,6 +62,7 @@ const AddAJobApplication = ({ navigation,route }) => {
             placeholder="Enter company name"
             value={companyName}
             onChangeText={setCompanyName}
+            editable={itemEditble}
           />
 
           <Text style={styles.addEntryText}>Position *</Text>
@@ -66,6 +71,7 @@ const AddAJobApplication = ({ navigation,route }) => {
             placeholder="Enter position name"
             value={positionName}
             onChangeText={setPositionName}
+            editable={itemEditble}
           />
 
           <Text style={styles.addEntryText}>Preference Score *</Text>
@@ -75,6 +81,7 @@ const AddAJobApplication = ({ navigation,route }) => {
             imageSize={30}
             showRating
             onFinishRating={ratingCompleted}
+            readonly={!itemEditble}
           />
 
           <Text style={styles.addEntryText}>Application Status *</Text>
@@ -87,6 +94,7 @@ const AddAJobApplication = ({ navigation,route }) => {
               setValue={setStatus}
               setItems={setItems}
               dropDownDirection="TOP"
+              disabled={!itemEditble}
             />
           </View>
 
@@ -107,12 +115,13 @@ const AddAJobApplication = ({ navigation,route }) => {
                   setDate(selectedDate);
                 }
               }}
+              disabled={!itemEditble}
             />
           )}
-          <View style={styleHelper.saveCancelContainer}>
+          {itemEditble && <View style={styleHelper.saveCancelContainer}>
             <SaveButton onPress={handleSave} />
             <CancelButton onPress={() => navigation.goBack()} />
-          </View>
+          </View>}
         </View>
       </ScrollView>
     </SafeAreaView>

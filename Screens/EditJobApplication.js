@@ -46,7 +46,7 @@ function EditJobApplication(props) {
       }, []);
       
       return(
-        <AddAJobApplication navigation={props.navigation} route={props.route} />
+        <AddAJobApplication navigation={props.navigation} route={props.route} type='edit'/>
       );
      
      

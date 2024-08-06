@@ -6,15 +6,15 @@ import PressableListItem from './PressableListItem';
 
 function ItemsList({data,navigation,route}) {
 
- 
+ console.log('data in ItemsList', data);
 
     function ItemLine({item}) {
 
-      function handlePressEditItem() {
-        navigation.navigate('EditJobApplication', {data: item});
+      function handlePressItemDetail() {
+        navigation.navigate('JobApplicationDetail', {data: item});
       }
         return (<View style={styles.itemContainer}>
-          <PressableListItem pressedFunction={handlePressEditItem}>
+          <PressableListItem pressedFunction={handlePressItemDetail}>
           <View>
           <Text style={styles.itemText}>Company: {item.companyName}</Text>
           <Text style={styles.itemText}>Position: {item.positionName}</Text>
