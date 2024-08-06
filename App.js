@@ -7,6 +7,7 @@ import AddAJobApplication from './Screens/AddAJobApplication';
 import JobApplicationRecords from './Screens/JobApplicationRecords';
 import Home from './Screens/Home';
 import React from 'react';
+import JobApplicationDetail from './Screens/JobApplicationDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,7 @@ export default function App() {
        options={{headerShown: false}}/>
 
       <Stack.Screen name="AddAJobApplication" component={AddAJobApplication}/>
+      <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail}/>
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
       <Stack.Screen name="JobApplicationRecords" component={JobApplicationRecords} />
                                              
