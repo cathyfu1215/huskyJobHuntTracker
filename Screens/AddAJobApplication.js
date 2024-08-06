@@ -18,6 +18,10 @@ const AddAJobApplication = ({ navigation,route,type }) => {
   console.log('route.params', route.params);
   // Check if it is edit mode.
   //const isEditMode = route.params && route.params.data;
+
+  //if there is no type , it is add mode
+  // if there is type and it is edit, it is edit mode
+  // if there is type and it is not edit, it is the show detail mode
   const isEditMode = type && (type==='edit');
 
 
