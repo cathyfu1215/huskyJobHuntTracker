@@ -49,6 +49,7 @@ const AddAJobApplication = ({ navigation,route,type }) => {
 
   const handleSave = async () => {
     if (companyName && positionName && preferenceScore && status && date) {
+      console.log('Save button clicked');
       navigation.goBack();
       try {
         if (isEditMode) {
@@ -68,7 +69,7 @@ const AddAJobApplication = ({ navigation,route,type }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <ScrollView contentContainerStyle={styles.scrollViewContent}>
+     
         <View style={styles.container}>
           <Text style={styles.addEntryText}>Company *</Text>
           <TextInput
@@ -137,7 +138,7 @@ const AddAJobApplication = ({ navigation,route,type }) => {
             <CancelButton onPress={() => navigation.goBack()} />
           </View>}
         </View>
-      </ScrollView>
+      
     </SafeAreaView>
   );
 };

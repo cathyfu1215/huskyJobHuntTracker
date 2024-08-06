@@ -7,11 +7,11 @@ import { useEffect } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 function JobApplicationDetail(props) {
+  console.log('route.params in jobapplicationdetail', props.route.params);
 
     function editHandler() {
-        console.log('props in EditJobApplication', props);
         props.navigation.navigate('EditJobApplication', {data: props.route.params.data});
-        }
+    }
     useEffect(() => {
         props.navigation.setOptions({
           headerRight: () => {
@@ -25,7 +25,7 @@ function JobApplicationDetail(props) {
       }, []);
       
       return(
-        <AddAJobApplication navigation={props.navigation} route={props.route} type='detail' />
+        <AddAJobApplication type='detail' />
       );
 }
 
