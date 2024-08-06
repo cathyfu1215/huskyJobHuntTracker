@@ -42,6 +42,13 @@ const AddAJobApplication = ({ navigation,route,type }) => {
     if (companyName && positionName && preferenceScore && status && date) {
       navigation.goBack();
       try {
+
+        // if the type is edit, then we need to update the existing record
+        if(type && (type==='edit')){
+          console.log('updating the record');
+          await updateJobApplication(companyName, positionName, preferenceScore, status, date, route.params.data.id);
+          return;
+        }
         await addJobApplication(companyName, positionName, preferenceScore, status, date);
       } catch (error) {
         console.error("Error adding document: ", error);
