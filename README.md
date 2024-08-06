@@ -5,6 +5,9 @@
 
 # Iteration 1:
 
+In iteration 1 we implement the MVP of our project, we focus on building the skeleton of the whole project and the CRUD on JobApplicationRecords collection. Our
+MVP version supports add / update / delete / browse the basic information(company name, position, status, date and perference score) of a job application record.
+
 
 ### current state of our product:
 ![1](https://github.com/user-attachments/assets/76d430f2-571c-4482-ac39-d1828e96c1bf)
