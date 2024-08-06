@@ -10,10 +10,10 @@ import { deleteJobApplication } from '../Firebase/firebaseHelper.js';
 
 
 function EditJobApplication(props) {
-    console.log('props in EditJobApplication', props);
+    // console.log('props in EditJobApplication', props);
 
-    console.log('props in EditJobApplication', props);
-    console.log('in the route.params in editJobApp', props.route.params.data);
+    // console.log('props in EditJobApplication', props);
+    // console.log('in the route.params in editJobApp', props.route.params.data);
     function deleteHandler() {
        
           Alert.alert(
@@ -26,8 +26,8 @@ function EditJobApplication(props) {
               {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
               {text: 'YES', onPress: async () => {
                 await deleteJobApplication(props.route.params.data.id);
-                console.log('Delete Pressed', props.route.params.data.id, 'to be deleted');
-                props.navigation.goBack();}},
+                //console.log('Delete Pressed', props.route.params.data.id, 'to be deleted');
+                props.navigation.popToTop();}},
             ]
           );
           
