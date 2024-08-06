@@ -4,7 +4,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
-import { addJobApplication } from '../Firebase/firebaseHelper';
+import { addJobApplication, updateJobApplication} from '../Firebase/firebaseHelper';
 import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
 import  styles  from '../styleHelper';
@@ -16,11 +16,16 @@ const AddAJobApplication = ({ navigation,route,type }) => {
   console.log('itemEditble',itemEditble);
 
   console.log('route.params', route.params);
-  const [companyName, setCompanyName] = useState(route.params?route.params.data.companyName:"");
-  const [positionName, setPositionName] = useState(route.params?route.params.data.positionName:"");
-  const [preferenceScore, setPreferenceScore] = useState(route.params?route.params.data.preferenceScore:5);
+  // Check if it is edit mode.
+  //const isEditMode = route.params && route.params.data;
+  const isEditMode = type && (type==='edit');
+
+
+  const [companyName, setCompanyName] = useState(isEditMode?route.params.data.companyName:"");
+  const [positionName, setPositionName] = useState(isEditMode?route.params.data.positionName:"");
+  const [preferenceScore, setPreferenceScore] = useState(isEditMode?route.params.data.preferenceScore:5);
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState(route.params?route.params.data.status:"In Progress");
+  const [status, setStatus] = useState(isEditMode?route.params.data.status:"In Progress");
   const [items, setItems] = useState([
     { label: 'In Progress', value: 'In Progress' },
     { label: 'Applied', value: 'Applied' },
@@ -30,7 +35,7 @@ const AddAJobApplication = ({ navigation,route,type }) => {
     { label: 'Offer Accepted', value: 'Offer Accepted' },
     { label: 'Rejected', value: 'Rejected' }
   ]);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(isEditMode ? route.params.data.date.toDate():new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   function ratingCompleted(rating) {
@@ -42,18 +47,16 @@ const AddAJobApplication = ({ navigation,route,type }) => {
     if (companyName && positionName && preferenceScore && status && date) {
       navigation.goBack();
       try {
-
-        // if the type is edit, then we need to update the existing record
-        if(type && (type==='edit')){
-          console.log('updating the record');
-          await updateJobApplication(companyName, positionName, preferenceScore, status, date, route.params.data.id);
-          return;
-        }
+        if (isEditMode) {
+          console.log('updateJobApplication');
+          await updateJobApplication(route.params.data.id, companyName, positionName, preferenceScore, status, date);
+        } else {
+          console.log('addJobApplication');
         await addJobApplication(companyName, positionName, preferenceScore, status, date);
-      } catch (error) {
-        console.error("Error adding document: ", error);
       }
-      
+      } catch (error) {
+        console.error("Error adding/editing document: ", error);
+      }    
     } else {
       Alert.alert('Error', 'Please fill in all required fields');
     }

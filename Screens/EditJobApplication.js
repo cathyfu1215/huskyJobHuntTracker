@@ -6,7 +6,7 @@ import PressableButton from '../Components/PressableButton.js';
 import { useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Alert } from 'react-native';
-//import { deleteFromDB } from '../Firebase/fireStoreHelper.js';
+import { deleteJobApplication } from '../Firebase/firebaseHelper.js';
 
 
 function EditJobApplication(props) {
@@ -24,8 +24,8 @@ function EditJobApplication(props) {
             [
               // Array of buttons
               {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
-              {text: 'YES', onPress: () => {
-                //deleteFromDB(props.route.params.data.id, 'jobRecords');
+              {text: 'YES', onPress: async () => {
+                await deleteJobApplication(props.route.params.data.id);
                 console.log('Delete Pressed', props.route.params.data.id, 'to be deleted');
                 props.navigation.goBack();}},
             ]
