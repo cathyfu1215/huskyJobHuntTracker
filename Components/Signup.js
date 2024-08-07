@@ -5,6 +5,7 @@ import PressableButton from './PressableButton'
 import {auth} from '../Firebase/firebaseSetup'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { useState } from 'react'
+import {addUser} from '../Firebase/firebaseHelper'
 
 function Signup(props) {
 
@@ -52,6 +53,17 @@ function Signup(props) {
                 const errorMessage = error.message;
                 alert(errorCode,errorMessage); // alert the error message to the user
             });
+
+        //add this user to our database: Users collection, give it an id,
+        // store email, name, profile picture, etc.
+        addUser(email)
+        .then(()=>{
+            console.log('user added to the database',email);
+        })
+        .catch((error)=>{
+            console.log('error adding user to the database',error);
+        });
+
 
     }
   return (

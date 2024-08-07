@@ -59,3 +59,17 @@ export const updateJobApplication = async (id, companyName, positionName, prefer
     console.error("Error updating document: ", error);
   }
 };
+
+
+
+// Function to add a new user to the database
+export const addUser = async (userEmail) => {
+  try {
+    
+    await addDoc(collection(database, 'users'), {
+      userEmail,
+    });
+  } catch (error) {
+    console.error("Error adding the user: ", error);
+  }
+};
