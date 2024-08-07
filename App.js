@@ -1,46 +1,63 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EditJobApplication from './Screens/EditJobApplication';
 import AddAJobApplication from './Screens/AddAJobApplication';
 import JobApplicationRecords from './Screens/JobApplicationRecords';
 import Home from './Screens/Home';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import JobApplicationDetail from './Screens/JobApplicationDetail';
+import Login from './Components/Login';
+import Signup from './Components/Signup';
+import styles from './styleHelper';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './Firebase/firebaseSetup'; 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  return (
-    <NavigationContainer>
-     <Stack.Navigator initialRouteName='Home'
-     screenOptions={{
-      tabBarStyle: {
-        backgroundColor: 'lightblue', 
-      },
-      headerStyle: {
-        backgroundColor:'lightblue',
-      },}}
-     >
-      <Stack.Screen name="Home" component={Home}
-       options={{headerShown: false}}/>
+  const [user, setUser] = useState(null);
 
-      <Stack.Screen name="AddAJobApplication" component={AddAJobApplication}/>
-      <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail}/>
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log('User is signed in', user);
+        setUser(user);
+      } else {
+        console.log('User is signed out');
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const AuthStack = (
+    <>
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
+    </>
+  );
+
+  const AppStack = (
+    <>
+      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      <Stack.Screen name="AddAJobApplication" component={AddAJobApplication} />
+      <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail} />
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
       <Stack.Screen name="JobApplicationRecords" component={JobApplicationRecords} />
-                                             
-    </Stack.Navigator>
+    </>
+  );
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+        }}
+      >
+        {(user!==null) ? AppStack : AuthStack}
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
