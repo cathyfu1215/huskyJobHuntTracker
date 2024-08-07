@@ -34,8 +34,10 @@ function Setting() {
             margin:20,
             }}>
           
+          
+          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change name</Text></PressableButton>
+          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change profile picture</Text></PressableButton>
           <PressableButton pressedFunction={handleLogout}><Text style={{fontWeight:'bold',fontSize:30}}>Log out</Text></PressableButton>
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>toggle theme</Text></PressableButton>
           </View>
         </View>
         

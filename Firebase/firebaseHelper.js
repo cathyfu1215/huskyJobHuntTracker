@@ -64,11 +64,27 @@ export const updateJobApplication = async (id, companyName, positionName, prefer
 
 // Function to add a new user to the database
 export const addUser = async (userEmail) => {
-  try {
-    
-    await addDoc(collection(database, 'users'), {
-      userEmail,
-    });
+  
+    const name='default name';
+    const profilePicture=null;
+    let numJobsSaved=0;
+    let numJobsApplied=0;
+    let numJobsInterviewed=0;
+    let numJobsOffered=0;
+    let numJobsRejected=0;
+    //badges earned and achievements should also be collections 
+    try {   
+      await addDoc(collection(database, 'users'), {
+        name,
+        userEmail,
+        profilePicture,
+        numJobsSaved,
+        numJobsApplied,
+        numJobsInterviewed,
+        numJobsOffered,
+        numJobsRejected,
+      });
+      console.log("User successfully added!");
   } catch (error) {
     console.error("Error adding the user: ", error);
   }

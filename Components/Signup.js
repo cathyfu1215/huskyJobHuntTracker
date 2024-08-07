@@ -17,10 +17,10 @@ function Signup(props) {
         props.navigation.replace('Login');
     }
 
-    function handleRegister(){
-        console.log('some validation...');
-        console.log('registering');
-        console.log('auth',auth);
+    async function handleRegister(){
+        // console.log('some validation...');
+        // console.log('registering');
+        // console.log('auth',auth);
 
         // check if password and confirm password match
         if(password !== confirmPassword){
