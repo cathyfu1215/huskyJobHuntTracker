@@ -2,10 +2,10 @@ import React, { useState, useCallback } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView, Text } from 'react-native';
 import ItemsList from '../Components/ItemList.js'
-import { fetchJobApplications } from '../Firebase/firebaseHelper';
-import { auth } from '../Firebase/firebaseSetup';
+import { fetchJobApplications } from '../Firebase/firebaseHelper.js';
+import { auth } from '../Firebase/firebaseSetup.js';
 
-function JobApplicationRecords(props) {
+function JobRecords(props) {
   const [data, setData] = useState([]);
 
   const getData = async () => {
@@ -30,5 +30,5 @@ function JobApplicationRecords(props) {
   );
 }
 
-export default JobApplicationRecords;
+export default JobRecords;
 

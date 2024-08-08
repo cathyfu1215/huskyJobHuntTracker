@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import EditJobApplication from './Screens/EditJobApplication';
 import AddAJobApplication from './Screens/AddAJobApplication';
-import JobApplicationRecords from './Screens/JobApplicationRecords';
+import JobRecords from './Screens/JobRecords';
 import Home from './Screens/Home';
 import React, { useEffect, useState } from 'react';
 import JobApplicationDetail from './Screens/JobApplicationDetail';
@@ -44,7 +44,7 @@ export default function App() {
       <Stack.Screen name="AddAJobApplication" component={AddAJobApplication} />
       <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail} />
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
-      <Stack.Screen name="JobApplicationRecords" component={JobApplicationRecords} />
+      <Stack.Screen name="JobRecords" component={JobRecords} />
     </>
   );
 
