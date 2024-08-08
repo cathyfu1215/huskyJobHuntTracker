@@ -2,6 +2,7 @@ import React from 'react'
 import {View, Text, ScrollView} from 'react-native'
 import { Avatar } from '@rneui/themed';
 import { useState } from 'react';
+import { auth } from '../Firebase/firebaseSetup'; 
 
 function Achievements() {
   return (

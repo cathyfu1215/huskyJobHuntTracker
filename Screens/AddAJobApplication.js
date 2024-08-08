@@ -8,8 +8,15 @@ import { addJobApplication, updateJobApplication } from '../Firebase/firebaseHel
 import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
 import styles from '../styleHelper';
+import { auth } from '../Firebase/firebaseSetup'; 
+
+
 
 const AddAJobApplication = ({ navigation, route, type }) => {
+  //console.log('current user.uid is:',auth.currentUser.uid);
+
+
+
   const itemEditable = ((!type) || type === 'edit') ? true : false;
 
   const isEditMode = type && (type === 'edit');
@@ -40,9 +47,9 @@ const AddAJobApplication = ({ navigation, route, type }) => {
       navigation.popToTop();
       try {
         if (isEditMode) {
-          await updateJobApplication(route.params.data.id, companyName, positionName, preferenceScore, status, date);
+          await updateJobApplication(auth.currentUser.uid,route.params.data.id, companyName, positionName, preferenceScore, status, date);
         } else {
-          await addJobApplication(companyName, positionName, preferenceScore, status, date);
+          await addJobApplication(auth.currentUser.uid,companyName, positionName, preferenceScore, status, date);
         }
       } catch (error) {
         console.error("Error adding/editing document: ", error);

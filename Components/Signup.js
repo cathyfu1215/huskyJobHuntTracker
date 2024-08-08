@@ -17,10 +17,22 @@ function Signup(props) {
         props.navigation.replace('Login');
     }
 
+
+    async function handleAddUserDocument(email,uid){
+        //add this user to our database: Users collection, give it an id,
+        // store email, name, profile picture, etc.
+        addUser(email,uid)
+        .then(()=>{
+            console.log('user added to the database',email);
+        })
+        .catch((error)=>{
+            console.log('error adding user to the database',error);
+        });
+
+    }
+
     async function handleRegister(){
-        // console.log('some validation...');
-        // console.log('registering');
-        // console.log('auth',auth);
+
 
         // check if password and confirm password match
         if(password !== confirmPassword){
@@ -46,6 +58,9 @@ function Signup(props) {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
+                
+                handleAddUserDocument(email,user.uid);
+                
                 // ...
             })
             .catch((error) => {
@@ -54,15 +69,7 @@ function Signup(props) {
                 alert(errorCode,errorMessage); // alert the error message to the user
             });
 
-        //add this user to our database: Users collection, give it an id,
-        // store email, name, profile picture, etc.
-        addUser(email)
-        .then(()=>{
-            console.log('user added to the database',email);
-        })
-        .catch((error)=>{
-            console.log('error adding user to the database',error);
-        });
+      
 
 
     }

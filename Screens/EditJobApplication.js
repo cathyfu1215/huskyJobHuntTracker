@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { Alert } from 'react-native';
 import { deleteJobApplication } from '../Firebase/firebaseHelper.js';
+import { auth } from '../Firebase/firebaseSetup.js';
 
 
 function EditJobApplication(props) {
@@ -25,7 +26,7 @@ function EditJobApplication(props) {
               // Array of buttons
               {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
               {text: 'YES', onPress: async () => {
-                await deleteJobApplication(props.route.params.data.id);
+                await deleteJobApplication(auth.currentUser.uid,props.route.params.data.id);
                 //console.log('Delete Pressed', props.route.params.data.id, 'to be deleted');
                 props.navigation.popToTop();}},
             ]

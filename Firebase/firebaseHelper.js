@@ -1,12 +1,12 @@
 import { database } from "./firebaseSetup";
-import { collection, addDoc, getDocs, orderBy, query, deleteDoc, doc, updateDoc} from 'firebase/firestore';
+import { collection, addDoc, getDocs, orderBy, query, deleteDoc, doc, updateDoc,setDoc} from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
 
 // Function to add a new job application to the database
-export const addJobApplication = async (companyName, positionName, preferenceScore, status, date) => {
+export const addJobApplication = async (uid,companyName, positionName, preferenceScore, status, date) => {
     try {
       const applicationDate = Timestamp.fromDate(new Date(date));
-      await addDoc(collection(database, 'jobApplicationRecords'), {
+      await addDoc(collection(database,'users',uid,'jobApplicationRecords'), {
         companyName,
         positionName,
         preferenceScore,
@@ -19,9 +19,9 @@ export const addJobApplication = async (companyName, positionName, preferenceSco
   };
 
 // Function to get all job applications from the database
-export const fetchJobApplications = async () => {
+export const fetchJobApplications = async (uid) => {
     try {
-      const q = query(collection(database, 'jobApplicationRecords'), orderBy('date', 'desc'));
+      const q = query(collection(database,'users',uid,'jobApplicationRecords'), orderBy('date', 'desc'));
       const querySnapshot = await getDocs(q);
       const jobApplications = [];
       querySnapshot.forEach((doc) => {
@@ -34,9 +34,9 @@ export const fetchJobApplications = async () => {
   };
 
   // Function to delete a job application from the database
-  export const deleteJobApplication = async (id) => {
+  export const deleteJobApplication = async (uid,id) => {
     try {
-      await deleteDoc(doc(database, 'jobApplicationRecords', id));
+      await deleteDoc(doc(database,'users',uid,'jobApplicationRecords', id));
       console.log("Document successfully deleted!");
     } catch (error) {
       console.error("Error deleting document: ", error);
@@ -44,10 +44,10 @@ export const fetchJobApplications = async () => {
   };
 
 // Function to update a job application in the database
-export const updateJobApplication = async (id, companyName, positionName, preferenceScore, status, date) => {
+export const updateJobApplication = async (uid,id, companyName, positionName, preferenceScore, status, date) => {
   try {
     const applicationDate = Timestamp.fromDate(new Date(date));
-    await updateDoc(doc(database, 'jobApplicationRecords', id), {
+    await updateDoc(doc(database,'users',uid,'jobApplicationRecords', id), {
       companyName,
       positionName,
       preferenceScore,
@@ -63,7 +63,7 @@ export const updateJobApplication = async (id, companyName, positionName, prefer
 
 
 // Function to add a new user to the database
-export const addUser = async (userEmail) => {
+export const addUser = async (userEmail,uid) => {
   
     const name='default name';
     const profilePicture=null;
@@ -74,7 +74,9 @@ export const addUser = async (userEmail) => {
     let numJobsRejected=0;
     //badges earned and achievements should also be collections 
     try {   
-      await addDoc(collection(database, 'users'), {
+      await setDoc(doc(database, 'users',uid), {
+        // we use setDoc instead of addDoc because we want to specify the document id
+        // it should be the same as the auth uid of the same user
         name,
         userEmail,
         profilePicture,
@@ -84,7 +86,7 @@ export const addUser = async (userEmail) => {
         numJobsOffered,
         numJobsRejected,
       });
-      console.log("User successfully added!");
+      console.log("User successfully added!, uid: ",uid);
   } catch (error) {
     console.error("Error adding the user: ", error);
   }
