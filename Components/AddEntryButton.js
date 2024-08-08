@@ -15,7 +15,10 @@ function AddEntryButton(props) {
 
   return (
     <View>
-        <Pressable style={{margin:12}} onPress={handleAddEntry} >
+        <Pressable onPress={handleAddEntry} style={({ pressed }) => [
+      { backgroundColor: pressed ? 'yellow' : null , marginBottom:10, marginRight:15}]
+    }
+    android_ripple={{color: 'yellow'}}>
           <Text>{props.name}</Text>
         </Pressable>
 
