@@ -2,22 +2,28 @@ import React from 'react';
 import { Text, ScrollView, SafeAreaView, View, StyleSheet } from 'react-native';
 import styles from '../styleHelper';
 import { Pressable } from 'react-native';
+import { Image } from 'react-native';
 
 function NoteList({ data, navigation, route }) {
 
   function NoteLine({ item }) {
-    function handlePressItemDetail() {
-      console.log('item in NoteLine', item);
+    
+    const handleDeleteNote = () => {
+      console.log('delete note');
     }
 
     return (
       <View style={styles.itemContainer}>
-        <Pressable onPress={handlePressItemDetail}>
-          <View>
-            <Text>text: {item.text}</Text>
-            <Text>image: {item.image}</Text>
+        <View style={{flexDirection:'row',flex:1}}>
+          <View style={{flexDirection:'row', marginRight:20,margin:10}}>
+           <Image source={{uri: 'https://1000logos.net/wp-content/uploads/2022/02/Northeastern-Huskies-logo.png' ,width:30,height:30}}/>
+           <Text style={{marginLeft:20}}>text: {item.text}</Text>
+            
           </View>
-        </Pressable>
+          <Pressable style={{marginLeft:20,margin:10}}onPress={handleDeleteNote}>
+            <Text>x</Text>
+          </Pressable>
+          </View>
       </View>
     );
   }

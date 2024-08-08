@@ -32,8 +32,8 @@ function Notes(props) {
         <Text>Notes</Text>
     
       <NoteList data={notes} navigation={props.navigation} route={props.route} />
-      <Pressable style={{backgroundColor:'lightblue',margin:10, borderRadius:10}}onPress={() => console.log('add note')}>
-        <Text style={{alignSelf:'center'}}>Add Note</Text>
+      <Pressable style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={() => console.log('add note')}>
+        <Text style={{alignSelf:'center'}}>Add A Note</Text>
       </Pressable>
     
         
