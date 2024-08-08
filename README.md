@@ -3,7 +3,7 @@
 #### Team members: Jieling Gong, Cong Fu
 
 
-# Iteration 1:
+## Iteration 1:
 
 In iteration 1 we implement the MVP of our project, we focus on building the skeleton of the whole project and the CRUD on JobApplicationRecords collection. Our
 MVP version supports add / update / delete / browse the basic information(company name, position, status, date and perference score) of a job application record.

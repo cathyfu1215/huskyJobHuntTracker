@@ -3,11 +3,20 @@ import {View,Text} from 'react-native'
 import {Image} from 'react-native'
 import { Avatar } from '@rneui/themed';
 import PressableButton from '../Components/PressableButton';
+import { auth } from '../Firebase/firebaseSetup';
+import {signOut} from 'firebase/auth';
 
 
 
 
 function Setting() {
+    function handleLogout(){
+        signOut(auth).then(() => {
+            console.log('user signed out');
+          }).catch((error) => {
+            console.log('error signing out',error);
+          });
+    }
     return (
         <View style={{flex:1,flexDirection:'column',alignItems:'center'}}>
           <Text style={{fontWeight:'bold',margin:20}}>Setting</Text>
@@ -24,9 +33,11 @@ function Setting() {
             flexDirection:'column',
             margin:20,
             }}>
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>sign up</Text></PressableButton>
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>Log in</Text></PressableButton>
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>toggle theme</Text></PressableButton>
+          
+          
+          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change name</Text></PressableButton>
+          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change profile picture</Text></PressableButton>
+          <PressableButton pressedFunction={handleLogout}><Text style={{fontWeight:'bold',fontSize:30}}>Log out</Text></PressableButton>
           </View>
         </View>
         
