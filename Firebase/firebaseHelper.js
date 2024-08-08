@@ -1,5 +1,5 @@
 import { database } from "./firebaseSetup";
-import { collection, addDoc, getDocs, orderBy, query, deleteDoc, doc, updateDoc,setDoc} from 'firebase/firestore';
+import { collection, getDoc, addDoc, getDocs, orderBy, query, deleteDoc, doc, updateDoc,setDoc} from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
 
 // Function to add a new job application to the database
@@ -89,5 +89,26 @@ export const addUser = async (userEmail,uid) => {
       console.log("User successfully added!, uid: ",uid);
   } catch (error) {
     console.error("Error adding the user: ", error);
+  }
+};
+
+
+export const fetchUser = async (uid) => {
+  try {
+    // Create a reference to the user document with the provided uid
+    const userRef = doc(database, 'users', uid);
+
+    // Fetch the data for the user document
+    const querySnapshot = await getDoc(userRef); // Use getDoc for a single document
+
+    // Check if the document exists
+    if (querySnapshot.exists) {
+      return querySnapshot.data(); // Return the user data
+    } else {
+      console.warn("User with UID", uid, "not found");
+      return null; // Or handle the case where the user is not found
+    }
+  } catch (error) {
+    console.error("Error fetching user: ", error);
   }
 };
