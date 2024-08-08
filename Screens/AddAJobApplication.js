@@ -60,7 +60,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1,paddingBottom: 150  }} bounces={false}>
           <View style={styles.container}>
             <Text style={styles.addEntryText}>Company *</Text>
             <TextInput

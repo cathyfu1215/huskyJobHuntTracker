@@ -7,6 +7,7 @@ import { Image } from 'react-native';
 function NoteList({ data, navigation, route }) {
 
   function NoteLine({ item }) {
+    // item is a note object , data is the list of note objects
     
     const handleDeleteNote = () => {
       console.log('delete note');
