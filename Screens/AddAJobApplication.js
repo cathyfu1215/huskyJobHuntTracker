@@ -9,6 +9,7 @@ import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
 import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
+import { ScrollView } from 'react-native';
 
 
 
@@ -61,6 +62,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
+      <ScrollView>
       <View style={styles.container}>
         <Text style={styles.addEntryText}>Company *</Text>
         <TextInput
@@ -130,6 +132,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
           <CancelButton onPress={() => navigation.goBack()} />
         </View>}
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
