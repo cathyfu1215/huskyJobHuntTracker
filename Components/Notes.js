@@ -3,6 +3,7 @@ import { View, Text, Pressable } from 'react-native'
 import { Image } from 'react-native'
 import { useState } from 'react'
 import NoteList from './NoteList'
+import { useNavigation } from '@react-navigation/native'
 
 function Notes(props) {
 
@@ -12,6 +13,7 @@ function Notes(props) {
     //one note item could have an image and a text
 
   const [notes, setNotes] = useState([{text:'note1',image:'null'},{text:'note2',image:'null'}]);
+  const navigation = useNavigation();
 
 //   const getData = async () => {
 //     try{
@@ -27,12 +29,16 @@ function Notes(props) {
 //       getData();
 //     }, [])
 //   );
+
+  const handleAddNote = () => {
+    navigation.navigate('AddANote');
+  }
   return (
    <View style={{margin:20, borderColor:'black',borderWidth:2,minHeight:'20%'}}>
         <Text>Notes</Text>
     
       <NoteList data={notes} navigation={props.navigation} route={props.route} />
-      <Pressable style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={() => console.log('add note')}>
+      <Pressable style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={handleAddNote}>
         <Text style={{alignSelf:'center'}}>Add A Note</Text>
       </Pressable>
     
