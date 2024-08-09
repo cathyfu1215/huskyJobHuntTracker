@@ -6,6 +6,7 @@ import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
 
 function Notes(props) {
+  console.log('props in Notes', props); 
   const [notes, setNotes] = useState([]);
   const navigation = useNavigation();
 
@@ -45,7 +46,7 @@ function Notes(props) {
   return (
     <View style={{ margin: 10, borderColor: 'black', borderWidth: 1, minHeight: '20%' }}>
       <Text>Notes</Text>
-      <NoteList data={notes} navigation={props.navigation} route={props.route} />
+      <NoteList data={notes} jobApplicationRecordId={props.jobApplicationRecordId} />
       <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
     </View>
   );

@@ -148,3 +148,11 @@ export const fetchNotes = async (uid, jobApplicationRecordId) => {
   }
 };
 
+export const deleteNote = async (uid,jobApplicationRecordId,noteid) => {
+  try {
+    await deleteDoc(doc(database,'users',uid,'jobApplicationRecords', jobApplicationRecordId,'notes',noteid));
+    console.log("Document successfully deleted!");
+  } catch (error) {
+    console.error("Error deleting document: ", error);
+  }
+};

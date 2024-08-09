@@ -6,16 +6,22 @@ import { Image } from 'react-native';
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../Firebase/firebaseSetup";
 import { useEffect, useState } from 'react';
+import { deleteNote } from '../Firebase/firebaseHelper';
+import { auth } from '../Firebase/firebaseSetup';
+import { useNavigation } from '@react-navigation/native';
+import { Alert } from 'react-native';
 
-function NoteList({ data, navigation, route }) {
+
+function NoteList({ data,jobApplicationRecordId }) {
 
   console.log('data in NoteList', data);
+  const navigation = useNavigation();
   
 
   function NoteLine({ item }) {
     // item is a note object , data is the list of note objects
     const reference = ref(storage, item.uri);
-    console.log('item.uri', item.uri);
+    //console.log('item.uri', item.uri);
     const [imageURL, setImageURL] = useState("");
     useEffect(() => {
       getDownloadURL(reference)
@@ -28,7 +34,22 @@ function NoteList({ data, navigation, route }) {
     }, [item.uri]);
     
     const handleDeleteNote = () => {
-      console.log('delete note');
+      //create an alert to confirm the deletion, if yes, delete the note
+      Alert.alert(
+        'Warning',
+        'Are you sure you want to delete this entry?',
+        [
+          {text: 'NO', onPress: () => console.log('Cancel Pressed'), style: 'cancel'},
+          {text: 'YES', onPress: () => {
+            deleteNote(auth.currentUser.uid,jobApplicationRecordId,item.id);
+            console.log('item.id',item.id,'note deleted');
+            navigation.popToTop();
+          }},
+        ]
+      );
+      
+     
+      
     }
 
     return (
@@ -51,7 +72,7 @@ function NoteList({ data, navigation, route }) {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         {data.map(item => (
-          <NoteLine key={Math.random()} item={item} />))}
+          <NoteLine key={item.id} item={item} />))}
       </ScrollView>
     </SafeAreaView>
   );
