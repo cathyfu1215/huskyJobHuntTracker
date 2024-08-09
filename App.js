@@ -11,6 +11,7 @@ import Signup from './Components/Signup';
 import styles from './styleHelper';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup'; 
+import AddANote from './Screens/AddANote';
 
 const Stack = createNativeStackNavigator();
 
@@ -45,6 +46,7 @@ export default function App() {
       <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail} />
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
       <Stack.Screen name="JobRecords" component={JobRecords} />
+      <Stack.Screen name="AddANote" component={AddANote} />
     </>
   );
 
