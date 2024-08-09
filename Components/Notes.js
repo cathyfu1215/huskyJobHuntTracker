@@ -1,9 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, ScrollView } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import NoteList from './NoteList';
 import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
+
 
 function Notes(props) {
   //console.log('props in Notes', props); 
@@ -13,6 +14,7 @@ function Notes(props) {
   const getData = async () => {
     try {
       const data = await fetchNotes(auth.currentUser.uid, props.jobApplicationRecordId);
+      console.log('data in getData', data);
       return data;
     } catch (error) {
       console.error("Error fetching notes: ", error);
@@ -44,11 +46,13 @@ function Notes(props) {
   };
 
   return (
-    <View style={{ margin: 10, borderColor: 'black', borderWidth: 1, minHeight: '20%' }}>
+    <ScrollView style={{ margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'20%'}}>
       <Text>Notes</Text>
+    <View>
       <NoteList data={notes} jobApplicationRecordId={props.jobApplicationRecordId} />
       <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
     </View>
+    </ScrollView>
   );
 }
 

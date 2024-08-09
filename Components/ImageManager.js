@@ -8,9 +8,16 @@ import { useState } from 'react';
 
 
 
-function ImageManager({modifyImageURI}) {
+function ImageManager({modifyImageURI,chooseNoImage}) {
     const [status, requestPermission] = ImagePicker.useCameraPermissions();
     const [imageURI, setImageURI] = useState(null);
+    const [noImage, setNoImage] = useState(false);
+
+
+    const handleChooseNoImage = () => {
+        setNoImage(true);
+        chooseNoImage();
+    }
   
     const vefifyPermissions = async() => {
         if(status.granted === true) {
@@ -59,10 +66,19 @@ function ImageManager({modifyImageURI}) {
     
   return (
     <View style={{alignItems:'center'}}>
+        <View style={{flexDirection:'row',alignItems:'center'}}>
         <PressableButton pressedFunction={takeImageHandler}>
         <Feather name="camera" size={24} color="black" />
         </PressableButton>
+        <View style={{marginLeft:20}}>
+        <PressableButton pressedFunction={handleChooseNoImage}>
+            <Text>No Image for this note</Text>
+        </PressableButton>
+        </View>
+        </View>
         {imageURI&&<Text>Preview:</Text>}
+        {noImage&&<Text>No Image for this note</Text>}
+        
         <Image style={{height:150,width:150,margin:20}}source={{uri: imageURI}}/>
     </View>
   )

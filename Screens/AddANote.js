@@ -13,6 +13,7 @@ function AddANote(props) {
     // console.log('id of the record', props.route.params.jobApplicationRecordId);
     const [text, setText] = useState('');
     const [imageURI, setImageURI] = useState(null);
+    const [noImage, setNoImage] = useState(false);
 
     async function fetchAndUploadImage() {
         if (!imageURI) {
@@ -39,6 +40,19 @@ function AddANote(props) {
 
     const handleSaveNote = () => {
         //console.log('save note');
+
+        if(noImage){
+            addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, null)
+            .then(() => {
+                console.log('note added');
+                props.navigation.goBack();
+            })
+            .catch((error) => {
+                console.error("Error adding note: ", error);
+            });
+
+        }
+        else{
     
         fetchAndUploadImage().then((uploadResult) => {
             if (uploadResult) {
@@ -58,6 +72,7 @@ function AddANote(props) {
         }).catch((error) => {
             console.error("Error uploading image: ", error);
         });
+    }
     };
     
     
@@ -80,7 +95,7 @@ function AddANote(props) {
             />
             <View style={{ minHeight: '20%', borderColor: 'grey', borderRadius: 10, borderWidth: 2, margin: 10 }}>
                 <Text style={{ margin: 10 }}>Add an Image</Text>
-                <ImageManager modifyImageURI={modifyImageURI} />
+                <ImageManager modifyImageURI={modifyImageURI} chooseNoImage={()=>setNoImage(true)}/>
             </View>
             <View style={{ flexDirection: 'row' }}>
                 <SaveButton onPress={handleSaveNote} />
