@@ -6,7 +6,7 @@ import PressableListItem from './PressableListItem';
 
 function ItemsList({data,navigation,route}) {
 
- //console.log('data in ItemsList', data);
+ console.log('data in ItemsList', data);
 
     function ItemLine({item}) {
 

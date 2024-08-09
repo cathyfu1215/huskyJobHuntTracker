@@ -112,3 +112,21 @@ export const fetchUser = async (uid) => {
     console.error("Error fetching user: ", error);
   }
 };
+
+
+
+export const addNote = async (uid, jobApplicationRecordId, text, uri) => {
+  try {
+    console.log('uid:', uid);
+    console.log('jobApplicationRecordId:', jobApplicationRecordId);
+    console.log('text:', text);
+    console.log('uri:', uri);
+
+    await addDoc(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'notes'), {
+      text: text,
+      uri: uri
+    });
+  } catch (error) {
+    console.error("Error adding note: ", error);
+  }
+};

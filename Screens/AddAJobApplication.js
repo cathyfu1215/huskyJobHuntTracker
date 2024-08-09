@@ -13,6 +13,10 @@ import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
+
+
+  //console.log('record id?',route.params.data.id);
+
   const itemEditable = ((!type) || type === 'edit') ? true : false;
   const isEditMode = type && (type === 'edit');
   const isDetailMode = type && (type === 'detail');
@@ -131,10 +135,10 @@ const AddAJobApplication = ({ navigation, route, type }) => {
             we can browse notes/todos in the detail mode
             we can only modify these two components in the editing mode */}
             
-            {isEditMode&&<Notes type='edit'/>}
-            {isDetailMode&&<Notes type='detail'/>}
-            {isEditMode&&<Todos type='edit'/>}
-            {isDetailMode&&<Todos type='detail'/>}
+            {isEditMode&&<Notes type='edit' jobApplicationRecordId={route.params.data.id}/>}
+            {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
+            {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
+            {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
 
             {itemEditable && <View style={styleHelper.saveCancelContainer}>
               <SaveButton onPress={handleSave} />

@@ -42,7 +42,7 @@ function ImageManager({modifyImageURI}) {
             if (!result.canceled) {
                // console.log('photo uri',result.assets[0].uri);
                 setImageURI(result.assets[0].uri);
-                // pass it to input.js
+                // pass it to AddANote.js
                 modifyImageURI(result.assets[0].uri);
             }
         }
@@ -58,11 +58,12 @@ function ImageManager({modifyImageURI}) {
       };
     
   return (
-    <View>
+    <View style={{alignItems:'center'}}>
         <PressableButton pressedFunction={takeImageHandler}>
         <Feather name="camera" size={24} color="black" />
         </PressableButton>
-        <Image style={{height:100,width:100}}source={{uri: imageURI}}/>
+        {imageURI&&<Text>Preview:</Text>}
+        <Image style={{height:150,width:150,margin:20}}source={{uri: imageURI}}/>
     </View>
   )
 }
