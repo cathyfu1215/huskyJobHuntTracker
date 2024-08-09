@@ -3,6 +3,7 @@ import { Text, FlatList,SafeAreaView,View, StyleSheet} from 'react-native'
 import styles from '../styleHelper';
 import { FontAwesome } from '@expo/vector-icons';
 import PressableListItem from './PressableListItem';
+import { ScrollView } from 'react-native';
 
 function ItemsList({data,navigation,route}) {
 
@@ -30,11 +31,16 @@ function ItemsList({data,navigation,route}) {
   
     return (
       <SafeAreaView>
-        <FlatList
+        {/* <FlatList
           data={data}
           renderItem={({item}) => <ItemLine item={item} />  }
           keyExtractor={item => item.id}
-        />
+        /> */}
+        <ScrollView>
+        {data.map((item, index) => (
+          <ItemLine key={index} item={item} />
+        ))}
+      </ScrollView>
       </SafeAreaView>
     );
   }
