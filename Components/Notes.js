@@ -1,53 +1,54 @@
-import React from 'react'
-import { View, Text,Button} from 'react-native'
-import { Image } from 'react-native'
-import { useState } from 'react'
-import NoteList from './NoteList'
-import { useNavigation } from '@react-navigation/native'
+import React, { useState, useCallback } from 'react';
+import { View, Text, Button } from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import NoteList from './NoteList';
+import { fetchNotes } from '../Firebase/firebaseHelper';
+import { auth } from '../Firebase/firebaseSetup';
 
 function Notes(props) {
-  console.log('props in Notes.js', props);
-
-    //design: 
-    //one job record could have one notes item
-    //one notes item could have mulyiple note items, rendered as a list
-    //one note item could have an image and a text
-
-  const [notes, setNotes] = useState([{text:'note1',image:'null'},{text:'note2',image:'null'}]);
+  const [notes, setNotes] = useState([]);
   const navigation = useNavigation();
 
-  
+  const getData = async () => {
+    try {
+      const data = await fetchNotes(auth.currentUser.uid, props.jobApplicationRecordId);
+      return data;
+    } catch (error) {
+      console.error("Error fetching notes: ", error);
+      return [];
+    }
+  };
 
-//   const getData = async () => {
-//     try{
-//     const notes = await fetchNotes(auth.currentUser.uid, props.route.params.data.id);
-//     setNotes(notes);}
-//     catch (error) {
-//       console.error("Error fetching notes: ", error);
-//     }
-//   };
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
 
-//   useFocusEffect(
-//     useCallback(() => {
-//       getData();
-//     }, [])
-//   );
+      const fetchData = async () => {
+        const data = await getData();
+        if (isActive && data && data.length > 0) {
+          setNotes(data);
+        }
+      };
+
+      fetchData();
+
+      return () => {
+        isActive = false;
+      };
+    }, [props.jobApplicationRecordId])
+  );
 
   const handleAddNote = () => {
-    navigation.navigate('AddANote',{jobApplicationRecordId:props.jobApplicationRecordId});
-  }
+    navigation.navigate('AddANote', { jobApplicationRecordId: props.jobApplicationRecordId });
+  };
+
   return (
-   <View style={{margin:10, borderColor:'black',borderWidth:1,minHeight:'20%'}}>
-        <Text>Notes</Text>
-    
+    <View style={{ margin: 10, borderColor: 'black', borderWidth: 1, minHeight: '20%' }}>
+      <Text>Notes</Text>
       <NoteList data={notes} navigation={props.navigation} route={props.route} />
-      <Button title='Add a Note' style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={handleAddNote} disabled={props.type==='detail'}/>
-        
-     
-    
-        
-   </View>
-  )
+      <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
+    </View>
+  );
 }
 
-export default Notes
+export default Notes;

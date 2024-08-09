@@ -42,7 +42,7 @@ function AddANote(props) {
     
         fetchAndUploadImage().then((uploadResult) => {
             if (uploadResult) {
-                console.log('uploadResult.metadata.fullPath', uploadResult.metadata.fullPath);
+                //console.log('uploadResult.metadata.fullPath', uploadResult.metadata.fullPath);
     
                 addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, uploadResult.metadata.fullPath)
                     .then(() => {

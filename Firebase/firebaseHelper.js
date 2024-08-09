@@ -130,3 +130,21 @@ export const addNote = async (uid, jobApplicationRecordId, text, uri) => {
     console.error("Error adding note: ", error);
   }
 };
+
+
+
+export const fetchNotes = async (uid, jobApplicationRecordId) => {
+  try {
+    const q = query(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'notes'));
+    const querySnapshot = await getDocs(q);
+    const notes = [];
+    querySnapshot.forEach((doc) => {
+      notes.push({ id: doc.id, ...doc.data() });
+    });
+    return notes;
+  } catch (error) {
+    console.error("Error fetching documents: ", error);
+    throw error; // Ensure the error is thrown to be caught in the calling function
+  }
+};
+
