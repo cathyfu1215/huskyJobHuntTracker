@@ -6,6 +6,7 @@ import NoteList from './NoteList'
 import { useNavigation } from '@react-navigation/native'
 
 function Notes(props) {
+  console.log('props in Notes.js', props);
 
     //design: 
     //one job record could have one notes item
@@ -33,7 +34,7 @@ function Notes(props) {
 //   );
 
   const handleAddNote = () => {
-    navigation.navigate('AddANote');
+    navigation.navigate('AddANote',{jobApplicationRecordId:props.jobApplicationRecordId});
   }
   return (
    <View style={{margin:10, borderColor:'black',borderWidth:1,minHeight:'20%'}}>

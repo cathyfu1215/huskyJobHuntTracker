@@ -9,58 +9,58 @@ import { storage } from '../Firebase/firebaseSetup';
 import { addNote } from '../Firebase/firebaseHelper';
 
 function AddANote(props) {
+    console.log('props in AddANote', props);
+    console.log('id of the record', props.route.params.jobApplicationRecordId);
     const [text, setText] = useState('');
     const [imageURI, setImageURI] = useState(null);
 
     async function fetchAndUploadImage() {
         if (!imageURI) {
             console.error("Image URI is null or undefined");
-            return;
+            return null;
         }
-
+    
         try {
             const response = await fetch(imageURI);
             const blob = await response.blob();
-
+    
             const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
             const imageRef = ref(storage, `images/${imageName}`);
             const uploadResult = await uploadBytesResumable(imageRef, blob);
             console.log("Image uploaded successfully: ", uploadResult);
-
+    
             return uploadResult;
         } catch (error) {
             console.error("Error uploading image: ", error);
+            return null;
         }
     }
+    
 
     const handleSaveNote = () => {
         console.log('save note');
-        // console.log('text', text);
-        // console.log('image', imageURI);
-        // console.log('uid', auth.currentUser.uid);
-
+    
         fetchAndUploadImage().then((uploadResult) => {
             if (uploadResult) {
                 console.log('uploadResult.metadata.fullPath', uploadResult.metadata.fullPath);
+    
+                addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, uploadResult.metadata.fullPath)
+                    .then(() => {
+                        console.log('note added');
+                        props.navigation.goBack();
+                    })
+                    .catch((error) => {
+                        console.error("Error adding note: ", error);
+                    });
+            } else {
+                console.error("uploadResult is undefined or null");
             }
         }).catch((error) => {
             console.error("Error uploading image: ", error);
         });
-
-        // console.log('uid:', auth.currentUser.uid);
-        // console.log('jobApplicationRecordId:', props.jobApplicationRecordId);
-        // console.log('text:', text);
-        // console.log('imageURI:', imageURI);
-
-        addNote(auth.currentUser.uid, props.jobApplicationRecordId, text, uploadResult.metadata.fullPath)
-            .then(() => {
-                console.log('note added');
-                props.navigation.goBack();
-            })
-            .catch((error) => {
-                console.error("Error adding note: ", error);
-            });
     };
+    
+    
 
     const handleCancelNote = () => {
         props.navigation.goBack();
