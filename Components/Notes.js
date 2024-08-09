@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Pressable } from 'react-native'
+import { View, Text,Button} from 'react-native'
 import { Image } from 'react-native'
 import { useState } from 'react'
 import NoteList from './NoteList'
@@ -14,6 +14,8 @@ function Notes(props) {
 
   const [notes, setNotes] = useState([{text:'note1',image:'null'},{text:'note2',image:'null'}]);
   const navigation = useNavigation();
+
+  
 
 //   const getData = async () => {
 //     try{
@@ -34,13 +36,13 @@ function Notes(props) {
     navigation.navigate('AddANote');
   }
   return (
-   <View style={{margin:20, borderColor:'black',borderWidth:2,minHeight:'20%'}}>
+   <View style={{margin:10, borderColor:'black',borderWidth:1,minHeight:'20%'}}>
         <Text>Notes</Text>
     
       <NoteList data={notes} navigation={props.navigation} route={props.route} />
-      <Pressable style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={handleAddNote}>
-        <Text style={{alignSelf:'center'}}>Add A Note</Text>
-      </Pressable>
+      <Button title='Add a Note' style={{backgroundColor:'lightblue',margin:10, borderRadius:10}} onPress={handleAddNote} disabled={props.type==='detail'}/>
+        
+     
     
         
    </View>

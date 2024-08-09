@@ -15,6 +15,7 @@ import Todos from '../Components/Todos';
 const AddAJobApplication = ({ navigation, route, type }) => {
   const itemEditable = ((!type) || type === 'edit') ? true : false;
   const isEditMode = type && (type === 'edit');
+  const isDetailMode = type && (type === 'detail');
 
   const [companyName, setCompanyName] = useState(route.params ? route.params.data.companyName : "");
   const [positionName, setPositionName] = useState(route.params ? route.params.data.positionName : "");
@@ -60,7 +61,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
       >
-        <ScrollView contentContainerStyle={{ flexGrow: 1,paddingBottom: 150  }} bounces={false}>
+        <ScrollView contentContainerStyle={{ flexGrow: 1,paddingBottom: 150,margin:10  }} bounces={false}>
           <View style={styles.container}>
             <Text style={styles.addEntryText}>Company *</Text>
             <TextInput
@@ -126,8 +127,15 @@ const AddAJobApplication = ({ navigation, route, type }) => {
               />
             )}
 
-            <Notes />
-            <Todos />
+            {/* we cannot add or edit notes/todos when adding an addEntry
+            we can browse notes/todos in the detail mode
+            we can only modify these two components in the editing mode */}
+            
+            {isEditMode&&<Notes type='edit'/>}
+            {isDetailMode&&<Notes type='detail'/>}
+            {isEditMode&&<Todos type='edit'/>}
+            {isDetailMode&&<Todos type='detail'/>}
+
             {itemEditable && <View style={styleHelper.saveCancelContainer}>
               <SaveButton onPress={handleSave} />
               <CancelButton onPress={() => navigation.goBack()} />

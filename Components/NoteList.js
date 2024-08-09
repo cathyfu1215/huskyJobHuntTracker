@@ -33,8 +33,7 @@ function NoteList({ data, navigation, route }) {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView>
         {data.map(item => (
-          <NoteLine key={item.id} item={item} />
-        ))}
+          <NoteLine key={Math.random()} item={item} />))}
       </ScrollView>
     </SafeAreaView>
   );
