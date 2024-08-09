@@ -9,8 +9,8 @@ import { storage } from '../Firebase/firebaseSetup';
 import { addNote } from '../Firebase/firebaseHelper';
 
 function AddANote(props) {
-    console.log('props in AddANote', props);
-    console.log('id of the record', props.route.params.jobApplicationRecordId);
+    // console.log('props in AddANote', props);
+    // console.log('id of the record', props.route.params.jobApplicationRecordId);
     const [text, setText] = useState('');
     const [imageURI, setImageURI] = useState(null);
 
@@ -38,7 +38,7 @@ function AddANote(props) {
     
 
     const handleSaveNote = () => {
-        console.log('save note');
+        //console.log('save note');
     
         fetchAndUploadImage().then((uploadResult) => {
             if (uploadResult) {

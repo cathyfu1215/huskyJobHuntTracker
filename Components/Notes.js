@@ -6,7 +6,7 @@ import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
 
 function Notes(props) {
-  console.log('props in Notes', props); 
+  //console.log('props in Notes', props); 
   const [notes, setNotes] = useState([]);
   const navigation = useNavigation();
 

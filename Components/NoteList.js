@@ -10,11 +10,12 @@ import { deleteNote } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
 import { useNavigation } from '@react-navigation/native';
 import { Alert } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
 
 
 function NoteList({ data,jobApplicationRecordId }) {
 
-  console.log('data in NoteList', data);
+  //console.log('data in NoteList', data);
   const navigation = useNavigation();
   
 
@@ -61,7 +62,7 @@ function NoteList({ data,jobApplicationRecordId }) {
             
           </View>
           <Pressable style={{marginLeft:20,margin:10}}onPress={handleDeleteNote}>
-            <Text>x</Text>
+          <Feather name="trash-2" size={24} color="black" />
           </Pressable>
           </View>
       </View>
