@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, Alert, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -9,17 +9,17 @@ import styleHelper from '../styleHelper';
 import { Rating } from 'react-native-ratings';
 import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
-
-
+import Notes from '../Components/Notes';
+import Todos from '../Components/Todos';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
-  //console.log('current user.uid is:',auth.currentUser.uid);
 
 
+  //console.log('record id?',route.params.data.id);
 
   const itemEditable = ((!type) || type === 'edit') ? true : false;
-
   const isEditMode = type && (type === 'edit');
+  const isDetailMode = type && (type === 'detail');
 
   const [companyName, setCompanyName] = useState(route.params ? route.params.data.companyName : "");
   const [positionName, setPositionName] = useState(route.params ? route.params.data.positionName : "");
@@ -47,9 +47,9 @@ const AddAJobApplication = ({ navigation, route, type }) => {
       navigation.popToTop();
       try {
         if (isEditMode) {
-          await updateJobApplication(auth.currentUser.uid,route.params.data.id, companyName, positionName, preferenceScore, status, date);
+          await updateJobApplication(auth.currentUser.uid, route.params.data.id, companyName, positionName, preferenceScore, status, date);
         } else {
-          await addJobApplication(auth.currentUser.uid,companyName, positionName, preferenceScore, status, date);
+          await addJobApplication(auth.currentUser.uid, companyName, positionName, preferenceScore, status, date);
         }
       } catch (error) {
         console.error("Error adding/editing document: ", error);
@@ -61,75 +61,92 @@ const AddAJobApplication = ({ navigation, route, type }) => {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <View style={styles.container}>
-        <Text style={styles.addEntryText}>Company *</Text>
-        <TextInput
-          style={styleHelper.textInput}
-          placeholder="Enter company name"
-          value={companyName}
-          onChangeText={setCompanyName}
-          editable={itemEditable}
-        />
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1,paddingBottom: 150,margin:10  }} bounces={false}>
+          <View style={styles.container}>
+            <Text style={styles.addEntryText}>Company *</Text>
+            <TextInput
+              style={styleHelper.textInput}
+              placeholder="Enter company name"
+              value={companyName}
+              onChangeText={setCompanyName}
+              editable={itemEditable}
+            />
 
-        <Text style={styles.addEntryText}>Position *</Text>
-        <TextInput
-          style={styleHelper.textInput}
-          placeholder="Enter position name"
-          value={positionName}
-          onChangeText={setPositionName}
-          editable={itemEditable}
-        />
+            <Text style={styles.addEntryText}>Position *</Text>
+            <TextInput
+              style={styleHelper.textInput}
+              placeholder="Enter position name"
+              value={positionName}
+              onChangeText={setPositionName}
+              editable={itemEditable}
+            />
 
-        <Text style={styles.addEntryText}>Preference Score *</Text>
-        <Rating
-          type='heart'
-          ratingCount={10}
-          imageSize={30}
-          showRating
-          onFinishRating={ratingCompleted}
-          readonly={!itemEditable}
-          startingValue={preferenceScore}
-        />
+            <Text style={styles.addEntryText}>Preference Score *</Text>
+            <Rating
+              type='heart'
+              ratingCount={10}
+              imageSize={30}
+              showRating
+              onFinishRating={ratingCompleted}
+              readonly={!itemEditable}
+              startingValue={preferenceScore}
+            />
 
-        <Text style={styles.addEntryText}>Application Status *</Text>
-        <View style={{ margin: 5 }}>
-          <DropDownPicker
-            open={open}
-            value={status}
-            items={items}
-            setOpen={setOpen}
-            setValue={setStatus}
-            setItems={setItems}
-            dropDownDirection="TOP"
-            disabled={!itemEditable}
-          />
-        </View>
+            <Text style={styles.addEntryText}>Application Status *</Text>
+            <View style={{ margin: 5 }}>
+              <DropDownPicker
+                open={open}
+                value={status}
+                items={items}
+                setOpen={setOpen}
+                setValue={setStatus}
+                setItems={setItems}
+                dropDownDirection="TOP"
+                disabled={!itemEditable}
+              />
+            </View>
 
-        <Text style={styles.addEntryText}>Date of Last Update *</Text>
-        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
-          <Text style={styles.dateText}>
-            {date ? date.toDateString() : ''}
-          </Text>
-        </TouchableOpacity>
-        {showDatePicker && (
-          <DateTimePicker
-            value={date || new Date()}
-            mode="date"
-            display="inline"
-            onChange={(event, selectedDate) => {
-              setShowDatePicker(false);
-              if (event.type !== 'dismissed') {
-                setDate(selectedDate);
-              }
-            }}
-            disabled={!itemEditable}
-          />
-        )}
-        {itemEditable && <View style={styleHelper.saveCancelContainer}>
-          <SaveButton onPress={handleSave} />
-          <CancelButton onPress={() => navigation.goBack()} />
-        </View>}
-      </View>
+            <Text style={styles.addEntryText}>Date of Last Update *</Text>
+            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
+              <Text style={styles.dateText}>
+                {date ? date.toDateString() : ''}
+              </Text>
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={date || new Date()}
+                mode="date"
+                display="inline"
+                onChange={(event, selectedDate) => {
+                  setShowDatePicker(false);
+                  if (event.type !== 'dismissed') {
+                    setDate(selectedDate);
+                  }
+                }}
+                disabled={!itemEditable}
+              />
+            )}
+
+            {/* we cannot add or edit notes/todos when adding an addEntry
+            we can browse notes/todos in the detail mode
+            we can only modify these two components in the editing mode */}
+            
+            {isEditMode&&<Notes type='edit' jobApplicationRecordId={route.params.data.id}/>}
+            {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
+            {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
+            {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
+
+            {itemEditable && <View style={styleHelper.saveCancelContainer}>
+              <SaveButton onPress={handleSave} />
+              <CancelButton onPress={() => navigation.goBack()} />
+            </View>}
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };

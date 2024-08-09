@@ -101,6 +101,7 @@ export default styles = StyleSheet.create({
       borderRadius: 10,
       justifyContent: 'space-between',
       width:'97%',
+      padding:5,
     },
     saveCancelContainer:{
       flexDirection: 'row',

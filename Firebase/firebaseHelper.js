@@ -112,3 +112,42 @@ export const fetchUser = async (uid) => {
     console.error("Error fetching user: ", error);
   }
 };
+
+
+
+export const addNote = async (uid, jobApplicationRecordId, text, uri) => {
+  try {
+    await addDoc(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'notes'), {
+      text: text,
+      uri: uri
+    });
+  } catch (error) {
+    console.error("Error adding note: ", error);
+  }
+};
+
+
+
+export const fetchNotes = async (uid, jobApplicationRecordId) => {
+  try {
+    const q = query(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'notes'));
+    const querySnapshot = await getDocs(q);
+    const notes = [];
+    querySnapshot.forEach((doc) => {
+      notes.push({ id: doc.id, ...doc.data() });
+    });
+    return notes;
+  } catch (error) {
+    console.error("Error fetching documents: ", error);
+    throw error; // Ensure the error is thrown to be caught in the calling function
+  }
+};
+
+export const deleteNote = async (uid,jobApplicationRecordId,noteid) => {
+  try {
+    await deleteDoc(doc(database,'users',uid,'jobApplicationRecords', jobApplicationRecordId,'notes',noteid));
+    console.log("Document successfully deleted!");
+  } catch (error) {
+    console.error("Error deleting document: ", error);
+  }
+};
