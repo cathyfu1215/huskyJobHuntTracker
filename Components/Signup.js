@@ -18,10 +18,10 @@ function Signup(props) {
     }
 
 
-    async function handleAddUserDocument(email,uid){
+    async function handleAddUserDocument(email,uid,name,pic){
         //add this user to our database: Users collection, give it an id,
         // store email, name, profile picture, etc.
-        addUser(email,uid)
+        addUser(email,uid,name,pic)
         .then(()=>{
             console.log('user added to the database',email);
         })
@@ -59,7 +59,7 @@ function Signup(props) {
                 // Signed up 
                 const user = userCredential.user;
                 
-                handleAddUserDocument(email,user.uid);
+                handleAddUserDocument(email,user.uid,auth.displayName,auth.photoURL);
                 
                 // ...
             })
