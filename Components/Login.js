@@ -11,9 +11,28 @@ function Login(props) {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
+   const [resetEmail, setResetEmail] = useState('');
+
     function handleForgetPassword(){
        
-       console.log('forget password');//will implement this later
+        const emailPattern = /\S+@\S+\.\S+/;
+        
+        if(!emailPattern.test(resetEmail)){
+            alert('Email is not in the right format');
+            return;
+        }
+        sendPasswordResetEmail(auth, resetEmail)
+        .then(() => {
+            // Password reset email sent!
+            // ..
+            alert('Password reset email sent!');
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ..
+            alert(errorCode,errorMessage);
+        });
     }
 
     function jumpToSignup(){
@@ -44,17 +63,22 @@ function Login(props) {
             });
     }
   return (
-    <View>
+    <View style={{margin:10}}>
         <Text>log in</Text>
         <Text>Email Address</Text>
-        <TextInput style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%'}}
+        <TextInput style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%',margin:10}}
         value={email} onChangeText={(text)=>setEmail(text)}/>
         <Text>Password</Text>
-        <TextInput  style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%'}}
+        <TextInput  style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%',margin:10}}
         value={password} onChangeText={(text)=>setPassword(text)}/>
         <PressableButton pressedFunction={handleLogin}><Text>Log In</Text></PressableButton>
-        <PressableButton pressedFunction={handleForgetPassword}><Text>Forget Password?</Text></PressableButton>
         <PressableButton pressedFunction={jumpToSignup}><Text>New User? Create an account</Text></PressableButton>
+        <View style={{marginTop:20,height:'20%'}}>
+        <Text>Forget Password?</Text>
+        <TextInput  value={resetEmail} onChangeText={setResetEmail} style={{borderWidth: 1, borderColor: 'black',height:'60%',margin:10}}/>
+        <PressableButton pressedFunction={handleForgetPassword}><Text>send reset link</Text></PressableButton>
+        </View>
+        
     </View>
   )
 }
