@@ -4,6 +4,8 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import NoteList from './NoteList';
 import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
+import { FlatList } from 'react-native';
+
 
 
 function Notes(props) {

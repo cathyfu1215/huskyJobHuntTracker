@@ -1,15 +1,16 @@
 import React from 'react'
-import {View,Text} from 'react-native'
+import {View,Text, TextInput} from 'react-native'
 import {Image} from 'react-native'
 import { Avatar } from '@rneui/themed';
 import PressableButton from '../Components/PressableButton';
 import { auth } from '../Firebase/firebaseSetup';
 import {signOut} from 'firebase/auth';
-
-
+import { getAuth, updateProfile } from "firebase/auth";
+import { useState } from 'react';
 
 
 function Setting() {
+  const [name, setName] = useState(auth.currentUser.displayName);
     function handleLogout(){
         signOut(auth).then(() => {
             console.log('user signed out');
@@ -17,29 +18,47 @@ function Setting() {
             console.log('error signing out',error);
           });
     }
+
+    function handleChangeName(){
+      const user = getAuth();
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      }).then(() => {
+        console.log('name changed to: ',name);
+      }).catch((error) => {
+        console.log('error changing name: ',error);
+      });
+    }
+
+    function handleChangeProfilePicture(){
+      console.log('will be implemented later');
+    }
     return (
-        <View style={{flex:1,flexDirection:'column',alignItems:'center'}}>
-          <Text style={{fontWeight:'bold',margin:20}}>Setting</Text>
-        <Avatar
-          size={128}
-          rounded
-          icon={{ name: 'adb', type: 'material' }}
-          containerStyle={{ backgroundColor: 'lightblue' }}
-        >
-          </Avatar>
-          <View style={{
-            alignItems:'flex-end',
-            alignContent:'flex-start',
-            flexDirection:'column',
-            margin:20,
-            }}>
-          
-          
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change name</Text></PressableButton>
-          <PressableButton><Text style={{fontWeight:'bold',fontSize:30}}>change profile picture</Text></PressableButton>
-          <PressableButton pressedFunction={handleLogout}><Text style={{fontWeight:'bold',fontSize:30}}>Log out</Text></PressableButton>
+        <View style={{flex:1,flexDirection:'column',alignItems:'flex-start'}}>
+          <View style={{flex:1,margin:20,flexDirection:'row'}}>
+          <View style={{flex:1, marginRight:10,marginLeft:20}}>
+            <Avatar
+                size={130}
+                rounded
+                source={{ uri: auth.currentUser.photoURL||'https://1000logos.net/wp-content/uploads/2022/02/Northeastern-Huskies-logo.png' }}
+                title="husky"
+                containerStyle={{ backgroundColor: 'grey' }}
+              />
           </View>
-        </View>
+      <View style={{flex:2,flexDirection:'column',marginTop:40, marginLeft:50}}>
+      <Text style={{fontWeight:'bold',fontSize:20}}>{auth.currentUser.displayName||'default name'}</Text>
+      <Text style={{fontSize:15}}>{auth.currentUser.email}</Text>
+      </View>
+      </View>
+          <View style={{flex:1,margin:20,marginTop:-30,alignItems:'center'}}>
+            <TextInput value={name} onChangeText={setName} style={{borderWidth:1,borderColor:'grey',padding:10,width:'90%',borderRadius:10}}></TextInput>
+            <PressableButton pressedFunction={handleChangeName}><Text style={{fontWeight:'bold',fontSize:30}}>change name</Text></PressableButton>
+            <PressableButton pressedFunction={handleChangeProfilePicture}><Text style={{fontWeight:'bold',fontSize:30}}>change profile picture</Text></PressableButton>
+            <Text>* Will be implemented later</Text>
+            <PressableButton pressedFunction={handleLogout}><Text style={{fontWeight:'bold',fontSize:30}}>Log out</Text></PressableButton>
+          </View>
+      
+      </View>       
         
       )
 }

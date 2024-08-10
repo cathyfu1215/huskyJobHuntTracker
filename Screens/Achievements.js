@@ -37,11 +37,10 @@ function Achievements() {
             title="husky"
             containerStyle={{ backgroundColor: 'grey' }}
           >
-            <Avatar.Accessory size={23} />
           </Avatar>
           </View>
       <View style={{flex:2,flexDirection:'column',marginTop:20, marginLeft:-50}}>
-      <Text style={{fontWeight:'bold',fontSize:20}}>{user.name}</Text>
+      <Text style={{fontWeight:'bold',fontSize:20}}>{auth.currentUser.displayName||'default name'}</Text>
       <Text style={{fontSize:15}}>{auth.currentUser.email}</Text>
       
       </View>
@@ -75,23 +74,23 @@ function Achievements() {
 
          <View style={{borderWidth:2,borderColor:'grey',margin:20,padding:10,width:'90%'}}>
          <Text style={{fontWeight:'bold',fontSize:17,margin:5}}>Collectables</Text>
-         <View style={{alignContent:'space-evenly',flexDirection:'row',alignItems:'center'}}>
+         <View style={{flexDirection:'row',alignContent:'space-evenly'}}>
          <Avatar
-            size={80}
+            size={60}
             rounded
             source={{ uri: 'https://1000logos.net/wp-content/uploads/2016/10/Apple-Logo-500x281.jpg' }}
             title="apple"
             containerStyle={{ backgroundColor: 'grey' }}
           ></Avatar>
           <Avatar
-            size={80}
+            size={60}
             rounded
             source={{ uri: 'https://1000logos.net/wp-content/uploads/2016/10/Batman-Logo-2011-500x281.png' }}
             title="batman"
             containerStyle={{ backgroundColor: 'grey' }}
           ></Avatar>
            <Avatar
-            size={80}
+            size={60}
             rounded
             source={{ uri: 'https://1000logos.net/wp-content/uploads/2018/08/Hogwarts-Logo-500x281.jpg' }}
             title="wizard"
