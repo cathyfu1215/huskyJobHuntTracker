@@ -1,17 +1,19 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React from 'react'
 import PressableButton from './PressableButton'
 import { TextInput } from 'react-native'
 import { useState } from 'react'
 import {auth} from '../Firebase/firebaseSetup'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { sendPasswordResetEmail } from "firebase/auth";
 
 function Login(props) {
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
 
     function handleForgetPassword(){
-        console.log('forget password, deal with it later');
+       
+       console.log('forget password');//will implement this later
     }
 
     function jumpToSignup(){

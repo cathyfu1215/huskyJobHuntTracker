@@ -33,6 +33,13 @@ function Signup(props) {
 
     async function handleRegister(){
 
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+        //check if password meets the requirements
+        if(!password.match(pattern)){
+            alert('Password should contain at least one uppercase letter, one lowercase letter, one number, one special character, and should be at least 6 characters long');
+            return;
+        }
 
         // check if password and confirm password match
         if(password !== confirmPassword){

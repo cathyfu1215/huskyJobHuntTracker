@@ -50,7 +50,7 @@ function Setting() {
       <Text style={{fontSize:15}}>{auth.currentUser.email}</Text>
       </View>
       </View>
-          <View style={{flex:1,margin:20,marginTop:-30,alignItems:'center'}}>
+          <View style={{flex:1,margin:20,marginTop:-200,alignItems:'center'}}>
             <TextInput value={name} onChangeText={setName} style={{borderWidth:1,borderColor:'grey',padding:10,width:'90%',borderRadius:10}}></TextInput>
             <PressableButton pressedFunction={handleChangeName}><Text style={{fontWeight:'bold',fontSize:30}}>change name</Text></PressableButton>
             <PressableButton pressedFunction={handleChangeProfilePicture}><Text style={{fontWeight:'bold',fontSize:30}}>change profile picture</Text></PressableButton>
