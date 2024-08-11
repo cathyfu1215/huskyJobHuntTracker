@@ -2,6 +2,7 @@ import { database } from "./firebaseSetup";
 import { collection, getDoc, addDoc, getDocs, orderBy, query, deleteDoc, doc, updateDoc,setDoc} from 'firebase/firestore';
 import { Timestamp } from 'firebase/firestore';
 
+
 // Function to add a new job application to the database
 export const addJobApplication = async (uid,companyName, positionName, preferenceScore, status, date) => {
     try {
@@ -63,10 +64,10 @@ export const updateJobApplication = async (uid,id, companyName, positionName, pr
 
 
 // Function to add a new user to the database
-export const addUser = async (userEmail,uid) => {
+export const addUser = async (userEmail,uid,nickname,pic) => {
   
-    const name='default name';
-    const profilePicture=null;
+    const name=nickname?nickname:'default name';
+    const profilePicture=pic?pic:null;
     let numJobsSaved=0;
     let numJobsApplied=0;
     let numJobsInterviewed=0;

@@ -18,10 +18,10 @@ function Signup(props) {
     }
 
 
-    async function handleAddUserDocument(email,uid){
+    async function handleAddUserDocument(email,uid,name,pic){
         //add this user to our database: Users collection, give it an id,
         // store email, name, profile picture, etc.
-        addUser(email,uid)
+        addUser(email,uid,name,pic)
         .then(()=>{
             console.log('user added to the database',email);
         })
@@ -33,6 +33,13 @@ function Signup(props) {
 
     async function handleRegister(){
 
+        const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+
+        //check if password meets the requirements
+        if(!password.match(pattern)){
+            alert('Password should contain at least one uppercase letter, one lowercase letter, one number, one special character, and should be at least 6 characters long');
+            return;
+        }
 
         // check if password and confirm password match
         if(password !== confirmPassword){
@@ -59,7 +66,7 @@ function Signup(props) {
                 // Signed up 
                 const user = userCredential.user;
                 
-                handleAddUserDocument(email,user.uid);
+                handleAddUserDocument(email,user.uid,auth.displayName,auth.photoURL);
                 
                 // ...
             })

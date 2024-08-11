@@ -12,6 +12,7 @@ import styles from './styleHelper';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup'; 
 import AddANote from './Screens/AddANote';
+import ForgetPassword from './Components/ForgetPassword';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +37,7 @@ export default function App() {
     <>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="ForgetPassword" component={ForgetPassword}  />
     </>
   );
 
