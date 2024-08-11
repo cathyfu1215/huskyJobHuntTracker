@@ -13,6 +13,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup'; 
 import AddANote from './Screens/AddANote';
 import ForgetPassword from './Components/ForgetPassword';
+import EncourageSignUp from './Screens/EncourageSignUp';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,6 +36,7 @@ export default function App() {
 
   const AuthStack = (
     <>
+      <Stack.Screen name="EncourageSignUp" component={EncourageSignUp} options={{headerShown:false}} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
       <Stack.Screen name="ForgetPassword" component={ForgetPassword}  />
