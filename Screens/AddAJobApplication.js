@@ -11,6 +11,7 @@ import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
 import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
+import LocationManager from '../Components/LocationManager';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
 
@@ -131,14 +132,16 @@ const AddAJobApplication = ({ navigation, route, type }) => {
               />
             )}
 
-            {/* we cannot add or edit notes/todos when adding an addEntry
-            we can browse notes/todos in the detail mode
-            we can only modify these two components in the editing mode */}
+            {/* we cannot add or edit notes/todos/location when adding an addEntry
+            we can browse notes/todos/location in the detail mode
+            we can only modify these components in the editing mode */}
             
             {isEditMode&&<Notes type='edit' jobApplicationRecordId={route.params.data.id}/>}
             {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
             {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
             {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
+            {isEditMode&&<LocationManager type='edit' jobApplicationRecordId={route.params.data.id}/>}
+            {isDetailMode&&<LocationManager type='detail' jobApplicationRecordId={route.params.data.id}/>}
 
             {itemEditable && <View style={styleHelper.saveCancelContainer}>
               <SaveButton onPress={handleSave} />
