@@ -11,6 +11,9 @@ function ItemsList({data,navigation,route}) {
 
   const [sortedData, setSortedData] = useState(data);
 
+  useEffect(() => {
+    setSortedData(data);
+  }, [data]);
 
     function ItemLine({item}) {
 
@@ -69,4 +72,4 @@ function ItemsList({data,navigation,route}) {
   
  
   
-  export default ItemsList
+  export default ItemsList;
