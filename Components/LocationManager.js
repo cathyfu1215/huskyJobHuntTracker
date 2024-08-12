@@ -86,13 +86,22 @@ const LocationManager = (props) => {
 
 //     fetchUserLocation();
 // }, []);
+  const isDetailMode = props.type === 'detail';
 
   return (
     <View style={{margin:10}}>
       <Text>Location</Text>
-      <Pressable onPress={locateUserHandler} style={styles.button}>
-        <Text style={styles.text}>Display Location</Text>
-      </Pressable>
+      <View style={styles.buttonContainer}>
+        <Pressable onPress={locateUserHandler} style={styles.button}>
+            <Text style={styles.text}>Display Location</Text>
+        </Pressable>
+        <Pressable onPress={locateUserHandler} style={[
+            styles.button,
+            isDetailMode && styles.disabledButton
+          ]} disabled={isDetailMode}>
+            <Text style={styles.text}>Edit Location</Text>
+        </Pressable>
+        </View>
       {location && <Image source={{ uri: mapUrl }} style={{ width: windowWidth, height: 200}} />}
       {/* <Button title="Go to Map" onPress={() => navigation.navigate('Map')} />
       <Button title="Save Location to Firestore" onPress={saveLocationHandler} /> */}
@@ -102,18 +111,32 @@ const LocationManager = (props) => {
 
 const styles = StyleSheet.create({
     button: {
-      width: 150, // Set the button width
-      height: 50, // Set the button height
+      width: 150, 
+      height: 50,
       margin: 10,
-      backgroundColor: '#007BFF', // Set the background color
-      justifyContent: 'center', // Center the text vertically
-      alignItems: 'center', // Center the text horizontally
-      borderRadius: 10, // Set border radius for rounded corners
+      backgroundColor: '#007BFF',
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 10, 
     },
+    disabledButton: {
+    width: 150,
+    height: 50,
+    margin: 10,
+    backgroundColor: 'gray',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
     text: {
-      color: '#FFFFFF', // Text color
-      fontSize: 12, // Text size
+      color: '#FFFFFF', 
+      fontSize: 12, 
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: '100%',
+    }
   });
 
 export default LocationManager;
