@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, FlatList,SafeAreaView,View, StyleSheet} from 'react-native'
 import styles from '../styleHelper';
 import { FontAwesome } from '@expo/vector-icons';
@@ -8,6 +8,8 @@ import PressableButton from './PressableButton';
 import { useState } from 'react';
 
 function ItemsList({data,navigation,route}) {
+
+  const [sortedData, setSortedData] = useState(data);
 
 
     function ItemLine({item}) {
@@ -33,20 +35,31 @@ function ItemsList({data,navigation,route}) {
           </PressableListItem>
         </View>);
     }
+
+    // Updated sorting functions
+  function sortByLastUpdate() {
+    const sorted = [...data].sort((a, b) => b.date.toDate() - a.date.toDate());
+    setSortedData(sorted);
+  }
+
+  function sortByPreferenceScore() {
+    const sorted = [...data].sort((a, b) => b.preferenceScore - a.preferenceScore);
+    setSortedData(sorted);
+  }
     
   
     return (
       <SafeAreaView>
         <View style={{flexDirection:'row',alignSelf:'center'}}>
-      <PressableButton pressedFunction={()=>{console.log('will implement later')}}>
+      <PressableButton pressedFunction={sortByLastUpdate}>
         <Text>Sort by Last Update</Text>
       </PressableButton>
-      <PressableButton pressedFunction={()=>{console.log('will implement later')}}>
+      <PressableButton pressedFunction={sortByPreferenceScore}>
         <Text>Sort by Preference Score</Text>
       </PressableButton>
       </View>
-        <ScrollView>
-        {data.map((item) => (
+      <ScrollView>
+        {sortedData.map((item) => (
           <ItemLine key={Math.random()} item={item} />
         ))}
       </ScrollView>
