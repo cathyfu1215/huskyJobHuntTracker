@@ -5,11 +5,13 @@ import React from 'react';
 import { View, StyleSheet, Pressable, Text} from 'react-native';
 import MapView, {Marker}from 'react-native-maps';
 import { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation} from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 
 const Map = () => {
   const[selectedLocation, setSelectedLocation] = useState(null);
   const navigation = useNavigation();
+  const route = useRoute();
 
   const handleMapPress = (event) => {
     const { latitude, longitude } = event.nativeEvent.coordinate;
@@ -18,7 +20,7 @@ const Map = () => {
 
   const handleSaveLocation = () => {
     if (selectedLocation) {
-      navigation.navigate('Location Info', { location: selectedLocation });
+      navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
     }
   };
 

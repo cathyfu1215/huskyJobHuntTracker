@@ -17,6 +17,7 @@ const LocationManager = () => {
     const windowWidth = Dimensions.get('window').width;
     const navigation = useNavigation();
     const route = useRoute(); // Access the route object to get params
+    const [applicationId, setApplicationId] = useState(null);
 
     const verifyPermission = async () => {
         console.log(response);
@@ -48,7 +49,10 @@ const LocationManager = () => {
 
   const saveLocationHandler = async () => {
      if (location) {
-         await saveJobApplicationLocation(auth.currentUser.uid, route.params.jobApplicationRecordId, location);
+      console.log("Saving location:", location);
+      console.log("User ID:", auth.currentUser.uid);
+      console.log("Job Application Record ID:", applicationId);   
+      await saveJobApplicationLocation(auth.currentUser.uid, applicationId, location);
      } else {
          Alert.alert("No location data to save.");
      }
@@ -56,6 +60,8 @@ const LocationManager = () => {
 
 // Check if route.params exists and set location state
 useEffect(() => {
+   console.log("Received Job Application Record ID:", route.params.jobApplicationRecordId);
+   setApplicationId(route.params.jobApplicationRecordId);
     if (route.params?.location) {
        const { latitude, longitude } = route.params.location;
        setLocation({ latitude, longitude });
@@ -96,7 +102,7 @@ useEffect(() => {
             <Text style={styles.text}>Display Company</Text>
             <Text style={styles.text}>Location</Text>
         </Pressable>
-        <Pressable onPress={() => navigation.navigate('Map')} style={[
+        <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
             styles.button,
             isDetailMode && styles.disabledButton
           ]} disabled={isDetailMode}>

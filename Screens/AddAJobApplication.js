@@ -141,10 +141,18 @@ const AddAJobApplication = ({ navigation, route, type }) => {
             {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
             {/* The location info will be displayed in a seperate page (i.e. Location Info Page).*/}
             <Text style={styles.addEntryText}>Location</Text>
-            {isEditMode&&<Pressable onPress={() => navigation.navigate('Location Info', {type:'edit', jobApplicationRecordId:route.params.data.id})} style={styles.locationButton}>
+            {isEditMode&&<Pressable onPress={() => 
+            {
+              console.log("Navigating to Location Info with ID:", route.params.data.id);
+              navigation.navigate('Location Info', {type:'edit', jobApplicationRecordId:route.params.data.id})
+            }} style={styles.locationButton}>
               <Text style={styles.locationButtonText}>Location Info</Text>
             </Pressable>}
-            {isDetailMode&&<Pressable onPress={() => navigation.navigate('Location Info', {type:'detail', jobApplicationRecordId:route.params.data.id})} style={styles.locationButton}>
+            {isDetailMode&&<Pressable onPress={() => 
+            {
+              console.log("Navigating to Location Info with ID:", route.params.data.id);
+              navigation.navigate('Location Info', {type:'detail', jobApplicationRecordId:route.params.data.id})
+            }} style={styles.locationButton}>
               <Text style={styles.locationButtonText}>Location Info</Text>
             </Pressable>}
 
