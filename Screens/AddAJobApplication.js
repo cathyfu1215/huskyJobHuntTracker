@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, Text, TextInput, Alert, Pressable, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -11,7 +11,6 @@ import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
 import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
-import LocationManager from '../Components/LocationManager';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
 
@@ -140,8 +139,15 @@ const AddAJobApplication = ({ navigation, route, type }) => {
             {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
             {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
             {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
-            {isEditMode&&<LocationManager type='edit' jobApplicationRecordId={route.params.data.id}/>}
-            {isDetailMode&&<LocationManager type='detail' jobApplicationRecordId={route.params.data.id}/>}
+            {/* The location info will be displayed in a seperate page (i.e. Location Info Page).*/}
+            <Text style={styles.addEntryText}>Location</Text>
+            {isEditMode&&<Pressable onPress={() => navigation.navigate('Location Info', {type:'edit', jobApplicationRecordId:route.params.data.id})} style={styles.locationButton}>
+              <Text style={styles.locationButtonText}>Location Info</Text>
+            </Pressable>}
+            {isDetailMode&&<Pressable onPress={() => navigation.navigate('Location Info', {type:'detail', jobApplicationRecordId:route.params.data.id})} style={styles.locationButton}>
+              <Text style={styles.locationButtonText}>Location Info</Text>
+            </Pressable>}
+
 
             {itemEditable && <View style={styleHelper.saveCancelContainer}>
               <SaveButton onPress={handleSave} />

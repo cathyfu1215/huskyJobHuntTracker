@@ -14,6 +14,7 @@ import { auth } from './Firebase/firebaseSetup';
 import AddANote from './Screens/AddANote';
 import ForgetPassword from './Components/ForgetPassword';
 import Map from './Components/Map';
+import LocationManager from './Components/LocationManager';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,6 +52,7 @@ export default function App() {
       <Stack.Screen name="JobRecords" component={JobRecords} />
       <Stack.Screen name="AddANote" component={AddANote} />
       <Stack.Screen name="Map" component={Map} />
+      <Stack.Screen name="Location Info" component={LocationManager} />
     </>
   );
 

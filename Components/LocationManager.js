@@ -8,14 +8,14 @@ import { useNavigation, useRoute} from '@react-navigation/native';
 //import { saveUserLocation, getUserLocation} from '../Firebase/firestoreHelper';
 // import {auth} from "../Firebase/firebaseSetup";
 
-const LocationManager = (props) => {
+const LocationManager = () => {
     // Verify permission.
     const [response, requestPermission] = Location.useForegroundPermissions();
     const [location, setLocation] = useState(null);
     const [mapUrl, setMapUrl] = useState(null);
     const windowWidth = Dimensions.get('window').width;
-    // const navigation = useNavigation();
-    // const route = useRoute(); // Access the route object to get params
+    const navigation = useNavigation();
+    const route = useRoute(); // Access the route object to get params
 
     const verifyPermission = async () => {
         console.log(response);
@@ -53,16 +53,16 @@ const LocationManager = (props) => {
 //     }
 // };
 
-//   // Check if route.params exists and set location state
-//   useEffect(() => {
-//     if (route.params?.location) {
-//       const { latitude, longitude } = route.params.location;
-//       setLocation({ latitude, longitude });
-//       const url = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${latitude},${longitude}&key=${mapsApiKey}`;
-//       setMapUrl(url);
-//       console.log("Map's selected URL:", url);
-//     }
-//   }, [route.params]);
+// Check if route.params exists and set location state
+useEffect(() => {
+    if (route.params?.location) {
+       const { latitude, longitude } = route.params.location;
+       setLocation({ latitude, longitude });
+       const url = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${latitude},${longitude}&key=${mapsApiKey}`;
+       setMapUrl(url);
+       console.log("Map's selected URL:", url);
+     }
+   }, [route.params]);
 
 //   // We can have several useEffects in a component
 //   useEffect(() => {
@@ -86,25 +86,24 @@ const LocationManager = (props) => {
 
 //     fetchUserLocation();
 // }, []);
-  const isDetailMode = props.type === 'detail';
+  const isDetailMode = route.params.type === 'detail';
 
   return (
     <View style={{margin:10}}>
-      <Text>Location</Text>
+      {location && <Image source={{ uri: mapUrl }} style={{ width: windowWidth, height: 200}} />}
       <View style={styles.buttonContainer}>
         <Pressable onPress={locateUserHandler} style={styles.button}>
-            <Text style={styles.text}>Display Location</Text>
+            <Text style={styles.text}>Display Current</Text>
+            <Text style={styles.text}>Location</Text>
         </Pressable>
-        <Pressable onPress={locateUserHandler} style={[
+        <Pressable onPress={() => navigation.navigate('Map')} style={[
             styles.button,
             isDetailMode && styles.disabledButton
           ]} disabled={isDetailMode}>
-            <Text style={styles.text}>Edit Location</Text>
+            <Text style={styles.text}>Edit Company</Text>
+            <Text style={styles.text}>Location</Text>
         </Pressable>
         </View>
-      {location && <Image source={{ uri: mapUrl }} style={{ width: windowWidth, height: 200}} />}
-      {/* <Button title="Go to Map" onPress={() => navigation.navigate('Map')} />
-      <Button title="Save Location to Firestore" onPress={saveLocationHandler} /> */}
     </View>
   );
 };

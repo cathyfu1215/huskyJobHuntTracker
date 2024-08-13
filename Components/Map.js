@@ -2,7 +2,7 @@
  * This file is for loading an interactive map
  */
 import React from 'react';
-import { View, StyleSheet, Pressable} from 'react-native';
+import { View, StyleSheet, Pressable, Text} from 'react-native';
 import MapView, {Marker}from 'react-native-maps';
 import { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,7 @@ const Map = () => {
 
   const handleSaveLocation = () => {
     if (selectedLocation) {
-      navigation.navigate('AddAJobApplication', { location: selectedLocation });
+      navigation.navigate('Location Info', { location: selectedLocation });
     }
   };
 
@@ -38,10 +38,8 @@ const Map = () => {
           <Marker coordinate={selectedLocation} />
         )}
       </MapView>
-      <Pressable onPress={handleSaveLocation} style={[
-            styles.button,
-            isDetailMode && styles.disabledButton
-          ]} disabled={!selectedLocation}>
+      <Pressable onPress={handleSaveLocation} style={
+            selectedLocation? styles.button: styles.disabledButton} disabled={!selectedLocation}>
             <Text style={styles.text}>Save Location</Text>
         </Pressable>
     </View>
