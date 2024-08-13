@@ -24,6 +24,46 @@ Our users now can :
 - ![sortedJobList](https://github.com/user-attachments/assets/858bf6e9-e2ca-4314-9ea4-7a2d36238cbd)
 
 
+
+### firebase rules of our top collection: Users Collection
+```
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /{document=**} {
+      allow read, write: if request.auth != null;
+      //Currently i am allowing registered users to read and write anything.
+      
+      //The logic is: I am using the uid from Auth to generate the user document id in
+      //my Users collection. That is to say, only when users register/log in they will
+      //have a unique id, and they will only have access to all the records in their 
+      //own user document and its subcollections.
+      
+      //All of my stored data belongs to specific users and there is no "universal data".
+    }
+  }
+}
+```
+### firebase rules of our storage
+
+```
+rules_version = '2';
+
+
+service firebase.storage {
+  match /b/{bucket}/o {
+
+   
+    match /{allPaths=**} {
+      allow read, write: if true
+    }
+  }
+}
+```
+
+
 ### members contributions:
 #### Cong:
 - Authentication
