@@ -3,6 +3,9 @@
 #### Team members: Jieling Gong, Cong Fu
 
 ## Iteration 2:
+Please ensure that you have included this mapsApiKey in .env👇:
+mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
+
 In iteration 2 we implemented functionalities like Authentication, Camera use and Location use. 
 Our users now can :
 - see a welcome page to encourage them login / signup
