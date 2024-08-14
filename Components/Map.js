@@ -20,7 +20,8 @@ const Map = () => {
 
   const handleSaveLocation = () => {
     if (selectedLocation) {
-      navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
+      //navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
+      navigation.goBack({ location: selectedLocation });
     }
   };
 
@@ -42,7 +43,7 @@ const Map = () => {
       </MapView>
       <Pressable onPress={handleSaveLocation} style={
             selectedLocation? styles.button: styles.disabledButton} disabled={!selectedLocation}>
-            <Text style={styles.text}>Save Location</Text>
+            <Text style={styles.text}>Save Company Mark</Text>
         </Pressable>
     </View>
   );
