@@ -133,7 +133,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
 
 
             {/*We will only display the company news in the job application detail page */}
-            {/* {isDetailMode&& <News company={companyName}/>} */}
+             {isDetailMode&& <News company={companyName}/>} 
 
             {/* we cannot add or edit notes/todos/location when adding an addEntry
             we can browse notes/todos/location in the detail mode

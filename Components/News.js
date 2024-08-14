@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { newsAPIKey } from "@env";
+const NewsAPI = require('newsapi');
+const newsapi = new NewsAPI(newsAPIKey);
 
 function News({ company }) {
-    const NewsAPI = require('newsapi');
-    const newsapi = new NewsAPI(newsAPIKey);
+   
     const [headline, setHeadline] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log('company name',company);
+        console.log('company name', company);
         const fetchNews = async () => {
             try {
                 const response = await newsapi.v2.topHeadlines({
@@ -31,7 +32,7 @@ function News({ company }) {
         };
 
         fetchNews();
-    }, []); // Add company to the dependency array
+    }, [company]); // Add company to the dependency array
 
     return (
         <View style={{ margin: 10, borderWidth: 2, borderColor: 'grey', padding: 10 }}>
