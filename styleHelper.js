@@ -169,6 +169,7 @@ export default styles = StyleSheet.create({
     },  
     safeArea: {
       flex: 1,
+      marginBottom: 30,
     },
     scrollViewContent: {
       flexGrow: 1,
@@ -183,4 +184,22 @@ export default styles = StyleSheet.create({
     dateText: {
       color: '#000',
     },
+    locationButton: {
+    width: 150, 
+    height: 50,
+    margin: 10,
+    backgroundColor: '#007BFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10, 
+    },
+    locationButtonText: {
+      color: '#FFFFFF', 
+      fontSize: 12, 
+    },
+    locationView: {
+      flex: 1,
+      marginBottom: 100,
+      alignItems: 'center',
+    }
   });
