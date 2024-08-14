@@ -11,11 +11,11 @@ import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
 import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
+import News from '../Components/News';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
 
 
-  //console.log('record id?',route.params.data.id);
 
   const itemEditable = ((!type) || type === 'edit') ? true : false;
   const isEditMode = type && (type === 'edit');
@@ -133,7 +133,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
 
 
             {/*We will only display the company news in the job application detail page */}
-            {isDetailMode&& <News/>}
+            {/* {isDetailMode&& <News company={companyName}/>} */}
 
             {/* we cannot add or edit notes/todos/location when adding an addEntry
             we can browse notes/todos/location in the detail mode
