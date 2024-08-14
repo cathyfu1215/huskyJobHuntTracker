@@ -2,9 +2,24 @@
 #### CS5520 2024 Summer , Group 2
 #### Team members: Jieling Gong, Cong Fu
 
-## Iteration 2:
+
+----
+
+### Important note about iteration2 and iteration3:
 Please ensure that you have included this mapsApiKey in .env👇:
 mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
+
+We allocated our work so that Cathy has three functionalities to implement: Image, Auth, 3rd party API. Serena has 2 functionalities: location and notifications.
+Cathy plans to do more work in iteration 1 and 2, so she can relax in the last week. Serena will do more work in iteration 2 and 3.
+Our total comtribution will be approximately 50:50.
+
+
+
+----
+
+## Iteration 2:
+
+
 
 In iteration 2 we implemented functionalities like Authentication, Camera use and Location use. 
 Our users now can :
