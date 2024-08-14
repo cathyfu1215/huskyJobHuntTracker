@@ -9,7 +9,7 @@ import { saveJobApplicationLocation } from '../Firebase/firebaseHelper';
 import { fetchJobApplicationLocation } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
 
-const LocationManager = (props) => {
+const LocationManager = () => {
     // Verify permission.
     const [response, requestPermission] = Location.useForegroundPermissions();
     const [location, setLocation] = useState(null);
@@ -17,8 +17,7 @@ const LocationManager = (props) => {
     const windowWidth = Dimensions.get('window').width;
     const navigation = useNavigation();
     const route = useRoute(); // Access the route object to get params
-    // const [applicationId, setApplicationId] = useState(null);
-    const applicationId = props.jobApplicationRecordId;
+    const [applicationId, setApplicationId] = useState(null);
 
     const verifyPermission = async () => {
         console.log(response);
@@ -61,6 +60,7 @@ const LocationManager = (props) => {
 
 // Check if route.params exists and set location state
 useEffect(() => {
+   setApplicationId(route.params?.jobApplicationRecordId);
    console.log("Received Job Application Record ID:", applicationId);
     if (route.params?.location) {
        const { latitude, longitude } = route.params.location;
@@ -76,7 +76,7 @@ useEffect(() => {
          try {
              const user = auth.currentUser;
              if (user) {
-                 const locationData = await fetchJobApplicationLocation(user.uid, applicationId);
+                 const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
                  if (locationData) {
                      setLocation(locationData);
                      const url = `https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${locationData.latitude},${locationData.longitude}&key=${mapsApiKey}`;
@@ -92,7 +92,7 @@ useEffect(() => {
      fetchUserLocation();
  }, []);
 
-  const isDetailMode = props.type === 'detail';
+  const isDetailMode = route.params.type === 'detail';
 
   return (
     <View style={{margin:10}}>
@@ -109,6 +109,8 @@ useEffect(() => {
             <Text style={styles.text}>Edit Company</Text>
             <Text style={styles.text}>Location</Text>
         </Pressable>
+        </View>
+        <View style={styles.buttonContainer}>
         <Pressable onPress={saveLocationHandler} style={[
             styles.button,
             isDetailMode && styles.disabledButton

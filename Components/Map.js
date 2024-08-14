@@ -20,8 +20,7 @@ const Map = () => {
 
   const handleSaveLocation = () => {
     if (selectedLocation) {
-      //navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
-      navigation.goBack({ location: selectedLocation });
+      navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
     }
   };
 

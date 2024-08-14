@@ -15,7 +15,7 @@ import AddANote from './Screens/AddANote';
 import ForgetPassword from './Components/ForgetPassword';
 
 import Map from './Components/Map';
-//import LocationManager from './Components/LocationManager';
+import LocationManager from './Components/LocationManager';
 
 import EncourageSignUp from './Screens/EncourageSignUp';
 
@@ -57,7 +57,7 @@ export default function App() {
       <Stack.Screen name="JobRecords" component={JobRecords} />
       <Stack.Screen name="AddANote" component={AddANote} />
       <Stack.Screen name="Map" component={Map} />
-      {/* <Stack.Screen name="Location Info" component={LocationManager} /> */}
+      <Stack.Screen name="Location Info" component={LocationManager} />
     </>
   );
 
