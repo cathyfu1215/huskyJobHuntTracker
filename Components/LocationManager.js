@@ -143,6 +143,9 @@ useEffect(() => {
             <Text style={styles.text}>Location</Text>
         </Pressable>
         </View>
+        <View style={styles.textView}>
+          {isDetailMode && <Text>In this page you can only browse your current and the company's location. You can edit the company's location in edit mode.</Text>}
+        </View>
     </View>
   );
 };
@@ -174,6 +177,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-around',
         width: '100%',
+    },
+    textView: {
+      margin: 10,
+      padding: 10,
+      alignItems: 'center',
     }
   });
 
