@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Image, StyleSheet} from 'react-native';
+import { View, Text, Pressable, Image, StyleSheet, Alert} from 'react-native';
 import React from 'react';
 import { useState, useEffect} from 'react';
 import * as Location from 'expo-location';
@@ -58,6 +58,26 @@ const LocationManager = () => {
      }
  };
 
+  const displayCompanyLocationHandler = async () => {
+    try {
+      const user = auth.currentUser;
+      if (user) {
+          const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
+          if (locationData) {
+              setLocation(locationData);
+              const url = `https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${locationData.latitude},${locationData.longitude}&key=${mapsApiKey}`;
+              setMapUrl(url);
+          } else {
+             Alert.alert("You need to set the company's location first.");
+          }
+      } else {
+          console.log("User not authenticated");
+      }
+  } catch (err) {
+      console.log("Error fetching user location:", err);
+  }
+  };
+
 // Check if route.params exists and set location state
 useEffect(() => {
    setApplicationId(route.params?.jobApplicationRecordId);
@@ -102,6 +122,12 @@ useEffect(() => {
             <Text style={styles.text}>Display Current</Text>
             <Text style={styles.text}>Location</Text>
         </Pressable>
+        <Pressable onPress={displayCompanyLocationHandler} style={styles.button}>
+            <Text style={styles.text}>Display Company</Text>
+            <Text style={styles.text}>Location</Text>
+        </Pressable>
+        </View>
+        <View style={styles.buttonContainer}>
         <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
             styles.button,
             isDetailMode && styles.disabledButton
@@ -109,8 +135,6 @@ useEffect(() => {
             <Text style={styles.text}>Edit Company</Text>
             <Text style={styles.text}>Location</Text>
         </Pressable>
-        </View>
-        <View style={styles.buttonContainer}>
         <Pressable onPress={saveLocationHandler} style={[
             styles.button,
             isDetailMode && styles.disabledButton
