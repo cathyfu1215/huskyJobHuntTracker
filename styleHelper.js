@@ -108,6 +108,7 @@ export default styles = StyleSheet.create({
       justifyContent: 'center',
       margin: 10,
       width: '100%',
+      marginBottom: 30,
     },
     saveButton:{
       backgroundColor: 'lightblue',
