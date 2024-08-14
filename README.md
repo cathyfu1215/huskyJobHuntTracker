@@ -9,7 +9,7 @@
 Please ensure that you have included this mapsApiKey in .env👇:
 mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
 
-We allocated our work so that Cathy has three functionalities to implement: Image, Auth, 3rd party API. Serena has 2 functionalities: location and notifications.
+We allocated our work so that Cathy has three functionalities to implement: Image, Auth, 3rd party API. Serena has three functionalities: location and notifications, 3rd party API.
 Cathy plans to do more work in iteration 1 and 2, so she can relax in the last week. Serena will do more work in iteration 2 and 3.
 Our total comtribution will be approximately 50:50.
 
@@ -29,7 +29,8 @@ Our users now can :
 - only see and modify their own job application records/notes
 - sort their job application record by date or preference score
 - add a note with or without taking a picture using their phone camera to the job application record
-- see the interactive map in the job application detail page marking the company's location and the current location [to be modified]
+- browse user's current and company's location in a seperate page under detail mode
+- edit user's current and company's location in a seperate page under edit mode
 
 ### current state of our product:
 - welcome page
@@ -40,8 +41,14 @@ Our users now can :
 - ![NoteAdded](https://github.com/user-attachments/assets/185e211f-b511-4c32-abe2-d9e411288d81)
 - the sorted job records list
 - ![sortedJobList](https://github.com/user-attachments/assets/858bf6e9-e2ca-4314-9ea4-7a2d36238cbd)
-
-
+- view location info
+- ![view_location_info](https://github.com/user-attachments/assets/f6df4306-6bf4-438c-b4c5-fb5cde603dcd)
+- browse location info to detail mode
+- ![location_info_detail_mode](https://github.com/user-attachments/assets/fead7884-6e97-4329-b009-f41c278e3bff)
+- edit company location
+- ![edit_company_location](https://github.com/user-attachments/assets/9fae5b34-5081-475a-8e97-5f0839e53c70)
+- browse location info to edit mode
+- ![location_info_edit_mode](https://github.com/user-attachments/assets/39a47ba1-e37c-47b1-8953-606b744bcd0a)
 
 ### firebase rules of our top collection: Users Collection
 ```
@@ -90,8 +97,14 @@ service firebase.storage {
 
 
 #### Jieling:
-- Location use
-[to be edited]
+- Integrated with Google Map API
+- Enbaled the Location functionality
+- Styling modification
+  
+- Plan for iteration 3:
+  - Notification
+  - Enable two markers on location component
+  - User experience optimization
 
 ----
 
