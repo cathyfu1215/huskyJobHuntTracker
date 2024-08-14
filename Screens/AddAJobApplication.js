@@ -131,6 +131,10 @@ const AddAJobApplication = ({ navigation, route, type }) => {
               />
             )}
 
+
+            {/*We will only display the company news in the job application detail page */}
+            {isDetailMode&& <News/>}
+
             {/* we cannot add or edit notes/todos/location when adding an addEntry
             we can browse notes/todos/location in the detail mode
             we can only modify these components in the editing mode */}
@@ -139,6 +143,8 @@ const AddAJobApplication = ({ navigation, route, type }) => {
             {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
             {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
             {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
+            
+            
             {/* The location info will be displayed in a seperate page (i.e. Location Info Page).*/}
             <View style={styles.locationView}>
               {isEditMode&&<Pressable onPress={() => 
