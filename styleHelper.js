@@ -169,6 +169,7 @@ export default styles = StyleSheet.create({
     },  
     safeArea: {
       flex: 1,
+      marginBottom: 30,
     },
     scrollViewContent: {
       flexGrow: 1,
@@ -196,4 +197,9 @@ export default styles = StyleSheet.create({
       color: '#FFFFFF', 
       fontSize: 12, 
     },
+    locationView: {
+      flex: 1,
+      marginBottom: 100,
+      alignItems: 'center',
+    }
   });

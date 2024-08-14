@@ -68,7 +68,7 @@ const LocationManager = () => {
               const url = `https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${locationData.latitude},${locationData.longitude}&key=${mapsApiKey}`;
               setMapUrl(url);
           } else {
-             Alert.alert("You need to set the company's location first.");
+             Alert.alert("You need to set the company's location in the edit mode first.");
           }
       } else {
           console.log("User not authenticated");
