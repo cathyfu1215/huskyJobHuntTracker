@@ -13,7 +13,7 @@ function News() {
             try {
                 const response = await fetch(`https://newsapi.org/v2/top-headlines?country=ca&apiKey=${newsAPIKey}`);
                 const data = await response.json();
-                console.log('data', data);
+                //console.log('data', data);
                 if (data.articles && data.articles.length > 0) {
                     setHeadlines(data.articles.slice(0, 3).map(article => article.title));
                 } else {
@@ -30,13 +30,28 @@ function News() {
     }, []); // Empty dependency array to fetch news only once
 
     return (
-        <View style={{ margin: 10, borderWidth: 2, borderColor: 'grey', padding: 10 }}>
-            <Text style={{ fontWeight: 'bold' }}>Top news today:</Text>
+        <View style={{
+            margin: 10,
+            borderWidth: 2,
+            borderColor: 'grey',
+            padding: 10,
+            backgroundColor: 'white', 
+            }}>
+            <Text style={{ 
+                fontWeight: 'bold',
+                fontSize: 18,
+                marginBottom: 10,
+                color: 'grey',
+             }}>Top news today:</Text>
             {loading ? <ActivityIndicator size="large" color="#0000ff" /> : (
                 headlines.length > 0 ? (
                     <View>
                         {headlines.map((headline, index) => (
-                            <Text key={index}>• {headline}</Text>
+                            <Text style={{
+                                fontSize: 16,
+                                marginBottom: 5,
+                                color: 'black',
+                            }}key={index}>• {headline}</Text>
                         ))}
                     </View>
                 ) : (
