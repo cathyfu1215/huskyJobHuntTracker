@@ -24,7 +24,7 @@ function NoteList({ data,jobApplicationRecordId }) {
     const [imageURL, setImageURL] = useState("");
     // item is a note object , data is the list of note objects
     if(!item.uri){
-      console.log('no uri in the note',item);
+      //console.log('no uri in the note',item);
     }
     else{
     const reference = ref(storage, item.uri);
@@ -77,10 +77,10 @@ function NoteList({ data,jobApplicationRecordId }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <ScrollView>
+      {/* <ScrollView> */}
         {data.map(item => (
           <NoteLine key={item.id} item={item} />))}
-      </ScrollView>
+      {/* </ScrollView> */}
     </SafeAreaView>
   );
 }

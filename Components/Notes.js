@@ -4,7 +4,6 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import NoteList from './NoteList';
 import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
-import { FlatList } from 'react-native';
 
 
 
@@ -16,7 +15,6 @@ function Notes(props) {
   const getData = async () => {
     try {
       const data = await fetchNotes(auth.currentUser.uid, props.jobApplicationRecordId);
-      console.log('data in getData', data);
       return data;
     } catch (error) {
       console.error("Error fetching notes: ", error);
