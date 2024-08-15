@@ -11,6 +11,7 @@ import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
 import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
+import News from '../Components/News';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
 
@@ -130,6 +131,9 @@ const AddAJobApplication = ({ navigation, route, type }) => {
                 disabled={!itemEditable}
               />
             )}
+
+            {/* if we are browsing a job application record, show the top news of this company */}
+            {isDetailMode&&<News company={companyName} />}
 
             {/* we cannot add or edit notes/todos/location when adding an addEntry
             we can browse notes/todos/location in the detail mode

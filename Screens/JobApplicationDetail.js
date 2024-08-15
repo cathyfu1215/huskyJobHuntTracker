@@ -26,6 +26,7 @@ function JobApplicationDetail(props) {
       
       return(
         <AddAJobApplication navigation={props.navigation} route={props.route} type='detail' />
+        
       );
 }
 

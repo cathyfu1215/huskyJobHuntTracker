@@ -2,49 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator } from 'react-native';
 import { newsAPIKey } from "@env";
 
-
 function News({ company }) {
     const [headline, setHeadline] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
 
-    var requestOptions = {
-        method: 'GET'
-    };
-    
-    var params = {
-        api_token: newsAPIKey,
-        categories: 'business,tech',
-        search: 'company',
-        limit: '50'
-    };
-    
-    var esc = encodeURIComponent;
-    var query = Object.keys(params)
-        .map(function(k) {return esc(k) + '=' + esc(params[k]);})
-        .join('&');
-
-
     useEffect(() => {
-        console.log('company name', company);
-        const fetchNews =() => {
-            
-                
-            fetch("https://api.thenewsapi.com/v1/news/all?" + query, requestOptions)
-            .then(response => response.text())
-            .then(result => console.log(result))
-            .catch(error => console.log('error', error));
-          
+        
+        const fetchNews = async () => {
+            try {
+                const response = await fetch(`https://newsapi.org/v2/everything?q=${company}&from=2024-07-15&sortBy=publishedAt&language=en&apiKey=${newsAPIKey}`);
+                const data = await response.json();
+                console.log('data', data);
+                if (data.articles && data.articles.length > 0) {
+                    setHeadline(data.articles[0].title);
+                } else {
+                    setError('No news found');
+                }
+            } catch (error) {
+                setError('Error fetching news');
+            } finally {
+                setLoading(false);
+            }
         };
 
         fetchNews();
-    }, []); // Keep the dependency array empty to run only once
+    }, [company]); // Add company as a dependency to refetch news when company changes
 
     return (
         <View style={{ margin: 10, borderWidth: 2, borderColor: 'grey', padding: 10 }}>
-            <Text style={{ fontWeight: 'bold' }}>Top news of {company}:</Text>
-            <Text>{headline || error}</Text>
-           
+            <Text style={{ fontWeight: 'bold' }}>Top news today:</Text>
+            {loading ? <ActivityIndicator size="large" color="#0000ff" /> : <Text>{headline || error}</Text>}
         </View>
     );
 }
