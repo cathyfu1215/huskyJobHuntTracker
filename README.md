@@ -6,9 +6,9 @@
 ----
 
 ### Important note about iteration2 and iteration3:
-Please ensure that you have included this mapsApiKey and newsAPIKey in .env👇:
-mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
-newsAPIKey="a1a6d062c00e441e8fb5ce6c581b025f"
+- Please ensure that you have included this mapsApiKey and newsAPIKey in .env👇:
+  - mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
+  - newsAPIKey="a1a6d062c00e441e8fb5ce6c581b025f"
 
 
 We allocated our work so that Cathy has three functionalities to implement: Image, Auth, 3rd party API. Serena has three functionalities: location and notifications, 3rd party API.
