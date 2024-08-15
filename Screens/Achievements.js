@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, SafeAreaView, Image } from 'react-native';
+import { View, Text, ScrollView, SafeAreaView, Dimensions } from 'react-native';
 import { Avatar, Badge } from '@rneui/themed';
 import { auth } from '../Firebase/firebaseSetup'; 
 import { fetchUser } from '../Firebase/firebaseHelper';
-import QuickChart from 'quickchart-js';
+import { PieChart } from 'react-native-chart-kit';
+
+const screenWidth = Dimensions.get('window').width;
 
 function Achievements() {
   const [user, setUser] = useState({});
-  const [chartUrl, setChartUrl] = useState('');
 
   const getUser = async () => {
     try {
@@ -20,21 +21,18 @@ function Achievements() {
 
   useEffect(() => {
     getUser();
-
-    const chart = new QuickChart();
-    chart.setWidth(500);
-    chart.setHeight(300);
-    chart.setVersion('2.9.4');
-    chart.setConfig({
-      type: 'pie',
-      data: {
-        labels: ['Applied', 'Interviewed', 'Offered', 'Rejected'],
-        datasets: [{ data: [100, 20, 5, 15] }],
-      },
-    });
-
-    setChartUrl(chart.getUrl());
   }, []);
+
+  // if this is a newly created account or this is a demo account, we use example data
+  //otherwise, we use the data from the database
+  const allDataIsZero = user.numJobsSaved === 0 && user.numJobsApplied === 0 && user.numJobsInterviewed === 0 && user.numJobsOffered === 0 && user.numJobsRejected === 0;
+
+  const data = [
+    { name: 'Applied', population: allDataIsZero ? 100 : user.numJobsApplied || 0, color: 'rgba(131, 167, 234, 1)', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Interviewed', population: allDataIsZero ? 20 : user.numJobsInterviewed || 0, color: '#FFFF00', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Offered', population: allDataIsZero ? 5 : user.numJobsOffered || 0, color: 'rgb(0, 255, 0)', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+    { name: 'Rejected', population: allDataIsZero ? 15 : user.numJobsRejected || 0, color: '#F00', legendFontColor: '#7F7F7F', legendFontSize: 15 },
+  ];
 
   return (
     <SafeAreaView>
@@ -58,12 +56,34 @@ function Achievements() {
 
           <View style={{ borderWidth: 2, borderColor: 'grey', margin: 20, padding: 10, width: '90%', flex: 1 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 17, margin: 5 }}>User Statistics</Text>
-            <Text>Number of Jobs Saved: {user.numJobsSaved}</Text>
-            <Text>Number of Jobs Applied: {user.numJobsApplied}</Text>
-            <Text>Number of Jobs Interviewed: {user.numJobsInterviewed}</Text>
-            <Text>Number of Jobs Offered: {user.numJobsOffered}</Text>
-            <Text>Number of Jobs Rejected: {user.numJobsRejected}</Text>
+            <Text>Number of Jobs Saved: {user.numJobsSaved || 0}</Text>
+            <Text>Number of Jobs Applied: {user.numJobsApplied || 0}</Text>
+            <Text>Number of Jobs Interviewed: {user.numJobsInterviewed || 0}</Text>
+            <Text>Number of Jobs Offered: {user.numJobsOffered || 0}</Text>
+            <Text>Number of Jobs Rejected: {user.numJobsRejected || 0}</Text>
           </View>
+
+           {/* Display the pie chart */}
+           <Text style={{margin:10}}>If you haven't applied any jobs, we will display a sample chart.</Text>
+           <PieChart
+            data={data}
+            width={screenWidth}
+            height={220}
+            chartConfig={{
+              backgroundColor: '#e26a00',
+              backgroundGradientFrom: '#fb8c00',
+              backgroundGradientTo: '#ffa726',
+              decimalPlaces: 2,
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+            }}
+            accessor="population"
+            backgroundColor="transparent"
+            paddingLeft="15"
+            absolute
+          />
 
           <View style={{ borderWidth: 2, borderColor: 'grey', margin: 20, padding: 10, width: '90%', flex: 1 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 17, margin: 5 }}>Badges</Text>
@@ -103,15 +123,7 @@ function Achievements() {
             </View>
           </View>
 
-          {/* Display the pie chart */}
-          {chartUrl ? (
-            <Image
-              source={{ uri: chartUrl }}
-              style={{ width: 500, height: 300 }}
-            />
-          ) : (
-            <Text>Loading chart...</Text>
-          )}
+         
         </View>
       </ScrollView>
     </SafeAreaView>
