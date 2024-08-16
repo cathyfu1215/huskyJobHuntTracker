@@ -52,7 +52,7 @@ function ItemsList({data,navigation,route}) {
     
   
     return (
-      <SafeAreaView>
+      <View>
         <View style={{flexDirection:'row',alignSelf:'center'}}>
       <PressableButton pressedFunction={sortByLastUpdate}>
         <Text>Sort by Last Update</Text>
@@ -61,12 +61,15 @@ function ItemsList({data,navigation,route}) {
         <Text>Sort by Preference Score</Text>
       </PressableButton>
       </View>
-      <ScrollView>
+      <ScrollView bounces={false}>
         {sortedData.map((item) => (
           <ItemLine key={Math.random()} item={item} />
         ))}
+        <View style={{marginBottom:100,marginTop:20,margin:10}}>
+        <Text>This is the end of the job application records. Apply more!</Text>
+        </View>
       </ScrollView>
-      </SafeAreaView>
+      </View>
     );
   }
   

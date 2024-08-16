@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, ActivityIndicator } from 'react-native';
 import ImageManager from '../Components/ImageManager';
 import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
@@ -9,11 +9,12 @@ import { storage } from '../Firebase/firebaseSetup';
 import { addNote } from '../Firebase/firebaseHelper';
 
 function AddANote(props) {
-    // console.log('props in AddANote', props);
-    // console.log('id of the record', props.route.params.jobApplicationRecordId);
+
+    
     const [text, setText] = useState('');
     const [imageURI, setImageURI] = useState(null);
     const [noImage, setNoImage] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
 
     async function fetchAndUploadImage() {
         if (!imageURI) {
@@ -28,7 +29,7 @@ function AddANote(props) {
             const imageName = imageURI.substring(imageURI.lastIndexOf('/') + 1);
             const imageRef = ref(storage, `images/${imageName}`);
             const uploadResult = await uploadBytesResumable(imageRef, blob);
-            console.log("Image uploaded successfully: ", uploadResult);
+            //console.log("Image uploaded successfully: ", uploadResult);
     
             return uploadResult;
         } catch (error) {
@@ -36,46 +37,48 @@ function AddANote(props) {
             return null;
         }
     }
-    
 
     const handleSaveNote = () => {
-        //console.log('save note');
+        // I add this state to prevent multiple clicks on the save button
+        // in a short period of time
+        setIsSaving(true);
 
-        if(noImage){
+        if (noImage) {
             addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, null)
-            .then(() => {
-                console.log('note added');
-                props.navigation.goBack();
-            })
-            .catch((error) => {
-                console.error("Error adding note: ", error);
+                .then(() => {
+                    console.log('note added');
+                    props.navigation.goBack();
+                })
+                .catch((error) => {
+                    console.error("Error adding note: ", error);
+                })
+                .finally(() => {
+                    setIsSaving(false);
+                });
+        } else {
+            fetchAndUploadImage().then((uploadResult) => {
+                if (uploadResult) {
+                    addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, uploadResult.metadata.fullPath)
+                        .then(() => {
+                            console.log('note added');
+                            props.navigation.goBack();
+                        })
+                        .catch((error) => {
+                            console.error("Error adding note: ", error);
+                        })
+                        .finally(() => {
+                            setIsSaving(false);
+                        });
+                } else {
+                    console.error("uploadResult is undefined or null");
+                    setIsSaving(false);
+                }
+            }).catch((error) => {
+                console.error("Error uploading image: ", error);
+                setIsSaving(false);
             });
-
         }
-        else{
-    
-        fetchAndUploadImage().then((uploadResult) => {
-            if (uploadResult) {
-                //console.log('uploadResult.metadata.fullPath', uploadResult.metadata.fullPath);
-    
-                addNote(auth.currentUser.uid, props.route.params.jobApplicationRecordId, text, uploadResult.metadata.fullPath)
-                    .then(() => {
-                        console.log('note added');
-                        props.navigation.goBack();
-                    })
-                    .catch((error) => {
-                        console.error("Error adding note: ", error);
-                    });
-            } else {
-                console.error("uploadResult is undefined or null");
-            }
-        }).catch((error) => {
-            console.error("Error uploading image: ", error);
-        });
-    }
     };
-    
-    
 
     const handleCancelNote = () => {
         props.navigation.goBack();
@@ -87,18 +90,27 @@ function AddANote(props) {
 
     return (
         <View style={{ flex: 1, alignItems: 'stretch' }}>
-            <Text style={{ margin: 10 }}>text:</Text>
+            <Text style={{ margin: 5,fontWeight:20,fontWeight:'bold' }}>Text of the note:</Text>
             <TextInput
-                style={{ minHeight: '20%', borderColor: 'grey', borderRadius: 10, borderWidth: 2, margin: 10, padding: 10 }}
+                style={{ minHeight: '10%', borderColor: 'grey', borderRadius: 10, borderWidth: 2, margin: 5, padding: 10 }}
                 value={text}
                 onChangeText={setText}
             />
-            <View style={{ minHeight: '20%', borderColor: 'grey', borderRadius: 10, borderWidth: 2, margin: 10 }}>
-                <Text style={{ margin: 10 }}>Add an Image</Text>
-                <ImageManager modifyImageURI={modifyImageURI} chooseNoImage={()=>setNoImage(true)}/>
+            <View style={{ minHeight: '15%', borderColor: 'grey', borderRadius: 10, borderWidth: 2, margin: 5 }}>
+                <View style={{marginBottom:15,padding:5}}>
+                <Text style={{ margin: 5, fontSize:20,fontWeight:'bold'}}>Add an Image</Text>
+                <Text style={{fontSize:12}}>If you don't want to take a photo, please choose "No Image for this note".</Text>
+                </View>
+                <ImageManager modifyImageURI={modifyImageURI} chooseNoImage={() => setNoImage(true)} />
             </View>
+            {isSaving && (
+                <View style={{ alignItems: 'center', margin: 10 }}>
+                    <ActivityIndicator size="large" color="#0000ff" />
+                    <Text style={{ marginTop: 10 }}>Please wait, processing your data...</Text>
+                </View>
+            )}
             <View style={{ flexDirection: 'row' }}>
-                <SaveButton onPress={handleSaveNote} />
+                <SaveButton onPress={handleSaveNote} disabled={isSaving} />
                 <CancelButton onPress={handleCancelNote} />
             </View>
         </View>

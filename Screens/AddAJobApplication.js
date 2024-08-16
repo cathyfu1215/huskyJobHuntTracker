@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Alert, Pressable, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform} from 'react-native';
+import { View, Text, TextInput, Alert, Pressable, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
@@ -11,11 +11,9 @@ import styles from '../styleHelper';
 import { auth } from '../Firebase/firebaseSetup'; 
 import Notes from '../Components/Notes';
 import Todos from '../Components/Todos';
+import News from '../Components/News';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
-
-
-  //console.log('record id?',route.params.data.id);
 
   const itemEditable = ((!type) || type === 'edit') ? true : false;
   const isEditMode = type && (type === 'edit');
@@ -60,112 +58,99 @@ const AddAJobApplication = ({ navigation, route, type }) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={{ flex: 1 }}
-      >
-        <ScrollView contentContainerStyle={{ flexGrow: 1,paddingBottom: 150,margin:10  }} bounces={false}>
-          <View style={styles.container}>
-            <Text style={styles.addEntryText}>Company *</Text>
-            <TextInput
-              style={styleHelper.textInput}
-              placeholder="Enter company name"
-              value={companyName}
-              onChangeText={setCompanyName}
-              editable={itemEditable}
-            />
+    <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 150, margin: 10 }} bounces={false}>
+      <View style={styles.container}>
+        <Text style={styles.addEntryText}>Company *</Text>
+        <TextInput
+          style={styleHelper.textInput}
+          placeholder="Enter company name"
+          value={companyName}
+          onChangeText={setCompanyName}
+          editable={itemEditable}
+        />
 
-            <Text style={styles.addEntryText}>Position *</Text>
-            <TextInput
-              style={styleHelper.textInput}
-              placeholder="Enter position name"
-              value={positionName}
-              onChangeText={setPositionName}
-              editable={itemEditable}
-            />
+        <Text style={styles.addEntryText}>Position *</Text>
+        <TextInput
+          style={styleHelper.textInput}
+          placeholder="Enter position name"
+          value={positionName}
+          onChangeText={setPositionName}
+          editable={itemEditable}
+        />
 
-            <Text style={styles.addEntryText}>Preference Score *</Text>
-            <Rating
-              type='heart'
-              ratingCount={10}
-              imageSize={30}
-              showRating
-              onFinishRating={ratingCompleted}
-              readonly={!itemEditable}
-              startingValue={preferenceScore}
-            />
+        <Text style={styles.addEntryText}>Preference Score *</Text>
+        <Rating
+          type='heart'
+          ratingCount={10}
+          imageSize={30}
+          showRating
+          onFinishRating={ratingCompleted}
+          readonly={!itemEditable}
+          startingValue={preferenceScore}
+        />
 
-            <Text style={styles.addEntryText}>Application Status *</Text>
-            <View style={{ margin: 5 }}>
-              <DropDownPicker
-                open={open}
-                value={status}
-                items={items}
-                setOpen={setOpen}
-                setValue={setStatus}
-                setItems={setItems}
-                dropDownDirection="TOP"
-                disabled={!itemEditable}
-              />
-            </View>
+        <Text style={styles.addEntryText}>Application Status *</Text>
+        <View style={{ margin: 5 }}>
+          <DropDownPicker
+            open={open}
+            value={status}
+            items={items}
+            setOpen={setOpen}
+            setValue={setStatus}
+            setItems={setItems}
+            dropDownDirection="TOP"
+            disabled={!itemEditable}
+          />
+        </View>
 
-            <Text style={styles.addEntryText}>Date of Last Update *</Text>
-            <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
-              <Text style={styles.dateText}>
-                {date ? date.toDateString() : ''}
-              </Text>
-            </TouchableOpacity>
-            {showDatePicker && (
-              <DateTimePicker
-                value={date || new Date()}
-                mode="date"
-                display="inline"
-                onChange={(event, selectedDate) => {
-                  setShowDatePicker(false);
-                  if (event.type !== 'dismissed') {
-                    setDate(selectedDate);
-                  }
-                }}
-                disabled={!itemEditable}
-              />
-            )}
+        <Text style={styles.addEntryText}>Date of Last Update *</Text>
+        <TouchableOpacity onPress={() => setShowDatePicker(true)} style={styleHelper.textInput}>
+          <Text style={styles.dateText}>
+            {date ? date.toDateString() : ''}
+          </Text>
+        </TouchableOpacity>
+        {showDatePicker && (
+          <DateTimePicker
+            value={date || new Date()}
+            mode="date"
+            display="inline"
+            onChange={(event, selectedDate) => {
+              setShowDatePicker(false);
+              if (event.type !== 'dismissed') {
+                setDate(selectedDate);
+              }
+            }}
+            disabled={!itemEditable}
+          />
+        )}
 
-            {/* we cannot add or edit notes/todos/location when adding an addEntry
-            we can browse notes/todos/location in the detail mode
-            we can only modify these components in the editing mode */}
-            
-            {isEditMode&&<Notes type='edit' jobApplicationRecordId={route.params.data.id}/>}
-            {isDetailMode&&<Notes type='detail' jobApplicationRecordId={route.params.data.id}/>}
-            {isEditMode&&<Todos type='edit' jobApplicationRecordId={route.params.data.id}/>}
-            {isDetailMode&&<Todos type='detail' jobApplicationRecordId={route.params.data.id}/>}
-            {/* The location info will be displayed in a seperate page (i.e. Location Info Page).*/}
-            <View style={styles.locationView}>
-              {isEditMode&&<Pressable onPress={() => 
-              {
-                console.log("Navigating to Location Info with ID:", route.params.data.id);
-                navigation.navigate('Location Info', {type:'edit', jobApplicationRecordId:route.params.data.id})
-              }} style={styles.locationButton}>
-                <Text style={styles.locationButtonText}>View Location Info</Text>
-              </Pressable>}
-              {isDetailMode&&<Pressable onPress={() => 
-              {
-                console.log("Navigating to Location Info with ID:", route.params.data.id);
-                navigation.navigate('Location Info', {type:'detail', jobApplicationRecordId:route.params.data.id})
-              }} style={styles.locationButton}>
-                <Text style={styles.locationButtonText}>View Location Info</Text>
-              </Pressable>}
-            </View>
+        {isDetailMode && <News company={companyName} />}
+        {isEditMode && <Notes type='edit' jobApplicationRecordId={route.params.data.id} />}
+        {isDetailMode && <Notes type='detail' jobApplicationRecordId={route.params.data.id} />}
+        {isEditMode && <Todos type='edit' jobApplicationRecordId={route.params.data.id} />}
+        {isDetailMode && <Todos type='detail' jobApplicationRecordId={route.params.data.id} />}
 
+        <View style={styles.locationView}>
+          {isEditMode && <Pressable onPress={() => {
+            console.log("Navigating to Location Info with ID:", route.params.data.id);
+            navigation.navigate('Location Info', { type: 'edit', jobApplicationRecordId: route.params.data.id })
+          }} style={styles.locationButton}>
+            <Text style={styles.locationButtonText}>View Location Info</Text>
+          </Pressable>}
+          {isDetailMode && <Pressable onPress={() => {
+            console.log("Navigating to Location Info with ID:", route.params.data.id);
+            navigation.navigate('Location Info', { type: 'detail', jobApplicationRecordId: route.params.data.id })
+          }} style={styles.locationButton}>
+            <Text style={styles.locationButtonText}>View Location Info</Text>
+          </Pressable>}
+        </View>
 
-            {itemEditable && <View style={styleHelper.saveCancelContainer}>
-              <SaveButton onPress={handleSave} />
-              <CancelButton onPress={() => navigation.goBack()} />
-            </View>}
-          </View>
-        </ScrollView>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        {itemEditable && <View style={styleHelper.saveCancelContainer}>
+          <SaveButton onPress={handleSave} />
+          <CancelButton onPress={() => navigation.goBack()} />
+        </View>}
+      </View>
+    </ScrollView>
   );
 };
 

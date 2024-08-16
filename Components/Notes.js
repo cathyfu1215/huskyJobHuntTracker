@@ -4,7 +4,6 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import NoteList from './NoteList';
 import { fetchNotes } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
-import { FlatList } from 'react-native';
 
 
 
@@ -16,7 +15,6 @@ function Notes(props) {
   const getData = async () => {
     try {
       const data = await fetchNotes(auth.currentUser.uid, props.jobApplicationRecordId);
-      console.log('data in getData', data);
       return data;
     } catch (error) {
       console.error("Error fetching notes: ", error);
@@ -48,9 +46,11 @@ function Notes(props) {
   };
 
   return (
-    <ScrollView style={{ margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'20%'}}>
-      <Text>Notes</Text>
-    <View>
+    <ScrollView style={{ margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'25%',padding:5}}>
+      <Text style={{fontWeight:'bold',fontSize:20}}>Notes</Text>
+      <Text style={{fontSize:12}}>You can browse/delete notes in the detail page, and add notes in the edit page.</Text>
+      <Text style={{fontSize:12}}>Notes with no image added will have a default image.</Text>
+    <View style={{marginTop:10, marginBottom:10}}>
       <NoteList data={notes} jobApplicationRecordId={props.jobApplicationRecordId} />
       <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
     </View>
