@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Alert, Pressable, TouchableOpacity, SafeAreaView, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
@@ -22,9 +21,11 @@ const AddAJobApplication = ({ navigation, route, type }) => {
   const [companyName, setCompanyName] = useState(route.params ? route.params.data.companyName : "");
   const [positionName, setPositionName] = useState(route.params ? route.params.data.positionName : "");
   const [preferenceScore, setPreferenceScore] = useState(route.params ? Number(route.params.data.preferenceScore) : 5);
-  const [open, setOpen] = useState(false);
   const [status, setStatus] = useState(route.params ? route.params.data.status : "In Progress");
-  const [items, setItems] = useState([
+  const [date, setDate] = useState(route.params ? route.params.data.date.toDate() : new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+
+  const items = [
     { label: 'In Progress', value: 'In Progress' },
     { label: 'Applied', value: 'Applied' },
     { label: 'Interviewing', value: 'Interviewing' },
@@ -32,9 +33,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
     { label: 'Offer', value: 'Offer' },
     { label: 'Offer Accepted', value: 'Offer Accepted' },
     { label: 'Rejected', value: 'Rejected' }
-  ]);
-  const [date, setDate] = useState(route.params ? route.params.data.date.toDate() : new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+  ];
 
   function ratingCompleted(rating) {
     setPreferenceScore(rating);
@@ -89,18 +88,40 @@ const AddAJobApplication = ({ navigation, route, type }) => {
           startingValue={preferenceScore}
         />
 
+        <View style={{marginTop:10,marginBottom:20}}>
         <Text style={styles.addEntryText}>Application Status *</Text>
-        <View style={{ margin: 5 }}>
-          <DropDownPicker
-            open={open}
-            value={status}
-            items={items}
-            setOpen={setOpen}
-            setValue={setStatus}
-            setItems={setItems}
-            dropDownDirection="TOP"
-            disabled={!itemEditable}
-          />
+        <View style={{ margin: 5}}>
+          {items.map((item) => (
+            <View key={item.value} style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
+              <TouchableOpacity
+                style={{
+                  height: 20,
+                  width: 20,
+                  borderRadius: 10,
+                  borderWidth: 1,
+                  borderColor: '#000',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  marginRight: 10,
+                }}
+                onPress={() => setStatus(item.value)}
+                disabled={!itemEditable}
+              >
+                {status === item.value && (
+                  <View
+                    style={{
+                      height: 10,
+                      width: 10,
+                      borderRadius: 5,
+                      backgroundColor: '#000',
+                    }}
+                  />
+                )}
+              </TouchableOpacity>
+              <Text>{item.label}</Text>
+            </View>
+          ))}
+        </View>
         </View>
 
         <Text style={styles.addEntryText}>Date of Last Update *</Text>
