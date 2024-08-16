@@ -76,12 +76,10 @@ function NoteList({ data,jobApplicationRecordId }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      {/* <ScrollView> */}
+    <View style={{ flex: 1 }}>
         {data.map(item => (
           <NoteLine key={item.id} item={item} />))}
-      {/* </ScrollView> */}
-    </SafeAreaView>
+    </View>
   );
 }
 
