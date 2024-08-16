@@ -203,5 +203,20 @@ export default styles = StyleSheet.create({
       flex: 1,
       marginBottom: 100,
       alignItems: 'center',
-    }
+    },
+    searchContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      margin: 10,
+      borderWidth: 1,
+      borderRadius: 5,
+      padding: 5,
+    },
+    searchIcon: {
+      marginRight: 10,
+    },
+    searchBar: {
+      flex: 1,
+      height: 40,
+    },
   });
