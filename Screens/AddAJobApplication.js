@@ -14,6 +14,7 @@ import News from '../Components/News';
 
 const AddAJobApplication = ({ navigation, route, type }) => {
 
+  /* those states are vital because we will reuse this component in three screens */
   const itemEditable = ((!type) || type === 'edit') ? true : false;
   const isEditMode = type && (type === 'edit');
   const isDetailMode = type && (type === 'detail');
@@ -57,7 +58,7 @@ const AddAJobApplication = ({ navigation, route, type }) => {
   };
 
   return (
-    <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 150, margin: 10 }} bounces={false}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 350, margin: 10 }} bounces={false}>
       <View style={styles.container}>
         <Text style={styles.addEntryText}>Company *</Text>
         <TextInput
@@ -170,6 +171,8 @@ const AddAJobApplication = ({ navigation, route, type }) => {
           <SaveButton onPress={handleSave} />
           <CancelButton onPress={() => navigation.goBack()} />
         </View>}
+
+        <Text style={{paddingBottom:20}}>This is the end of our functionalities, expect more in the future!</Text>
       </View>
     </ScrollView>
   );
