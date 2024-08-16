@@ -46,9 +46,11 @@ function Notes(props) {
   };
 
   return (
-    <ScrollView style={{ margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'20%'}}>
-      <Text>Notes</Text>
-    <View>
+    <ScrollView style={{ margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'25%',padding:5}}>
+      <Text style={{fontWeight:'bold',fontSize:20}}>Notes</Text>
+      <Text style={{fontSize:12}}>You can browse/delete notes in the detail page, and add notes in the edit page.</Text>
+      <Text style={{fontSize:12}}>Notes with no image added will have a default image.</Text>
+    <View style={{marginTop:10, marginBottom:10}}>
       <NoteList data={notes} jobApplicationRecordId={props.jobApplicationRecordId} />
       <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
     </View>
