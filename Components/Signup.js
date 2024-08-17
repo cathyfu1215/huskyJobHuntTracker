@@ -37,7 +37,7 @@ function Signup(props) {
 
         //check if password meets the requirements
         if(!password.match(pattern)){
-            alert('Password should contain at least one uppercase letter, one lowercase letter, one number, one special character, and should be at least 6 characters long');
+            alert('Password should contain at least one uppercase letter, one lowercase letter, one number, one special character in "@$!%*?&", and should be at least 6 characters long');
             return;
         }
 
@@ -81,13 +81,15 @@ function Signup(props) {
 
     }
   return (
-    <View>
-        <Text>signup</Text>
+    <View style={{margin:10}}>
+        <Text>Signup</Text>
         <Text>Email Address</Text>
         <TextInput style={{borderWidth: 1, borderColor: 'black',marginTop:10, height:'15%'}}
         onChangeText={(text)=>{setEmail(text)}}
         value={email} />
         <Text>Password</Text>
+        <Text style={{margin:5}}>A strong password will contain at least a uppercase, a lowercase, a number and a special character from "@$!%*?&".</Text>
+        <Text style={{margin:5}}>We choose not to use security input so it is easier to see if password matches confirmPassword.</Text>
         <TextInput  style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%'}}
         onChangeText={(text)=>{setPassword(text)}}
         value={password}/>

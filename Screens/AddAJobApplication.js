@@ -147,6 +147,8 @@ const AddAJobApplication = ({ navigation, route, type }) => {
         )}
 
         {isDetailMode && <News company={companyName} />}
+
+        
         {isEditMode && <Notes type='edit' jobApplicationRecordId={route.params.data.id} />}
         {isDetailMode && <Notes type='detail' jobApplicationRecordId={route.params.data.id} />}
         {isEditMode && <Todos type='edit' jobApplicationRecordId={route.params.data.id} />}
