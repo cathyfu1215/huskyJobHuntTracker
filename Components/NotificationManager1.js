@@ -15,8 +15,8 @@ function NotificationManager1(props) {
                 body: props.notificationContent,
               },
               trigger: {
-                seconds: 10,
-                // date: new Date(Date.now() + 30 * 60 * 1000), // Trigger 30 minutes from now
+                // seconds: 10, // for testing
+                seconds: 7200, // 2 hours
               },
             });
             console.log('notification scheduled:', identifier);
