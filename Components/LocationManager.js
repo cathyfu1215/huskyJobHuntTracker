@@ -211,6 +211,12 @@ useEffect(() => {
         </Pressable>
         </View>
         <View style={styles.buttonContainer}>
+          <Pressable onPress={displayHomeLocationHandler} style={styles.button}>
+              <Text style={styles.text}>Display Home</Text>
+              <Text style={styles.text}>Location</Text>
+          </Pressable>
+        </View>
+        <View style={styles.buttonContainer}>
         <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
             styles.button,
             isDetailMode && styles.disabledButton
@@ -234,7 +240,6 @@ useEffect(() => {
               <Text style={styles.text}>Edit Home</Text>
               <Text style={styles.text}>Location</Text>
           </Pressable>
-
         </View>
         <View style={styles.textView}>
           {isDetailMode && <Text>In this page you can only browse your current and the company's location. You can edit the company's location in edit mode.</Text>}
