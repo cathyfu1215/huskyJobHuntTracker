@@ -191,3 +191,19 @@ export const addTodo = async (uid, jobApplicationRecordId, text) => {
     console.error("Error adding todo: ", error);
   }
 };
+
+// Function for fetching all todos from the database
+export const fetchTodos = async (uid, jobApplicationRecordId) => {
+  try {
+    const q = query(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'todos'));
+    const querySnapshot = await getDocs(q);
+    const todos = [];
+    querySnapshot.forEach((doc) => {
+      todos.push({ id: doc.id, ...doc.data() });
+    });
+    return todos;
+  } catch (error) {
+    console.error("Error fetching Todos: ", error);
+    throw error;
+  }
+};
