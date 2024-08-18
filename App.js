@@ -4,7 +4,7 @@ import EditJobApplication from './Screens/EditJobApplication';
 import AddAJobApplication from './Screens/AddAJobApplication';
 import JobRecords from './Screens/JobRecords';
 import Home from './Screens/Home';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef} from 'react';
 import JobApplicationDetail from './Screens/JobApplicationDetail';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
@@ -36,6 +36,9 @@ Notifications.setNotificationHandler({
 
 export default function App() {
   const [user, setUser] = useState(null);
+  // Variable to store the notification listener
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -49,6 +52,31 @@ export default function App() {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  // UseEffect to set up the notification listener
+  // We added two listners: notificationListener and responseListener
+  useEffect(() => {
+    //registerForPushNotificationsAsync();
+
+    //listener receives a function
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log("User has tapped the notification");
+      console.log('data in the content',response.notification.request.content.data);
+      console.log('url',response.notification.request.content.data.url);
+      Linking.openURL(response.notification.request.content.data.url);
+
+      
+    });
+
+    return () => {//the clean up function
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
   const AuthStack = (
