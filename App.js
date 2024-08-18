@@ -12,6 +12,7 @@ import styles from './styleHelper';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup'; 
 import AddANote from './Screens/AddANote';
+import AddATodo from './Screens/AddATodo';
 import ForgetPassword from './Components/ForgetPassword';
 
 import Map from './Components/Map';
@@ -56,6 +57,7 @@ export default function App() {
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
       <Stack.Screen name="JobRecords" component={JobRecords} />
       <Stack.Screen name="AddANote" component={AddANote} />
+      <Stack.Screen name="AddATodo" component={AddATodo} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Location Info" component={LocationManager} />
     </>
