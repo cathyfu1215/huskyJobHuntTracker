@@ -46,9 +46,11 @@ function AddATodo(props) {
                 value={text}
                 onChangeText={setText}
             />
-            <NotificationManager notificationContent={text}/>
-            <NotificationManager1 notificationContent={text}/>
-            <NotificationManager2 notificationContent={text}/>
+            <View style={{margin: 20}}>
+                <NotificationManager notificationContent={text}/>
+                <NotificationManager1 notificationContent={text}/>
+                <NotificationManager2 notificationContent={text}/>
+            </View>
             {isSaving && (
                 <View style={{ alignItems: 'center', margin: 10 }}>
                     <ActivityIndicator size="large" color="#0000ff" />
