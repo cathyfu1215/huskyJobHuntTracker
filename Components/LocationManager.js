@@ -54,11 +54,11 @@ const LocationManager = () => {
 
   // Function for saving company location.
   const saveLocationHandler = async () => {
-     if (location) {
-      console.log("Saving comapny location:", location);
+     if (route.params.location) {
+      console.log("Saving comapny location:", route.params.location);
       console.log("User ID:", auth.currentUser.uid);
       console.log("Job Application Record ID:", applicationId);   
-      await saveJobApplicationLocation(auth.currentUser.uid, applicationId, location);
+      await saveJobApplicationLocation(auth.currentUser.uid, applicationId, route.params.location);
      } else {
          Alert.alert("No company location data to save.");
      }
@@ -66,11 +66,11 @@ const LocationManager = () => {
 
  // Function for saving home location.
  const saveHomeLocationHandler = async () => {
-  if (location) {
-      console.log("Saving home location:", location);
+  if (route.params.isHomeLocation && homeLocation) {
+      console.log("Saving home location:", route.params.homeLocation);
       console.log("User ID:", auth.currentUser.uid);
       console.log("Job Application Record ID:", applicationId); 
-      await saveHomeLocation(auth.currentUser.uid, applicationId, location);
+      await saveHomeLocation(auth.currentUser.uid, applicationId, route.params.homeLocation);
   } else {
       Alert.alert("No home location data to save.");
   }
