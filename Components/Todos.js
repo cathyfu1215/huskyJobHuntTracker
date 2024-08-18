@@ -51,7 +51,7 @@ function Todos(props) {
       <Text style={{fontSize:12}}>You can add a notification for each Todo.</Text>
     <View style={{marginTop:10, marginBottom:10}}>
       <TodoList data={todos} jobApplicationRecordId={props.jobApplicationRecordId} />
-      <Button title='Add a Todo' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddTodo} disabled={props.type === 'detail'} />
+      <Button title='Add a Todo' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10, marginBottom: 20,}} onPress={handleAddTodo} disabled={props.type === 'detail'} />
     </View>
     </ScrollView>
   );

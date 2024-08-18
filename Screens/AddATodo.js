@@ -4,7 +4,10 @@ import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
 import { auth } from '../Firebase/firebaseSetup';
 import { addTodo } from '../Firebase/firebaseHelper';
+// Notification Manger fot the 1h reminder
 import NotificationManager from '../Components/NotificationManager';
+// Notification Manger fot the 2h reminder
+import NotificationManager1 from '../Components/NotificationManager1';
 
 function AddATodo(props) {
     const [text, setText] = useState('');
@@ -42,6 +45,7 @@ function AddATodo(props) {
                 onChangeText={setText}
             />
             <NotificationManager notificationContent={text}/>
+            <NotificationManager1 notificationContent={text}/>
             {isSaving && (
                 <View style={{ alignItems: 'center', margin: 10 }}>
                     <ActivityIndicator size="large" color="#0000ff" />

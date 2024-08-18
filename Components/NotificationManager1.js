@@ -5,7 +5,7 @@ import React from 'react'
 import { View, Text, Pressable } from 'react-native'
 import * as Notifications from "expo-notifications";
 
-function NotificationManager(props) {
+function NotificationManager1(props) {
     const scheduleNotificationHandler = async () => {
         try {
           if (await verifyPermissions()) {
@@ -50,4 +50,4 @@ function NotificationManager(props) {
 
 }
 
-export default NotificationManager;
+export default NotificationManager1;
