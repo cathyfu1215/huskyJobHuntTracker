@@ -20,8 +20,19 @@ import LocationManager from './Components/LocationManager';
 
 import EncourageSignUp from './Screens/EncourageSignUp';
 
+import * as Notifications from 'expo-notifications';
+
 
 const Stack = createNativeStackNavigator();
+
+// Set notification handler
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
 
 export default function App() {
   const [user, setUser] = useState(null);
