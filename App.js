@@ -57,23 +57,17 @@ export default function App() {
   // UseEffect to set up the notification listener
   // We added two listners: notificationListener and responseListener
   useEffect(() => {
-    //registerForPushNotificationsAsync();
-
-    //listener receives a function
+    //notification listener
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       console.log(notification);
     });
-
+    // response listener
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log("User has tapped the notification");
-      console.log('data in the content',response.notification.request.content.data);
-      console.log('url',response.notification.request.content.data.url);
-      Linking.openURL(response.notification.request.content.data.url);
-
-      
+      console.log('notification title:',response.notification.request.content.title);
+      console.log('notification body:',response.notification.request.content.body);  
     });
-
-    return () => {//the clean up function
+    return () => {
       Notifications.removeNotificationSubscription(notificationListener.current);
       Notifications.removeNotificationSubscription(responseListener.current);
     };
