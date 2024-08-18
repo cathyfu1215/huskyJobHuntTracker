@@ -3,9 +3,9 @@ import { View, Text, TextInput, ActivityIndicator, Alert } from 'react-native';
 import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
 import { auth } from '../Firebase/firebaseSetup';
-import { addNote } from '../Firebase/firebaseHelper';
+import { addTodo } from '../Firebase/firebaseHelper';
 
-function AddANote(props) {
+function AddATodo(props) {
     const [text, setText] = useState('');
     const [imageURI, setImageURI] = useState(null);
     const [noImage, setNoImage] = useState(false);
@@ -121,4 +121,4 @@ function AddANote(props) {
     );
 }
 
-export default AddANote;
+export default AddATodo;
