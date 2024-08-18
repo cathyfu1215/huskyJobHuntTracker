@@ -117,6 +117,19 @@ const LocationManager = () => {
     }
 };
 
+// Function for displaying both company and home location.
+const viewAllLocationsHandler = () => {
+  if (location || homeLocation) {
+      const markers = [];
+      if (location) markers.push(`color:red%7Clabel:Company%7C${location.latitude},${location.longitude}`);
+      if (homeLocation) markers.push(`color:blue%7Clabel:Home%7C${homeLocation.latitude},${homeLocation.longitude}`);
+      const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&key=${mapsApiKey}`;
+      setMapUrl(url);
+  } else {
+      Alert.alert("You need to set the company and home location in the edit mode first.");
+  }
+};
+
 
 // Check if route.params exists and set location state
 useEffect(() => {
