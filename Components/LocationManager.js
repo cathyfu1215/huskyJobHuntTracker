@@ -215,6 +215,10 @@ useEffect(() => {
               <Text style={styles.text}>Display Home</Text>
               <Text style={styles.text}>Location</Text>
           </Pressable>
+          <Pressable onPress={viewAllLocationsHandler} style={styles.button}>
+              <Text style={styles.text}>View All</Text>
+              <Text style={styles.text}>Locations</Text>
+          </Pressable>
         </View>
         <View style={styles.buttonContainer}>
         <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
