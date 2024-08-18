@@ -48,6 +48,7 @@ function Todos(props) {
     <ScrollView style={{ flex:1 ,margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'25%',padding:5}}>
       <Text style={{fontWeight:'bold',fontSize:20}}>Todos</Text>
       <Text style={{fontSize:12}}>You can browse/delete Todos in the detail page, and add Todos in the edit page.</Text>
+      <Text style={{fontSize:12}}>You can add a notification for each Todo.</Text>
     <View style={{marginTop:10, marginBottom:10}}>
       <TodoList data={todos} jobApplicationRecordId={props.jobApplicationRecordId} />
       <Button title='Add a Todo' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddTodo} disabled={props.type === 'detail'} />
