@@ -130,7 +130,6 @@ const viewAllLocationsHandler = () => {
   }
 };
 
-
 // Check if route.params exists and set location state
 useEffect(() => {
    setApplicationId(route.params?.jobApplicationRecordId);
@@ -144,26 +143,57 @@ useEffect(() => {
      }
    }, [route.params]);
 
+   // UseEffect to fetch company and home location
    useEffect(() => {
-     const fetchUserLocation = async () => {
-         try {
-             const user = auth.currentUser;
-             if (user) {
-                 const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
-                 if (locationData) {
-                     setLocation(locationData);
-                     const url = `https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${locationData.latitude},${locationData.longitude}&key=${mapsApiKey}`;
-                     setMapUrl(url);
-                 }
-             } else {
-                 console.log("User not authenticated");
-             }
-         } catch (err) {
-             console.log("Error fetching user location:", err);
-         }
-     };
-     fetchUserLocation();
- }, []);
+    const fetchUserLocations = async () => {
+        try {
+            const user = auth.currentUser;
+            if (user) {
+                const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
+                const homeData = await fetchHomeLocation(user.uid, route.params.jobApplicationRecordId);
+
+                if (locationData || homeData) {
+                    setLocation(locationData);
+                    setHomeLocation(homeData);
+
+                    const markers = [];
+                    if (locationData) markers.push(`color:red%7Clabel:Company%7C${locationData.latitude},${locationData.longitude}`);
+                    if (homeData) markers.push(`color:blue%7Clabel:Home%7C${homeData.latitude},${homeData.longitude}`);
+                    const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&key=${mapsApiKey}`;
+                    setMapUrl(url);
+                } else {
+                    console.log("No locations found. Please set locations first.");
+                }
+            } else {
+                console.log("User not authenticated");
+            }
+        } catch (err) {
+            console.log("Error fetching locations:", err);
+        }
+    };
+    fetchUserLocations();
+}, [route.params]);
+
+//    useEffect(() => {
+//      const fetchUserLocation = async () => {
+//          try {
+//              const user = auth.currentUser;
+//              if (user) {
+//                  const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
+//                  if (locationData) {
+//                      setLocation(locationData);
+//                      const url = `https://maps.googleapis.com/maps/api/staticmap?center=${locationData.latitude},${locationData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${locationData.latitude},${locationData.longitude}&key=${mapsApiKey}`;
+//                      setMapUrl(url);
+//                  }
+//              } else {
+//                  console.log("User not authenticated");
+//              }
+//          } catch (err) {
+//              console.log("Error fetching user location:", err);
+//          }
+//      };
+//      fetchUserLocation();
+//  }, []);
 
   const isDetailMode = route.params.type === 'detail';
 
