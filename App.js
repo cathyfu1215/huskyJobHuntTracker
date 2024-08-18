@@ -4,7 +4,7 @@ import EditJobApplication from './Screens/EditJobApplication';
 import AddAJobApplication from './Screens/AddAJobApplication';
 import JobRecords from './Screens/JobRecords';
 import Home from './Screens/Home';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef} from 'react';
 import JobApplicationDetail from './Screens/JobApplicationDetail';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
@@ -12,6 +12,7 @@ import styles from './styleHelper';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './Firebase/firebaseSetup'; 
 import AddANote from './Screens/AddANote';
+import AddATodo from './Screens/AddATodo';
 import ForgetPassword from './Components/ForgetPassword';
 
 import Map from './Components/Map';
@@ -19,11 +20,25 @@ import LocationManager from './Components/LocationManager';
 
 import EncourageSignUp from './Screens/EncourageSignUp';
 
+import * as Notifications from 'expo-notifications';
+
 
 const Stack = createNativeStackNavigator();
 
+// Set notification handler
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 export default function App() {
   const [user, setUser] = useState(null);
+  // Variable to store the notification listener
+  const notificationListener = useRef();
+  const responseListener = useRef();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -37,6 +52,25 @@ export default function App() {
     });
 
     return () => unsubscribe();
+  }, []);
+
+  // UseEffect to set up the notification listener
+  // We added two listners: notificationListener and responseListener
+  useEffect(() => {
+    //notification listener
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      console.log(notification);
+    });
+    // response listener
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log("User has tapped the notification");
+      console.log('notification title:',response.notification.request.content.title);
+      console.log('notification body:',response.notification.request.content.body);  
+    });
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
   }, []);
 
   const AuthStack = (
@@ -56,6 +90,7 @@ export default function App() {
       <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
       <Stack.Screen name="JobRecords" component={JobRecords} />
       <Stack.Screen name="AddANote" component={AddANote} />
+      <Stack.Screen name="AddATodo" component={AddATodo} />
       <Stack.Screen name="Map" component={Map} />
       <Stack.Screen name="Location Info" component={LocationManager} />
     </>

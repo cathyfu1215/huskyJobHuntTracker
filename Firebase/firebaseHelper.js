@@ -180,3 +180,40 @@ export const fetchJobApplicationLocation = async (uid, jobApplicationRecordId) =
     console.error("Error fetching document: ", error);
   }
 };
+
+// Function for adding a new todo to the database
+export const addTodo = async (uid, jobApplicationRecordId, text) => {
+  try {
+    await addDoc(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'todos'), {
+      text: text,
+    });
+  } catch (error) {
+    console.error("Error adding todo: ", error);
+  }
+};
+
+// Function for fetching all todos from the database
+export const fetchTodos = async (uid, jobApplicationRecordId) => {
+  try {
+    const q = query(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'todos'));
+    const querySnapshot = await getDocs(q);
+    const todos = [];
+    querySnapshot.forEach((doc) => {
+      todos.push({ id: doc.id, ...doc.data() });
+    });
+    return todos;
+  } catch (error) {
+    console.error("Error fetching Todos: ", error);
+    throw error;
+  }
+};
+
+// Function for deleting a todo from the database
+export const deleteTodo = async (uid,jobApplicationRecordId,todoid) => {
+  try {
+    await deleteDoc(doc(database,'users',uid,'jobApplicationRecords', jobApplicationRecordId,'todos',todoid));
+    console.log("Todo successfully deleted!");
+  } catch (error) {
+    console.error("Error deleting Todo: ", error);
+  }
+};
