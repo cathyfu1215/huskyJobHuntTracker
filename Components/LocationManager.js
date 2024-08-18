@@ -7,16 +7,21 @@ import { Dimensions } from 'react-native';
 import { useNavigation, useRoute} from '@react-navigation/native';
 import { saveJobApplicationLocation } from '../Firebase/firebaseHelper';
 import { fetchJobApplicationLocation } from '../Firebase/firebaseHelper';
+import { saveHomeLocation } from '../Firebase/firebaseHelper';
+import { fetchHomeLocation } from '../Firebase/firebaseHelper';
 import { auth } from '../Firebase/firebaseSetup';
 
 const LocationManager = () => {
     // Verify permission.
     const [response, requestPermission] = Location.useForegroundPermissions();
+    // State variable for company location
     const [location, setLocation] = useState(null);
+    // State variable for home location
+    const [homeLocation, setHomeLocation] = useState(null);
     const [mapUrl, setMapUrl] = useState(null);
     const windowWidth = Dimensions.get('window').width;
     const navigation = useNavigation();
-    const route = useRoute(); // Access the route object to get params
+    const route = useRoute();
     const [applicationId, setApplicationId] = useState(null);
 
     const verifyPermission = async () => {
