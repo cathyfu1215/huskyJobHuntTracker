@@ -7,17 +7,16 @@ import { auth } from '../Firebase/firebaseSetup';
 
 
 
-function Notes(props) {
-  //console.log('props in Notes', props); 
-  const [notes, setNotes] = useState([]);
+function Todos(props) {
+  const [todos, setTodos] = useState([]);
   const navigation = useNavigation();
 
   const getData = async () => {
     try {
-      const data = await fetchNotes(auth.currentUser.uid, props.jobApplicationRecordId);
+      const data = await fetchTodos(auth.currentUser.uid, props.jobApplicationRecordId);
       return data;
     } catch (error) {
-      console.error("Error fetching notes: ", error);
+      console.error("Error fetching todos: ", error);
       return [];
     }
   };
@@ -29,7 +28,7 @@ function Notes(props) {
       const fetchData = async () => {
         const data = await getData();
         if (isActive && data && data.length > 0) {
-          setNotes(data);
+          setTodos(data);
         }
       };
 
@@ -58,4 +57,4 @@ function Notes(props) {
   );
 }
 
-export default Notes;
+export default Todos;
