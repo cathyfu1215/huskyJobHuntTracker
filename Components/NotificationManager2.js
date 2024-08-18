@@ -43,7 +43,7 @@ function NotificationManager2(props) {
       return (
         <View>
             <Pressable style={{backgroundColor:'lightblue',padding:10,margin:10}} onPress={scheduleNotificationHandler}>
-                <Text style={{color:'black',alignSelf:'center'}}>2h Reminder</Text>
+                <Text style={{color:'black',alignSelf:'center'}}>24h Reminder</Text>
             </Pressable>
         </View>
       )

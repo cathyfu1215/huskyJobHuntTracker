@@ -8,6 +8,8 @@ import { addTodo } from '../Firebase/firebaseHelper';
 import NotificationManager from '../Components/NotificationManager';
 // Notification Manger fot the 2h reminder
 import NotificationManager1 from '../Components/NotificationManager1';
+// Notification Manger fot the 24h reminder
+import NotificationManager2 from '../Components/NotificationManager2';
 
 function AddATodo(props) {
     const [text, setText] = useState('');
@@ -46,6 +48,7 @@ function AddATodo(props) {
             />
             <NotificationManager notificationContent={text}/>
             <NotificationManager1 notificationContent={text}/>
+            <NotificationManager2 notificationContent={text}/>
             {isSaving && (
                 <View style={{ alignItems: 'center', margin: 10 }}>
                     <ActivityIndicator size="large" color="#0000ff" />
