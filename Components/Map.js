@@ -47,7 +47,7 @@ const Map = () => {
       </MapView>
       <Pressable onPress={handleSaveLocation} style={
             selectedLocation? styles.button: styles.disabledButton} disabled={!selectedLocation}>
-            <Text style={styles.text}>Save Company Mark</Text>
+            <Text style={styles.text}>{route.params.isHomeLocation ? "Save Home Mark" : "Save Company Mark"}</Text>
         </Pressable>
     </View>
   );
