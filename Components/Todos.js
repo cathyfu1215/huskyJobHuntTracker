@@ -40,18 +40,17 @@ function Todos(props) {
     }, [props.jobApplicationRecordId])
   );
 
-  const handleAddNote = () => {
-    navigation.navigate('AddANote', { jobApplicationRecordId: props.jobApplicationRecordId });
+  const handleAddTodo = () => {
+    navigation.navigate('AddATodo', { jobApplicationRecordId: props.jobApplicationRecordId });
   };
 
   return (
     <ScrollView style={{ flex:1 ,margin: 10, borderColor: 'black', borderWidth: 1,minHeight:'25%',padding:5}}>
-      <Text style={{fontWeight:'bold',fontSize:20}}>Notes</Text>
-      <Text style={{fontSize:12}}>You can browse/delete notes in the detail page, and add notes in the edit page.</Text>
-      <Text style={{fontSize:12}}>Notes with no image added will have a default image.</Text>
+      <Text style={{fontWeight:'bold',fontSize:20}}>Todos</Text>
+      <Text style={{fontSize:12}}>You can browse/delete Todos in the detail page, and add Todos in the edit page.</Text>
     <View style={{marginTop:10, marginBottom:10}}>
-      <NoteList data={notes} jobApplicationRecordId={props.jobApplicationRecordId} />
-      <Button title='Add a Note' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddNote} disabled={props.type === 'detail'} />
+      <TodoList data={todos} jobApplicationRecordId={props.jobApplicationRecordId} />
+      <Button title='Add a Todo' style={{ backgroundColor: 'lightblue', margin: 10, borderRadius: 10 }} onPress={handleAddTodo} disabled={props.type === 'detail'} />
     </View>
     </ScrollView>
   );
