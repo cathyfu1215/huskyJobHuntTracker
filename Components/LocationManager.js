@@ -96,6 +96,28 @@ const LocationManager = () => {
   }
   };
 
+  // Function to display home location.
+  const displayHomeLocationHandler = async () => {
+    try {
+        const user = auth.currentUser;
+        if (user) {
+            const homeData = await fetchHomeLocation(user.uid, route.params.jobApplicationRecordId);
+            if (homeData) {
+                setHomeLocation(homeData);
+                const url = `https://maps.googleapis.com/maps/api/staticmap?center=${homeData.latitude},${homeData.longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:blue%7Clabel:H%7C${homeData.latitude},${homeData.longitude}&key=${mapsApiKey}`;
+                setMapUrl(url);
+            } else {
+                Alert.alert("You need to set your home location in the edit mode first.");
+            }
+        } else {
+            console.log("User not authenticated");
+        }
+    } catch (err) {
+        console.log("Error fetching home location:", err);
+    }
+};
+
+
 // Check if route.params exists and set location state
 useEffect(() => {
    setApplicationId(route.params?.jobApplicationRecordId);
