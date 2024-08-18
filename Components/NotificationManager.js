@@ -11,8 +11,8 @@ function NotificationManager(props) {
           if (await verifyPermissions()) {
             let identifier = await Notifications.scheduleNotificationAsync({
               content: {
-                title: 'Set 1h notification',
-                body: 'You have set a 1h reminder for this todo',
+                title: 'Todo Notification',
+                body: props.notificationContent,
               },
               trigger: {
                 seconds: 5,
