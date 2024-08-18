@@ -180,3 +180,14 @@ export const fetchJobApplicationLocation = async (uid, jobApplicationRecordId) =
     console.error("Error fetching document: ", error);
   }
 };
+
+// Function for adding a new todo to the database
+export const addTodo = async (uid, jobApplicationRecordId, text) => {
+  try {
+    await addDoc(collection(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId, 'todos'), {
+      text: text,
+    });
+  } catch (error) {
+    console.error("Error adding todo: ", error);
+  }
+};
