@@ -27,6 +27,19 @@ function NotificationManager(props) {
           console.log('error scheduling notification:', err);
         }
       };
+    
+      const verifyPermissions = async () => {
+        const { status } = await Notifications.getPermissionsAsync();
+        if (status !== 'granted') {
+          const { status } = await Notifications.requestPermissionsAsync();
+          if (status !== 'granted') {
+            alert('You need to enable the permission for sending notifications');
+            return false;
+          }
+        }
+        return true;
+      };
+
 }
 
 export default NotificationManager;
