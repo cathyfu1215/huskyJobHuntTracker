@@ -40,6 +40,14 @@ function NotificationManager(props) {
         return true;
       };
 
+      return (
+        <View>
+            <Pressable style={{backgroundColor:'lightblue',padding:10,margin:10}} onPress={scheduleNotificationHandler}>
+                <Text style={{color:'black',alignSelf:'center'}}>1h Reminder</Text>
+            </Pressable>
+        </View>
+      )
+
 }
 
 export default NotificationManager;
