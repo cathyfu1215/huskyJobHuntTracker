@@ -52,16 +52,29 @@ const LocationManager = () => {
     }
   };
 
+  // Function for saving company location.
   const saveLocationHandler = async () => {
      if (location) {
-      console.log("Saving location:", location);
+      console.log("Saving comapny location:", location);
       console.log("User ID:", auth.currentUser.uid);
       console.log("Job Application Record ID:", applicationId);   
       await saveJobApplicationLocation(auth.currentUser.uid, applicationId, location);
      } else {
-         Alert.alert("No location data to save.");
+         Alert.alert("No company location data to save.");
      }
  };
+
+ // Function for saving home location.
+ const saveHomeLocationHandler = async () => {
+  if (location) {
+      console.log("Saving home location:", location);
+      console.log("User ID:", auth.currentUser.uid);
+      console.log("Job Application Record ID:", applicationId); 
+      await saveHomeLocation(auth.currentUser.uid, applicationId, location);
+  } else {
+      Alert.alert("No home location data to save.");
+  }
+};
 
   const displayCompanyLocationHandler = async () => {
     try {
