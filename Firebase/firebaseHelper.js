@@ -159,9 +159,21 @@ export const saveJobApplicationLocation = async (uid, jobApplicationRecordId, lo
     await setDoc(doc(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId), {
       location: location,
     }, { merge: true });
-    console.log("Location successfully saved!");
+    console.log("Company location successfully saved!");
   } catch (error) {
-    console.error("Error saving location: ", error);
+    console.error("Error saving company location: ", error);
+  }
+};
+
+// Function to save the user's home location to the database
+export const saveHomeLocation = async (uid, jobApplicationRecordId, location) => {
+  try {
+    await setDoc(doc(database, 'users', uid, 'jobApplicationRecords', jobApplicationRecordId), {
+      homeLocation: location,
+    }, { merge: true });
+    console.log("Home location successfully saved!");
+  } catch (error) {
+    console.error("Error saving home location: ", error);
   }
 };
 
