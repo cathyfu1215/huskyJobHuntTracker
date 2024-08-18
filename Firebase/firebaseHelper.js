@@ -207,3 +207,13 @@ export const fetchTodos = async (uid, jobApplicationRecordId) => {
     throw error;
   }
 };
+
+// Function for deleting a todo from the database
+export const deleteTodo = async (uid,jobApplicationRecordId,todoid) => {
+  try {
+    await deleteDoc(doc(database,'users',uid,'jobApplicationRecords', jobApplicationRecordId,'todos',todoid));
+    console.log("Todo successfully deleted!");
+  } catch (error) {
+    console.error("Error deleting Todo: ", error);
+  }
+};
