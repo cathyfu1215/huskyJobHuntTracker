@@ -221,13 +221,13 @@ useEffect(() => {
           </Pressable>
         </View>
         <View style={styles.buttonContainer}>
-        <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
-            styles.button,
-            isDetailMode && styles.disabledButton
-          ]} disabled={isDetailMode}>
-            <Text style={styles.text}>Edit Company</Text>
-            <Text style={styles.text}>Location</Text>
-        </Pressable>
+          <Pressable onPress={() => navigation.navigate('Map', {jobApplicationRecordId: applicationId})} style={[
+              styles.button,
+              isDetailMode && styles.disabledButton
+            ]} disabled={isDetailMode}>
+              <Text style={styles.text}>Edit Company</Text>
+              <Text style={styles.text}>Location</Text>
+          </Pressable>
         <Pressable onPress={saveLocationHandler} style={[
             styles.button,
             isDetailMode && styles.disabledButton
@@ -238,13 +238,20 @@ useEffect(() => {
         </View>
         <View style={styles.buttonContainer}>
           <Pressable
-            onPress={() => navigation.navigate('Map', {isHomeLocation: true})}
-            style={[styles.button,isDetailMode && styles.disabledButton]}
-            disabled={isDetailMode}>
-              <Text style={styles.text}>Edit Home</Text>
-              <Text style={styles.text}>Location</Text>
+              onPress={() => navigation.navigate('Map', {isHomeLocation: true, jobApplicationRecordId: applicationId})}
+              style={[styles.button,isDetailMode && styles.disabledButton]}
+              disabled={isDetailMode}>
+                <Text style={styles.text}>Edit Home</Text>
+                <Text style={styles.text}>Location</Text>
           </Pressable>
-        </View>
+          <Pressable onPress={saveHomeLocationHandler} style={[
+            styles.button,
+            isDetailMode && styles.disabledButton
+          ]} disabled={isDetailMode}>
+            <Text style={styles.text}>Save Home</Text>
+            <Text style={styles.text}>Location</Text>
+        </Pressable>
+      </View>
         <View style={styles.textView}>
           {isDetailMode && <Text>In this page you can only browse your current and the company's location. You can edit the company's location in edit mode.</Text>}
         </View>
