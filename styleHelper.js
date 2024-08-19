@@ -20,11 +20,12 @@ export default styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf: 'center',
       margin:5,
-      padding:5,
+      padding:7,
       marginRight:10,
     },
     buttonText:{
       color: 'white',
+      fontWeight: 'bold',
     },
     tabButtonContainer: {
       flexDirection: 'column',

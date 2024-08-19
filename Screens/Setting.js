@@ -38,7 +38,7 @@ function Setting() {
   }
 
   return (
-    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'flex-start' }}>
+    <View style={{ flex: 1, flexDirection: 'column', alignItems: 'center' }}>
       <View style={{ flex: 1, margin: 20, flexDirection: 'row' }}>
         <View style={{ flex: 1, marginRight: 10, marginLeft: 20 }}>
           <Avatar
@@ -57,14 +57,14 @@ function Setting() {
       <View style={{ flex: 1, margin: 20, marginTop: -200, alignItems: 'center' }}>
         <View style={{marginTop:10, marginBottom:10}}>
         <TextInput value={name} onChangeText={setName} style={{ borderWidth: 1, borderColor: 'grey', padding: 10,width:200, borderRadius: 10 }} />
-        <PressableButton pressedFunction={handleChangeName}><Text style={{ fontWeight: 'bold', fontSize: 30 }}>change name</Text></PressableButton>
+        <PressableButton pressedFunction={handleChangeName}><Text style={{ fontWeight: 'bold', fontSize: 20 }}>change name</Text></PressableButton>
         </View>
         <View style={{marginTop:10, marginBottom:10, alignItems:'center'}}>
-        <PressableButton pressedFunction={handleChangeProfilePicture}><Text style={{ fontWeight: 'bold', fontSize: 30 }}>change profile picture</Text></PressableButton>
+        <PressableButton pressedFunction={handleChangeProfilePicture}><Text style={{ fontWeight: 'bold', fontSize: 20 }}>change profile picture</Text></PressableButton>
         <Text>* Will be implemented later</Text>
         </View>
         <View style={{marginTop:10, marginBottom:10}}>
-        <PressableButton pressedFunction={handleLogout}><Text style={{ fontWeight: 'bold', fontSize: 30 }}>Log out</Text></PressableButton>
+        <PressableButton pressedFunction={handleLogout}><Text style={{ fontWeight: 'bold', fontSize: 20 }}>Log out</Text></PressableButton>
         </View>
       </View>
     </View>
