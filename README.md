@@ -19,7 +19,7 @@ Our total comtribution will be approximately 50:50.
 
 ## Iteration 3:
 
-In iteration 3 we implemented functionalities of external APIs and Notification use. We also fixed bugs in the second iteration about location use and rendering a scrollable view containing virtual lists. 
+In iteration 3 we implemented functionalities of external APIs and Notification use. We also fixed bugs in the second iteration about location use and rendering a scrollable view containing virtual lists. We added styling to the whole app so it looks professional.
 
 Our users can :
 - Add a to-do list, which contains several to-do items to a jobApplication record
@@ -32,16 +32,24 @@ Our users can :
 ### current state of our product:
 
 - Add a to-do list item and issue a notification
-- ![todoitem1](https://github.com/user-attachments/assets/661dfdc8-fbaf-4d62-a739-213a73189f34)
-- edit, save and display multiple locations
-- ![location1](https://github.com/user-attachments/assets/a11c6a58-f62c-4243-a1a1-096a41dd55c1)
+- ![addtodo](https://github.com/user-attachments/assets/c225c246-ea61-4cdb-bf97-cc340e756105)
+
+- Edit, save and display multiple locations
+
+- ![location](https://github.com/user-attachments/assets/4ae77485-0b1b-4afb-b822-fe2d5c974522)
+
 - Browse news in the job application record detail view
-- ![newsnotes](https://github.com/user-attachments/assets/a286b08d-d8d9-4bd8-8b43-ae7868aed03f)
+
+- ![news](https://github.com/user-attachments/assets/b4385991-8766-41e1-8d8b-c8c775fca284)
+
 - See the notes and todos in the application record detail view
-- ![todo2](https://github.com/user-attachments/assets/a41e9866-79d6-40c9-bf89-615154184b0b)
+- ![notestodo](https://github.com/user-attachments/assets/949fffb8-f98f-432f-98d6-ef2a3fda8485)
+
 - Filter one job application record according to company name or postion name
-- ![jobrecords1](https://github.com/user-attachments/assets/c53d1ea9-c7a6-4d19-9eb8-77801a5e5e28)
-- ![recordFilter1](https://github.com/user-attachments/assets/9f617f6a-0094-48d5-b9e1-c6b0cb64bed8)
+- ![filter1](https://github.com/user-attachments/assets/aa7641ce-30bd-4eef-9c84-774e33e35358)
+- ![filter2](https://github.com/user-attachments/assets/913cb440-c35b-40c8-8940-16a169c3c68e)
+
+
 
 
 ### members contributions:
