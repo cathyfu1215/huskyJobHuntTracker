@@ -20,7 +20,12 @@ const Map = () => {
 
   const handleSaveLocation = () => {
     if (selectedLocation) {
-      navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
+      if (route.params.isHomeLocation) {
+        navigation.navigate('Location Info', { homeLocation: selectedLocation, isHomeLocation: true, jobApplicationRecordId: route.params.jobApplicationRecordId});
+    } else {
+        navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
+    }
+    // navigation.navigate('Location Info', { location: selectedLocation, jobApplicationRecordId: route.params.jobApplicationRecordId });
     }
   };
 
@@ -42,7 +47,7 @@ const Map = () => {
       </MapView>
       <Pressable onPress={handleSaveLocation} style={
             selectedLocation? styles.button: styles.disabledButton} disabled={!selectedLocation}>
-            <Text style={styles.text}>Save Company Mark</Text>
+            <Text style={styles.text}>{route.params.isHomeLocation ? "Save Home Mark" : "Save Company Mark"}</Text>
         </Pressable>
     </View>
   );
