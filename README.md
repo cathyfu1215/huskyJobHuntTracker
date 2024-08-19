@@ -1,11 +1,11 @@
 ## Project Name: HuskyJobHuntTracker
 #### CS5520 2024 Summer , Group 2
-#### Team members: Jieling Gong, Cong Fu
+#### Team members:  Cong (Cathy) Fu , Jieling (Serena) Gong
 
 
 ----
 
-### Important note about iteration2 and iteration3:
+## ❗️❗️Important note about iteration2 and iteration3:
 - Please ensure that you have included this mapsApiKey and newsAPIKey in .env👇:
   - mapsApiKey="AIzaSyD53Fbwb06wlLX5hJIS0aRNnvhRYZXxT5c"
   - newsAPIKey="a1a6d062c00e441e8fb5ce6c581b025f"
@@ -14,6 +14,54 @@
 We allocated our work so that Cathy has three functionalities to implement: Image, Auth, 3rd party API. Serena has three functionalities: location and notifications, 3rd party API.
 Cathy plans to do more work in iteration 1 and 2, so she can relax in the last week. Serena will do more work in iteration 2 and 3.
 Our total comtribution will be approximately 50:50.
+
+----
+
+## Iteration 3:
+
+In iteration 3 we implemented functionalities of external APIs and Notification use. We also fixed bugs in the second iteration about location use and rendering a scrollable view containing virtual lists. 
+
+Our users can :
+- Add a to-do list, which contains several to-do items to a jobApplication record
+- Issue a notification of each to-do item
+- edit, save, and display user's home location , the target company's location and the user's current location
+- Browse the top 3 news headlines in the job application record detail page
+- Filter and quickly locate a job application record in the main view
+
+
+### current state of our product:
+
+- Add a to-do list item and issue a notification
+- ![todoitem1](https://github.com/user-attachments/assets/661dfdc8-fbaf-4d62-a739-213a73189f34)
+- edit, save and display multiple locations
+- ![location1](https://github.com/user-attachments/assets/a11c6a58-f62c-4243-a1a1-096a41dd55c1)
+- Browse news in the job application record detail view
+- ![newsnotes](https://github.com/user-attachments/assets/a286b08d-d8d9-4bd8-8b43-ae7868aed03f)
+- See the notes and todos in the application record detail view
+- ![todo2](https://github.com/user-attachments/assets/a41e9866-79d6-40c9-bf89-615154184b0b)
+- Filter one job application record according to company name or postion name
+- ![jobrecords1](https://github.com/user-attachments/assets/c53d1ea9-c7a6-4d19-9eb8-77801a5e5e28)
+- ![recordFilter1](https://github.com/user-attachments/assets/9f617f6a-0094-48d5-b9e1-c6b0cb64bed8)
+
+
+### members contributions:
+#### Cong:
+- External API use (a news API)
+- Added Filter to job application record list
+- Some styling and UX design
+
+
+
+#### Jieling:
+- Notificate use
+- The todo list component
+- Fixed bugs in location use
+  
+
+
+
+
+
 
 
 
