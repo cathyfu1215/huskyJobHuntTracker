@@ -4,7 +4,7 @@ import EditJobApplication from './Screens/EditJobApplication';
 import AddAJobApplication from './Screens/AddAJobApplication';
 import JobRecords from './Screens/JobRecords';
 import Home from './Screens/Home';
-import React, { useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import JobApplicationDetail from './Screens/JobApplicationDetail';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
@@ -21,7 +21,8 @@ import LocationManager from './Components/LocationManager';
 import EncourageSignUp from './Screens/EncourageSignUp';
 
 import * as Notifications from 'expo-notifications';
-
+import { LinearGradient } from 'expo-linear-gradient';
+import { View } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,19 +35,33 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const GradientScreen = ({ children }) => (
+  <LinearGradient
+    colors={['#FFFFFF', '#4682B4']}
+    style={{ flex: 1 }}
+  >
+    <View style={{ flex: 1 }}>
+      {children}
+    </View>
+  </LinearGradient>
+);
+
+const GradientWrapper = (Component) => (props) => (
+  <GradientScreen>
+    <Component {...props} />
+  </GradientScreen>
+);
+
 export default function App() {
   const [user, setUser] = useState(null);
-  // Variable to store the notification listener
   const notificationListener = useRef();
   const responseListener = useRef();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        //console.log('User is signed in', user);
         setUser(user);
       } else {
-        //console.log('User is signed out');
         setUser(null);
       }
     });
@@ -54,14 +69,10 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  // UseEffect to set up the notification listener
-  // We added two listners: notificationListener and responseListener
   useEffect(() => {
-    //notification listener
     notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
       console.log(notification);
     });
-    // response listener
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log("User has tapped the notification");
       console.log('notification title:',response.notification.request.content.title);
@@ -75,24 +86,24 @@ export default function App() {
 
   const AuthStack = (
     <>
-      <Stack.Screen name="EncourageSignUp" component={EncourageSignUp} options={{headerShown:false}} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Signup" component={Signup} />
-      <Stack.Screen name="ForgetPassword" component={ForgetPassword}  />
+      <Stack.Screen name="EncourageSignUp" component={GradientWrapper(EncourageSignUp)} options={{headerShown:false}} />
+      <Stack.Screen name="Login" component={GradientWrapper(Login)} />
+      <Stack.Screen name="Signup" component={GradientWrapper(Signup)} />
+      <Stack.Screen name="ForgetPassword" component={GradientWrapper(ForgetPassword)}  />
     </>
   );
 
   const AppStack = (
     <>
-      <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
-      <Stack.Screen name="AddAJobApplication" component={AddAJobApplication} />
-      <Stack.Screen name="JobApplicationDetail" component={JobApplicationDetail} />
-      <Stack.Screen name="EditJobApplication" component={EditJobApplication} />
-      <Stack.Screen name="JobRecords" component={JobRecords} />
-      <Stack.Screen name="AddANote" component={AddANote} />
-      <Stack.Screen name="AddATodo" component={AddATodo} />
-      <Stack.Screen name="Map" component={Map} />
-      <Stack.Screen name="Location Info" component={LocationManager} />
+      <Stack.Screen name="Home" component={GradientWrapper(Home)} options={{ headerShown: false }} />
+      <Stack.Screen name="AddAJobApplication" component={GradientWrapper(AddAJobApplication)} />
+      <Stack.Screen name="JobApplicationDetail" component={GradientWrapper(JobApplicationDetail)} />
+      <Stack.Screen name="EditJobApplication" component={GradientWrapper(EditJobApplication)} />
+      <Stack.Screen name="JobRecords" component={GradientWrapper(JobRecords)} />
+      <Stack.Screen name="AddANote" component={GradientWrapper(AddANote)} />
+      <Stack.Screen name="AddATodo" component={GradientWrapper(AddATodo)} />
+      <Stack.Screen name="Map" component={GradientWrapper(Map)} />
+      <Stack.Screen name="Location Info" component={GradientWrapper(LocationManager)} />
     </>
   );
 
@@ -104,7 +115,7 @@ export default function App() {
           headerTitleStyle: styles.headerTitleStyle,
         }}
       >
-        {(user!==null) ? AppStack : AuthStack}
+        {(user !== null) ? AppStack : AuthStack}
       </Stack.Navigator>
     </NavigationContainer>
   );
