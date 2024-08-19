@@ -20,11 +20,12 @@ export default styles = StyleSheet.create({
       alignItems: 'center',
       alignSelf: 'center',
       margin:5,
-      padding:5,
+      padding:7,
       marginRight:10,
     },
     buttonText:{
       color: 'white',
+      fontWeight: 'bold',
     },
     tabButtonContainer: {
       flexDirection: 'column',
@@ -44,19 +45,20 @@ export default styles = StyleSheet.create({
       flexDirection: 'row',
       padding: 10,
       margin: 10,
-      backgroundColor: 'wheat',
-      borderRadius: 5,
-      textAlign: 'spread',
+      backgroundColor: '#f5deb3', // Parchment-like color
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: '#8B4513', // Slightly darker border color
       fontWeight: 'bold',
       justifyContent: 'flex-start',
-      //justifyContent: 'spread',
-      alignContent: 'spread',
-    },
+      alignItems: 'center',
+      fontFamily: 'serif', // Serif font for a more classic look
+  },
+  
 
     /* light and dark theme */
     itemContainer: {
       flex: 1,
-      backgroundColor: 'white',
       alignItems: 'center',
       justifyContent: 'start',
     },

@@ -56,7 +56,7 @@ function Achievements() {
 
           <View style={{ borderWidth: 2, borderColor: 'grey', margin: 20, padding: 10, width: '90%', flex: 1 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 17, margin: 5 }}>User Statistics</Text>
-            <Text style={{ fontSize: 12, margin: 5 }}>The logic of updating user statistics will be inplemented later.</Text>
+            <Text style={{ fontSize: 12, marginTop: 5, marginBottom:5 }}>*The logic of updating user statistics will be inplemented later.</Text>
             <Text>Number of Jobs Saved: {user.numJobsSaved || 0}</Text>
             <Text>Number of Jobs Applied: {user.numJobsApplied || 0}</Text>
             <Text>Number of Jobs Interviewed: {user.numJobsInterviewed || 0}</Text>
@@ -65,7 +65,7 @@ function Achievements() {
           </View>
 
            {/* Display the pie chart */}
-           <Text style={{margin:10}}>If you haven't applied any jobs, we will display a sample chart.</Text>
+           <Text style={{margin:10}}>*If you haven't applied any jobs, we will display a sample chart.</Text>
            <PieChart
             data={data}
             width={screenWidth}
@@ -88,7 +88,7 @@ function Achievements() {
 
           <View style={{ borderWidth: 2, borderColor: 'grey', margin: 20, padding: 10, width: '90%', flex: 1 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 17, margin: 5 }}>Badges</Text>
-            <Text style={{ fontSize: 12, margin: 5 }}>The logic of badges will be inplemented later.</Text>
+            <Text style={{ fontSize: 12, marginTop: 5, marginBottom:5 }}>*The logic of badges will be inplemented later.</Text>
             <View>
               <Badge textStyle={{ fontWeight: 'bold' }} value="Prime User" status="success" />
               <Badge textStyle={{ fontWeight: 'bold' }} value="Applied for 100 jobs" status="error" />
@@ -100,7 +100,7 @@ function Achievements() {
 
           <View style={{ borderWidth: 2, borderColor: 'grey', margin: 20, padding: 10, width: '90%' }}>
             <Text style={{ fontWeight: 'bold', fontSize: 17, margin: 5 }}>Collectables</Text>
-            <Text style={{ fontSize: 12, margin: 5 }}>The logic of Collectables will be inplemented later.</Text>
+            <Text style={{ fontSize: 12, marginTop: 5, marginBottom:5 }}>*The logic of Collectables will be inplemented later.</Text>
             <View style={{ flexDirection: 'row', alignContent: 'space-evenly' }}>
               <Avatar
                 size={60}
