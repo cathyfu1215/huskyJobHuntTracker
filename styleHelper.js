@@ -56,7 +56,6 @@ export default styles = StyleSheet.create({
     /* light and dark theme */
     itemContainer: {
       flex: 1,
-      backgroundColor: 'white',
       alignItems: 'center',
       justifyContent: 'start',
     },
