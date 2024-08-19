@@ -152,47 +152,54 @@ useEffect(() => {
        setMapUrl(url);
        console.log("Map's selected URL:", url);
      }
+     if (route.params?.homeLocation) {
+      const { latitude, longitude } = route.params.homeLocation;
+      setHomeLocation({ latitude, longitude });
+      const url = `https://maps.googleapis.com/maps/api/staticmap?center=${latitude},${longitude}&zoom=14&size=400x200&maptype=roadmap&markers=color:red%7Clabel:L%7C${latitude},${longitude}&key=${mapsApiKey}`;
+      setMapUrl(url);
+      console.log("Map's selected URL:", url);
+    }
    }, [route.params]);
 
 //    // UseEffect to fetch company and home location
-//    useEffect(() => {
-//     const fetchUserLocations = async () => {
-//         try {
-//             const user = auth.currentUser;
-//             if (user) {
-//                 const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
-//                 const homeData = await fetchHomeLocation(user.uid, route.params.jobApplicationRecordId);
-//                 console.log("Location Data:", locationData); // Log location data
-//                 console.log("Home Data:", homeData);
+//      useEffect(() => {
+//      const fetchUserLocations = async () => {
+//          try {
+//              const user = auth.currentUser;
+//              if (user) {
+//                  const locationData = await fetchJobApplicationLocation(user.uid, route.params.jobApplicationRecordId);
+//                  const homeData = await fetchHomeLocation(user.uid, route.params.jobApplicationRecordId);
+//                  console.log("Location Data:", locationData); // Log location data
+//                  console.log("Home Data:", homeData);
                 
-//                 if (locationData || homeData) {
-//                     setLocation(locationData);
-//                     setHomeLocation(homeData);
+//                  if (locationData || homeData) {
+//                      setLocation(locationData);
+//                      setHomeLocation(homeData);
 
-//                     const markers = [];
-//                     if (locationData) markers.push(`color:green%7Clabel:C%7C${locationData.latitude},${locationData.longitude}`);
-//                     if (homeData) markers.push(`color:blue%7Clabel:H%7C${homeData.latitude},${homeData.longitude}`);
+//                      const markers = [];
+//                      if (locationData) markers.push(`color:green%7Clabel:C%7C${locationData.latitude},${locationData.longitude}`);
+//                      if (homeData) markers.push(`color:blue%7Clabel:H%7C${homeData.latitude},${homeData.longitude}`);
                     
-//                     const center = `${(locationData.latitude + homeData.latitude) / 2},${(locationData.longitude + homeData.longitude) / 2}`;
-//                     const zoom = 20; 
+//                      const center = `${(locationData.latitude + homeData.latitude) / 2},${(locationData.longitude + homeData.longitude) / 2}`;
+//                      const zoom = 10; 
 
-//                     const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&center=${center}&zoom=${zoom}&key=${mapsApiKey}`;
-//                     console.log("Two markers URL:", url); // Log the URL
-//                     // const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&key=${mapsApiKey}`;
-//                     setMapUrl(url);
-//                     console.log("Two markers URL:", url);
-//                 } else {
-//                     console.log("No locations found. Please set locations first.");
-//                 }
-//             } else {
-//                 console.log("User not authenticated");
-//             }
-//         } catch (err) {
-//             console.log("Error fetching locations:", err);
-//         }
-//     };
-//     fetchUserLocations();
-// }, [route.params]);
+//                      const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&center=${center}&zoom=${zoom}&key=${mapsApiKey}`;
+//                      console.log("Two markers URL:", url); // Log the URL
+//                      // const url = `https://maps.googleapis.com/maps/api/staticmap?size=400x200&maptype=roadmap&markers=${markers.join('&')}&key=${mapsApiKey}`;
+//                      setMapUrl(url);
+//                      console.log("Two markers URL:", url);
+//                  } else {
+//                      console.log("No locations found. Please set locations first.");
+//                  }
+//              } else {
+//                  console.log("User not authenticated");
+//              }
+//          } catch (err) {
+//              console.log("Error fetching locations:", err);
+//          }
+//      };
+//      fetchUserLocations();
+//  }, [route.params]);
 
 //    useEffect(() => {
 //      const fetchUserLocation = async () => {
