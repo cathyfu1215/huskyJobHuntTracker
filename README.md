@@ -4,6 +4,11 @@
 
 
 ----
+## Video Demo of our final product:
+https://vimeo.com/1000940413
+
+
+----
 
 ## ❗️❗️Important note about iteration2 and iteration3:
 - Please ensure that you have included this mapsApiKey and newsAPIKey in .env👇:
