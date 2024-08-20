@@ -89,7 +89,7 @@ function Signup(props) {
         value={email} />
         <Text>Password</Text>
         <Text style={{margin:5}}>A strong password will contain at least a uppercase, a lowercase, a number and a special character from "@$!%*?&".</Text>
-        <Text style={{margin:5}}>We choose not to use security input so it is easier to see if password matches confirmPassword.</Text>
+        <Text style={{margin:5}}>We choose not to use security input here so it is easier to see if password matches confirmPassword.</Text>
         <TextInput  style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%'}}
         onChangeText={(text)=>{setPassword(text)}}
         value={password}/>

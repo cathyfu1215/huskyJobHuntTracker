@@ -70,7 +70,7 @@ function Login(props) {
         value={email} onChangeText={(text)=>setEmail(text)}/>
         <Text>Password</Text>
         <TextInput  style={{borderWidth: 1, borderColor: 'black',marginTop:10,height:'15%',margin:10}}
-        value={password} onChangeText={(text)=>setPassword(text)}/>
+        value={password} onChangeText={(text)=>setPassword(text)} secureTextEntry={true}/>
         <PressableButton pressedFunction={handleLogin}><Text>Log In</Text></PressableButton>
         <PressableButton pressedFunction={jumpToSignup}><Text>New User? Create an account</Text></PressableButton>
         <View style={{marginTop:20,height:'20%'}}>
