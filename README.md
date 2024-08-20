@@ -31,9 +31,9 @@ Our users can :
 
 ### current state of our product:
 
-- Add a to-do list item and issue a notification
-- ![addtodo](https://github.com/user-attachments/assets/c225c246-ea61-4cdb-bf97-cc340e756105)
-
+- Add a to-do list item and issue a notification (The 10s reminder is for the convience of testing)
+- ![add_a_todo](https://github.com/user-attachments/assets/cdd0d2e8-2951-4891-afad-87a295c58bb1)
+  
 - Edit, save and display multiple locations
 
 - ![location](https://github.com/user-attachments/assets/4ae77485-0b1b-4afb-b822-fe2d5c974522)
@@ -61,9 +61,9 @@ Our users can :
 
 
 #### Jieling:
-- Notificate use
-- The todo list component
-- Fixed bugs in location use
+- Enabled the notification functionality
+- Added a todo list component, support users to add, view and delete todos in a job application record
+- Multiple markers in the location functionality
   
 
 
