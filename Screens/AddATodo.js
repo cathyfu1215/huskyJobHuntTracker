@@ -4,12 +4,14 @@ import SaveButton from '../Components/SaveButton';
 import CancelButton from '../Components/CancelButton';
 import { auth } from '../Firebase/firebaseSetup';
 import { addTodo } from '../Firebase/firebaseHelper';
-// Notification Manger fot the 1h reminder
+// Notification Manger for the 1h reminder
 import NotificationManager from '../Components/NotificationManager';
-// Notification Manger fot the 2h reminder
+// Notification Manger for the 2h reminder
 import NotificationManager1 from '../Components/NotificationManager1';
-// Notification Manger fot the 24h reminder
+// Notification Manger for the 24h reminder
 import NotificationManager2 from '../Components/NotificationManager2';
+// Notification Manger for testing
+import NotificationManagerTest from '../Components/NotificationManagerTest';
 
 function AddATodo(props) {
     const [text, setText] = useState('');
@@ -47,6 +49,7 @@ function AddATodo(props) {
                 onChangeText={setText}
             />
             <View style={{margin: 20}}>
+                <NotificationManagerTest notificationContent={text}/>
                 <NotificationManager notificationContent={text}/>
                 <NotificationManager1 notificationContent={text}/>
                 <NotificationManager2 notificationContent={text}/>

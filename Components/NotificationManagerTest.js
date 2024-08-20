@@ -43,7 +43,7 @@ function NotificationManagerTest(props) {
       return (
         <View style={{alignItems: 'center'}}>
             <Pressable style={{backgroundColor:'white',padding:10,margin:10, width:200,}} onPress={scheduleNotificationHandler}>
-                <Text style={{color:'black',alignSelf:'center'}}>10s Reminder for Test</Text>
+                <Text style={{color:'black',alignSelf:'center'}}>10s for Testing</Text>
             </Pressable>
         </View>
       )
