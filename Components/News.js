@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
         borderColor: 'grey',
         padding: 10,
         backgroundColor: '#d3d3d3', // Light grey background color
-        fontFamily: 'Times New Roman',
     },
     header: {
         fontWeight: 'bold',
